@@ -10,7 +10,6 @@ public class ExitAction extends AbstractClassyAction {
 
     public ExitAction(){
         var icon = loadIcon("/images/exit.png");
-        //bitno
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
         putValue(SMALL_ICON, icon);
         putValue(NAME, "Exit");
