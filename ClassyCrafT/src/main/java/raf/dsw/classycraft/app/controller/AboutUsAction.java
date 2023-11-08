@@ -59,6 +59,7 @@ public class AboutUsAction extends AbstractClassyAction
         frame.setContentPane(contentPanel);
         frame.pack();
         frame.setLocationByPlatform(true);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 }
