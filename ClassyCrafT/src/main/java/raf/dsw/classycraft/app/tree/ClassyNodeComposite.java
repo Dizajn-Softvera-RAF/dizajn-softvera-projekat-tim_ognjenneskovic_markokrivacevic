@@ -1,26 +1,41 @@
 package raf.dsw.classycraft.app.tree;
 
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ClassyNodeComposite implements ClassyNode
 {
-    private List<ClassyNode> childNodes;
-    public ClassyNodeComposite()
+    private DefaultMutableTreeNode treeNode;
+    protected String name;
+    public ClassyNodeComposite(String name)
     {
-        childNodes = new ArrayList<>();
+        this.name = name;
+        this.treeNode = new DefaultMutableTreeNode(this);
     }
     public void addChild(ClassyNode child)
     {
-        childNodes.add(child);
+        treeNode.add(child.getTreeNode());
     }
     public void removeChild(ClassyNode child)
     {
-        childNodes.remove(child);
+        treeNode.remove(child.getTreeNode());
     }
-    public List<ClassyNode> getChildNodes()
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Override
+    public DefaultMutableTreeNode getTreeNode() {
+        return treeNode;
+    }
+    public String toString()
     {
-        return childNodes;
+        return name;
     }
 }
