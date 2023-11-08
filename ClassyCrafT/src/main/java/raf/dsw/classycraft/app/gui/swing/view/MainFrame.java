@@ -1,9 +1,13 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import raf.dsw.classycraft.app.logging.Logger;
+import raf.dsw.classycraft.app.logging.MessageType;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Timestamp;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Logger {
     private static MainFrame instance;
 
     //buduca polja za sve komponente view-a na glavnom prozoru
@@ -37,5 +41,11 @@ public class MainFrame extends JFrame {
             instance.initialize();
         }
         return instance;
+    }
+
+    @Override
+    public void logMessage(String msg, MessageType type, Timestamp time) {
+        String formattedMsg = String.format("[%s][%s] %s",type,time.toString(),msg);
+        JOptionPane.showMessageDialog(null, formattedMsg);
     }
 }
