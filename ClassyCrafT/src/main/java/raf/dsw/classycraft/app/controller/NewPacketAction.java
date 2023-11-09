@@ -20,7 +20,7 @@ public class NewPacketAction extends AbstractClassyAction
         var node = tree.createNode(NodeType.PACKAGE, "New Packet");
         try {
             tree.addChild(tree.getSelectedNode(), node);
-            tree.generateTree(MainFrame.treeFrame);
+            tree.generateTree(MainFrame.treePanel);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
