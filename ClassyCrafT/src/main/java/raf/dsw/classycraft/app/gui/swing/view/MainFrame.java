@@ -3,16 +3,17 @@ package raf.dsw.classycraft.app.gui.swing.view;
 import raf.dsw.classycraft.app.logging.Logger;
 import raf.dsw.classycraft.app.logging.MessageType;
 import raf.dsw.classycraft.app.tree.ClassyTree;
-import raf.dsw.classycraft.app.tree.NodeType;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.sql.Timestamp;
 
 public class MainFrame extends JFrame implements Logger {
     private static MainFrame instance;
-    public static JPanel treeFrame;
+    public static JPanel treePanel;
+    public static DiagramTabs diagramTabs;
+    public static RightPanel rPanel;
+
 
     //buduca polja za sve komponente view-a na glavnom prozoru
 
@@ -38,11 +39,13 @@ public class MainFrame extends JFrame implements Logger {
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
 
-        treeFrame = new JPanel();
-        add(treeFrame, BorderLayout.WEST);
+        rPanel = new RightPanel(this);
+        diagramTabs = new DiagramTabs(this);
 
+        treePanel = new JPanel();
+        add(treePanel, BorderLayout.WEST);
         var tree = ClassyTree.getInstance();
-        tree.generateTree(treeFrame);
+        tree.generateTree(treePanel);
     }
 
     public static MainFrame getInstance()

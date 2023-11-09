@@ -4,9 +4,7 @@ import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.tree.ClassyTree;
 import raf.dsw.classycraft.app.tree.NodeType;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 public class NewDiagramAction extends AbstractClassyAction
 {
@@ -22,7 +20,7 @@ public class NewDiagramAction extends AbstractClassyAction
         var node = tree.createNode(NodeType.DIAGRAM, "New Diagram");
         try {
             tree.addChild(tree.getSelectedNode(), node);
-            tree.generateTree(MainFrame.treeFrame);
+            tree.generateTree(MainFrame.treePanel);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

@@ -22,6 +22,16 @@ public abstract class ClassyNodeComposite implements ClassyNode
     {
         treeNode.remove(child.getTreeNode());
     }
+    public List<ClassyNode> getChildren()
+    {
+        var children = new ArrayList<ClassyNode>();
+        for(int i = 0; i < treeNode.getChildCount(); i++)
+        {
+            var node = (DefaultMutableTreeNode)treeNode.getChildAt(i);
+            children.add((ClassyNode) node.getUserObject());
+        }
+        return children;
+    }
     @Override
     public String getName() {
         return name;

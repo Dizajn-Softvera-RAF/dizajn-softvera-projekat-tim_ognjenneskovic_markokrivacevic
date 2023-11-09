@@ -20,7 +20,7 @@ public class NewProjectAction extends AbstractClassyAction
         var node = tree.createNode(NodeType.PROJECT, "New Project", "Author", "Path");
         try {
             tree.addChild(tree.getSelectedNode(), node);
-            tree.generateTree(MainFrame.treeFrame);
+            tree.generateTree(MainFrame.treePanel);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
