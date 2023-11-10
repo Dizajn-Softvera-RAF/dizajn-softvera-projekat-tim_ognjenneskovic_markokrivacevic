@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import raf.dsw.classycraft.app.tree.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +13,14 @@ public class RightPanel
 
         projectLabel = new JLabel("Project: ");
         authorLabel = new JLabel("Author: ");
+
+        var listener = new ProjectListener(projectLabel, authorLabel);
+        ClassyRepository.getInstance().addOnChangeListener(listener, NodeType.PROJECT);
+
+        ClassyTree.getInstance().addOnSelectionListener(e-> {
+            if (e.getClass() == Project.class)
+                listener.onNodeChanged(e);
+        });
 
         var panel = new JPanel();
         panel.add(projectLabel);

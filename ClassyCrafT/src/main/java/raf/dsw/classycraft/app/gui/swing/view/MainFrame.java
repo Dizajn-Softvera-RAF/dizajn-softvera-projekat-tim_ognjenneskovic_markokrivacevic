@@ -2,7 +2,9 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import raf.dsw.classycraft.app.logging.Logger;
 import raf.dsw.classycraft.app.logging.MessageType;
+import raf.dsw.classycraft.app.tree.ClassyRepository;
 import raf.dsw.classycraft.app.tree.ClassyTree;
+import raf.dsw.classycraft.app.tree.OpenPackageListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,13 +41,15 @@ public class MainFrame extends JFrame implements Logger {
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
 
-        rPanel = new RightPanel(this);
-        diagramTabs = new DiagramTabs(this);
-
         treePanel = new JPanel();
         add(treePanel, BorderLayout.WEST);
         var tree = ClassyTree.getInstance();
         tree.generateTree(treePanel);
+
+        rPanel = new RightPanel(this);
+        diagramTabs = new DiagramTabs(this);
+        ClassyTree.getInstance().addOnSelectionListener(new OpenPackageListener(diagramTabs));
+
     }
 
     public static MainFrame getInstance()

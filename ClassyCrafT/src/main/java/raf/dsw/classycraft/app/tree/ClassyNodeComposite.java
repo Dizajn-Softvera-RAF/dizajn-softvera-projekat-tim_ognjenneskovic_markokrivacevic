@@ -9,18 +9,25 @@ public abstract class ClassyNodeComposite implements ClassyNode
 {
     private DefaultMutableTreeNode treeNode;
     protected String name;
-    public ClassyNodeComposite(String name)
+    private List<IClassyNodeListener> listeners, childListeners;
+    protected ClassyNodeComposite parent;
+    public ClassyNodeComposite(String name, ClassyNodeComposite parent)
     {
         this.name = name;
         this.treeNode = new DefaultMutableTreeNode(this);
+        listeners = new ArrayList<>();
+        childListeners = new ArrayList<>();
+        this.parent = parent;
     }
     public void addChild(ClassyNode child)
     {
         treeNode.add(child.getTreeNode());
+        onChange();
     }
     public void removeChild(ClassyNode child)
     {
         treeNode.remove(child.getTreeNode());
+        onChange();
     }
     public List<ClassyNode> getChildren()
     {
@@ -32,6 +39,24 @@ public abstract class ClassyNodeComposite implements ClassyNode
         }
         return children;
     }
+    protected void onChange()
+    {
+        for(var listener : listeners)
+            listener.onNodeChanged(this);
+        if (parent != null)
+            parent.onChildChange();
+    }
+    protected void notifyChildListeners()
+    {
+        for(var listener : childListeners)
+            listener.onNodeChanged(this);
+    }
+    protected void onChildChange()
+    {
+        notifyChildListeners();
+        if(parent != null)
+            parent.onChildChange();
+    }
     @Override
     public String getName() {
         return name;
@@ -39,6 +64,7 @@ public abstract class ClassyNodeComposite implements ClassyNode
     @Override
     public void setName(String name) {
         this.name = name;
+        onChange();
     }
     @Override
     public DefaultMutableTreeNode getTreeNode() {
@@ -47,5 +73,25 @@ public abstract class ClassyNodeComposite implements ClassyNode
     public String toString()
     {
         return name;
+    }
+
+    @Override
+    public void addOnChangeListener(IClassyNodeListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeOnChangeListener(IClassyNodeListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void addOnChildChangeListener(IClassyNodeListener listener) {
+        childListeners.add(listener);
+    }
+
+    @Override
+    public void removeOnChildChangeListener(IClassyNodeListener listener) {
+        childListeners.remove(listener);
     }
 }
