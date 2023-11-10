@@ -1,6 +1,10 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
-import raf.dsw.classycraft.app.tree.*;
+import raf.dsw.classycraft.app.repository.ClassyRepository;
+import raf.dsw.classycraft.app.repository.composite.NodeType;
+import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
+import raf.dsw.classycraft.app.repository.implementation.Project;
+import raf.dsw.classycraft.app.tree.controller.ProjectListener;
 
 import javax.swing.*;
 import java.awt.*;

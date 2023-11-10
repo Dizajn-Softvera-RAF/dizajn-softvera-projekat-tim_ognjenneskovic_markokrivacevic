@@ -1,14 +1,12 @@
 package raf.dsw.classycraft.app.core;
 
-import com.sun.tools.javac.Main;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.logging.ConsoleLogger;
 import raf.dsw.classycraft.app.logging.FileLogger;
-import raf.dsw.classycraft.app.logging.MessageGenerator;
-import raf.dsw.classycraft.app.logging.MessageType;
+import raf.dsw.classycraft.app.messageGenerator.Message;
+import raf.dsw.classycraft.app.messageGenerator.MessageGenerator;
+import raf.dsw.classycraft.app.messageGenerator.MessageType;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Timestamp;
 
 public class ApplicationFramework {
@@ -32,7 +30,8 @@ public class ApplicationFramework {
             testGenerator.addListener(fileLogger);
         } catch (Exception e) {
             var currentTime = new Timestamp(System.currentTimeMillis());
-            testGenerator.generateMessage("Failed to add file logger", MessageType.ERROR, currentTime);
+            testGenerator.generateMessage(
+                    new Message("Failed to add file logger", MessageType.ERROR, currentTime));
         }
         testGenerator.addListener(mainFrame);
     }

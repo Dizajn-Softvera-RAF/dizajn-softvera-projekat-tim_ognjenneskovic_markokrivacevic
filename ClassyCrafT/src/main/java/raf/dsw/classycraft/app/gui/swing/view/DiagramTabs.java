@@ -1,7 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
-import raf.dsw.classycraft.app.tree.Diagram;
-import raf.dsw.classycraft.app.tree.Package;
+import raf.dsw.classycraft.app.repository.implementation.Diagram;
+import raf.dsw.classycraft.app.repository.implementation.Package;
 
 import javax.swing.*;
 import java.awt.*;
