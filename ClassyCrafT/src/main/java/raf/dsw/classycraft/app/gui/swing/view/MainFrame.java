@@ -1,5 +1,8 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import lombok.Getter;
+import lombok.Setter;
+import raf.dsw.classycraft.app.controller.ActionManager;
 import raf.dsw.classycraft.app.logging.Logger;
 import raf.dsw.classycraft.app.logging.MessageType;
 import raf.dsw.classycraft.app.tree.ClassyRepository;
@@ -10,15 +13,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Timestamp;
 
+@Getter
+@Setter
 public class MainFrame extends JFrame implements Logger {
     private static MainFrame instance;
     public static JPanel treePanel;
     public static DiagramTabs diagramTabs;
     public static RightPanel rPanel;
 
-
-    //buduca polja za sve komponente view-a na glavnom prozoru
-
+    private ActionManager actionManager;
     private MainFrame(){
 
     }
