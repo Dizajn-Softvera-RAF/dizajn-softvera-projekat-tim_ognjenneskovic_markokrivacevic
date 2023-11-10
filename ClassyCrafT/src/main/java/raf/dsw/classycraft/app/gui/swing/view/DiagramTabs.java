@@ -36,6 +36,8 @@ public class DiagramTabs
                 tabbedPane.add(diagram.getName(), new JPanel());
             }
         }
-
+        frame.add(tabbedPane, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
     }
 }
