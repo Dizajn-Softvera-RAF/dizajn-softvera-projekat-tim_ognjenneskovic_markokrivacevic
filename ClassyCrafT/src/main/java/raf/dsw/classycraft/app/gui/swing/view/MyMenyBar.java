@@ -14,19 +14,17 @@ public class MyMenyBar extends JMenuBar {
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
-        ExitAction ea = new ExitAction();
-        fileMenu.add(ea);
+        var actionManager = MainFrame.getInstance().getActionManager();
 
-        var newProjectAction = new NewProjectAction();
-        fileMenu.add(newProjectAction);
-        var newPacketAction = new NewPacketAction();
-        fileMenu.add(newPacketAction);
-        var newDiagramAction = new NewDiagramAction();
-        fileMenu.add(newDiagramAction);
+        fileMenu.add(actionManager.getExitAction());
+        fileMenu.add(actionManager.getNewProjectAction());
+        fileMenu.add(actionManager.getNewPackageAction());
+        fileMenu.add(actionManager.getNewDiagramAction());
 
         add(fileMenu);
-        var aboutUs = new AboutUsAction();
-        editMenu.add(aboutUs);
+
+        editMenu.add(actionManager.getAboutUsAction());
+
         add(editMenu);
     }
 
