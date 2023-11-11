@@ -4,6 +4,7 @@ import raf.dsw.classycraft.app.repository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.repository.ClassyRepository;
 import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
 import raf.dsw.classycraft.app.repository.composite.NodeType;
+import raf.dsw.classycraft.app.repository.implementation.ProjectExplorer;
 
 import java.awt.event.ActionEvent;
 
@@ -18,14 +19,14 @@ public class NewProjectAction extends AbstractClassyAction
     @Override
     public void actionPerformed(ActionEvent e) {
         var tree = ClassyTree.getInstance();
-        if (!(tree.getSelectedNode() instanceof ClassyNodeComposite))
-            throw new RuntimeException("Adding child nodes to this node is not allowed");
+        if (!(tree.getSelectedNode() instanceof ProjectExplorer))
+            throw new RuntimeException("A project can only be added to a project explorer");
+
         var node = ClassyRepository.getInstance().createNode(
                 NodeType.PROJECT, "Test Project", "Test Author", "New Path",
                 (ClassyNodeComposite) tree.getSelectedNode());
         try {
             tree.addChild(tree.getSelectedNode(), node);
-            //tree.generateTree(MainFrame.treePanel);
         } catch (Exception ex) {
             // TODO: Throw proper exception
             throw new RuntimeException(ex);

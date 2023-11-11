@@ -4,6 +4,8 @@ import raf.dsw.classycraft.app.repository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.repository.ClassyRepository;
 import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
 import raf.dsw.classycraft.app.repository.composite.NodeType;
+import raf.dsw.classycraft.app.repository.implementation.Package;
+import raf.dsw.classycraft.app.repository.implementation.Project;
 
 import java.awt.event.ActionEvent;
 
@@ -18,13 +20,13 @@ public class NewPacketAction extends AbstractClassyAction
     @Override
     public void actionPerformed(ActionEvent e) {
         var tree = ClassyTree.getInstance();
-        if (!(tree.getSelectedNode() instanceof ClassyNodeComposite))
-            throw new RuntimeException("Adding child nodes to this node is not allowed");
+        if (!(tree.getSelectedNode() instanceof Project) && !(tree.getSelectedNode() instanceof Package))
+            throw new RuntimeException("A packet can only be added to a project or a package");
+
         var node = ClassyRepository.getInstance().createNode(NodeType.PACKAGE, "New Packet",
                 (ClassyNodeComposite) tree.getSelectedNode());
         try {
             tree.addChild(tree.getSelectedNode(), node);
-           // tree.generateTree(MainFrame.treePanel);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

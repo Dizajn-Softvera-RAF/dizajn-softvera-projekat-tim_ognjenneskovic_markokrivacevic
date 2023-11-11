@@ -20,6 +20,6 @@ public class MessageGenerator
     public void generateMessage(Message msg)
     {
         for(var logger: listeners)
-            logger.logMessage(msg);
+            logger.logMessage(msg );
     }
 }
