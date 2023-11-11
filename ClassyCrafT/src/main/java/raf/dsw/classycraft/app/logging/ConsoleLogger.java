@@ -1,14 +1,16 @@
 package raf.dsw.classycraft.app.logging;
 
-import java.sql.Timestamp;
-import java.util.EnumMap;
-import java.util.Map;
+import raf.dsw.classycraft.app.messageGenerator.Message;
+import raf.dsw.classycraft.app.messageGenerator.MessageType;
 
-public class ConsoleLogger implements Logger
+import java.sql.Timestamp;
+
+public class ConsoleLogger implements ILogger
 {
     @Override
-    public void logMessage(String msg, MessageType type, Timestamp time)
+    public void logMessage(Message msg)
     {
-        System.out.printf("[%s][%s] %s%n",msgTypeStrMap.get(type),time.toString(),msg);
+        System.out.printf("[%s][%s] %s%n",msgTypeStrMap.get(msg.getType()),
+                msg.getTime().toString(),msg.getMsg());
     }
 }

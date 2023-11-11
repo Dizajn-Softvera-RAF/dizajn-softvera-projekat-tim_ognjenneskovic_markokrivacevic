@@ -1,36 +1,37 @@
 package raf.dsw.classycraft.app.tree;
 
+import raf.dsw.classycraft.app.repository.composite.ClassyNode;
+import raf.dsw.classycraft.app.repository.composite.ClassyNodeComposite;
+import raf.dsw.classycraft.app.repository.composite.IClassyNodeListener;
+import raf.dsw.classycraft.app.repository.composite.NodeType;
+import raf.dsw.classycraft.app.repository.implementation.Diagram;
+import raf.dsw.classycraft.app.repository.implementation.Package;
+import raf.dsw.classycraft.app.repository.implementation.Project;
+import raf.dsw.classycraft.app.repository.implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.tree.controller.ClassyTreeCellEditor;
+import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.tree.view.ClassyTreeCellRenderer;
+import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
+
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeCellEditor;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassyTree
 {
-    private static ClassyTree instance = null;
-    private ProjectExplorer root;
-    private JTree jtreeInstance = null;
-    private ClassyNode selectedNode = null;
-    private List<IClassyNodeListener> selectionListeners;
-    private ClassyTree()
+    private ClassyTreeView treeView = null;
+    private ClassyTreeItem selectedNode = null;
+    private final List<IClassyNodeListener> selectionListeners;
+    public ClassyTree()
     {
-        root = new ProjectExplorer();
         selectionListeners = new ArrayList<>();
     }
-    private void setSelectedNode(ClassyNode newNode)
+    private void setSelectedNode(ClassyTreeItem newNode)
     {
         selectedNode = newNode;
         for(var listener : selectionListeners)
-            listener.onNodeChanged(newNode);
-    }
-    public static ClassyTree getInstance()
-    {
-        if(instance == null)
-            instance = new ClassyTree();
-        return instance;
+            listener.onNodeChanged(newNode.getNode());
     }
     public ClassyNode createNode(NodeType type, String name, ClassyNodeComposite parent)
     {
@@ -48,41 +49,33 @@ public class ClassyTree
     {
         return new Project(author, path, name, parent);
     }
-    public void addChild(ClassyNode parent, ClassyNode child) throws Exception {
-        if(parent instanceof ClassyNodeComposite) {
-            ((ClassyNodeComposite) parent).addChild(child);
-            SwingUtilities.updateComponentTreeUI(jtreeInstance);
+    public void addChild(ClassyTreeItem parent, ClassyNode child) throws Exception {
+        if(parent.getNode() instanceof ClassyNodeComposite) {
+            parent.add(new ClassyTreeItem(child));
+            ((ClassyNodeComposite) parent.getNode()).addChild(child);
+            treeView.expandPath(treeView.getSelectionPath());
+            SwingUtilities.updateComponentTreeUI(treeView);
         }
         else
             throw new Exception("Unable to add child to this node");
     }
-    public void generateTree(JPanel frame)
+    public ClassyTreeView generateTree()
     {
-        if (jtreeInstance != null)
-            frame.remove(jtreeInstance);
-        var tree = new JTree(root.getTreeNode());
-        tree.setModel(new DefaultTreeModel(root.getTreeNode()));
+        var root = new ClassyTreeItem(new ProjectExplorer());
+        var treeModel = new DefaultTreeModel(root);
+        treeView = new ClassyTreeView(treeModel);
 
-        var renderer = new ClassyTreeCellRenderer();
-        tree.setCellEditor(new ClassyTreeCellEditor(tree, renderer));
-        tree.setCellRenderer(renderer);
-        tree.setEditable(true);
-
-        //editor.addCellEditorListener(new ClassyTreeCellEditorListener(textField));
-
-        frame.add(tree);
-        frame.revalidate();
-        frame.repaint();
-        jtreeInstance = tree;
-
-        tree.addTreeSelectionListener(e -> {
-            var node = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
-            if(node != null)
-                setSelectedNode((ClassyNode) node.getUserObject());
+        treeView.addTreeSelectionListener(e -> {
+            var selectedObj = treeView.getLastSelectedPathComponent();
+            if (selectedObj instanceof ClassyTreeItem) {
+                var treeItem = (ClassyTreeItem) treeView.getLastSelectedPathComponent();
+                setSelectedNode(treeItem);
+            }
         });
 
+        return treeView;
     }
-    public ClassyNode getSelectedNode()
+    public ClassyTreeItem getSelectedNode()
     {
         return selectedNode;
     }

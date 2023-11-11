@@ -1,13 +1,13 @@
 package raf.dsw.classycraft.app.logging;
 
-import java.io.FileNotFoundException;
+import raf.dsw.classycraft.app.messageGenerator.Message;
+import raf.dsw.classycraft.app.messageGenerator.MessageType;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
 
-public class FileLogger implements Logger
+public class FileLogger implements ILogger
 {
     public FileLogger()  {
         // Clear file contents
@@ -23,12 +23,13 @@ public class FileLogger implements Logger
         }
     }
     @Override
-    public void logMessage(String msg, MessageType type, Timestamp time)
+    public void logMessage(Message msg)
     {
         var logPath = getClass().getResource("/log.txt");
         try {
             var fileWriter = new FileWriter(logPath.getFile(),true);
-            var formattedMsg = String.format("[%s][%s] %s \n",msgTypeStrMap.get(type),time.toString(), msg);
+            var formattedMsg = String.format("[%s][%s] %s \n",msgTypeStrMap.get(msg.getType()),
+                    msg.getTime().toString(), msg.getMsg());
             fileWriter.write(formattedMsg);
             fileWriter.close();
         } catch (IOException e) {
