@@ -22,33 +22,17 @@ import java.util.List;
 public class ClassyTree
 {
     private ClassyTreeView treeView = null;
-    private ClassyTreeItem selectedNode = null;
-    private final List<IClassyNodeListener> selectionListeners;
-    public ClassyTree()
+    public ClassyNode createNode(ClassyNodeComposite parent)
     {
-        selectionListeners = new ArrayList<>();
-    }
-    private void setSelectedNode(ClassyTreeItem newNode)
-    {
-        selectedNode = newNode;
-        for(var listener : selectionListeners)
-            listener.onNodeChanged(newNode.getNode());
-    }
-    public ClassyNode createNode(NodeType type, String name, ClassyNodeComposite parent)
-    {
-        switch (type)
-        {
-            case PACKAGE:
-                return new Package(name, parent);
-            case DIAGRAM:
-                return new Diagram(name, parent);
-            default:
-                return null;
-        }
-    }
-    public Project createNode(NodeType type, String name, String author, String path, ClassyNodeComposite parent)
-    {
-        return new Project(author, path, name, parent);
+        if(parent instanceof ProjectExplorer)
+            return new Project("New Project", "Test Path",
+                    "Test project", parent);
+        else if(parent instanceof Project)
+            return new Package("New Package", parent);
+        else if(parent instanceof Package)
+            return new Diagram("New Diagram", parent);
+        else
+            throw new RuntimeException("Invalid parent type");
     }
     public void addChild(ClassyTreeItem parent, ClassyNode child) throws Exception {
         if(parent.getNode() instanceof ClassyNodeComposite) {
@@ -66,23 +50,11 @@ public class ClassyTree
         var treeModel = new DefaultTreeModel(root);
         treeView = new ClassyTreeView(treeModel);
 
-        treeView.addTreeSelectionListener(e -> {
-            var selectedObj = treeView.getLastSelectedPathComponent();
-            if (selectedObj instanceof ClassyTreeItem) {
-                var treeItem = (ClassyTreeItem) treeView.getLastSelectedPathComponent();
-                setSelectedNode(treeItem);
-            }
-        });
-
         return treeView;
     }
     public ClassyTreeItem getSelectedNode()
     {
-        return selectedNode;
-    }
-    public void addOnSelectionListener(IClassyNodeListener listener)
-    {
-        selectionListeners.add(listener);
+        return (ClassyTreeItem) treeView.getLastSelectedPathComponent();
     }
     public void addOnSelectionListener(TreeSelectionListener listener)
     {
