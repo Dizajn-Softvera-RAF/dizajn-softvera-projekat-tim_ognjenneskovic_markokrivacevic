@@ -10,6 +10,7 @@ import raf.dsw.classycraft.app.tree.ClassyTree;
 import raf.dsw.classycraft.app.repository.implementation.Diagram;
 import raf.dsw.classycraft.app.repository.implementation.Project;
 import raf.dsw.classycraft.app.repository.implementation.Package;
+import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -30,11 +31,12 @@ public class ClassyRepository
             instance = new ClassyRepository();
         return instance;
     }
-    public ClassyNode createNode(ClassyNodeComposite parent)
+
+    public void addChild(ClassyTreeItem parent)
     {
         var tree = MainFrame.getInstance().getClassyTree();
-        var node = tree.createNode(parent);
+        var node = tree.createNode(parent.getNode());
         nodes.add(node);
-        return node;
+        tree.addChild(parent, node);
     }
 }

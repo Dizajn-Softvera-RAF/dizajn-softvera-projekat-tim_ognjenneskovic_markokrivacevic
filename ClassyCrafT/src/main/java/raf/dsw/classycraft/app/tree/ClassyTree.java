@@ -22,7 +22,7 @@ import java.util.List;
 public class ClassyTree
 {
     private ClassyTreeView treeView = null;
-    public ClassyNode createNode(ClassyNodeComposite parent)
+    public ClassyNode createNode(ClassyNode parent)
     {
         if(parent instanceof ProjectExplorer)
             return new Project("New Project", "Test Path",
@@ -32,17 +32,15 @@ public class ClassyTree
         else if(parent instanceof Package)
             return new Diagram("New Diagram", parent);
         else
-            throw new RuntimeException("Invalid parent type");
+            return null;
     }
-    public void addChild(ClassyTreeItem parent, ClassyNode child) throws Exception {
+    public void addChild(ClassyTreeItem parent, ClassyNode child) {
         if(parent.getNode() instanceof ClassyNodeComposite) {
             parent.add(new ClassyTreeItem(child));
             ((ClassyNodeComposite) parent.getNode()).addChild(child);
             treeView.expandPath(treeView.getSelectionPath());
             SwingUtilities.updateComponentTreeUI(treeView);
         }
-        else
-            throw new Exception("Unable to add child to this node");
     }
     public ClassyTreeView generateTree()
     {
