@@ -16,9 +16,9 @@ public abstract class ClassyNode
     }
     private final List<IClassyNodeListener> listeners;
     @Getter
-    protected ClassyNodeComposite parent;
+    protected ClassyNode parent;
 
-    public ClassyNode(String name, ClassyNodeComposite parent)
+    public ClassyNode(String name, ClassyNode parent)
     {
         this.name = name;
         listeners = new java.util.ArrayList<>();

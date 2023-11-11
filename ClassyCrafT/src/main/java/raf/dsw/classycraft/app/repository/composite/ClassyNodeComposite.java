@@ -13,7 +13,7 @@ public abstract class ClassyNodeComposite extends ClassyNode
     private final List<IClassyNodeListener> childListeners;
     @Getter
     private final List<ClassyNode> children;
-    public ClassyNodeComposite(String name, ClassyNodeComposite parent)
+    public ClassyNodeComposite(String name, ClassyNode parent)
     {
         super(name, parent);
         childListeners = new ArrayList<>();
@@ -34,7 +34,7 @@ public abstract class ClassyNodeComposite extends ClassyNode
         for(var listener : childListeners)
             listener.onNodeChanged(this);
         if(parent != null)
-            parent.onChildChange();
+            ((ClassyNodeComposite)parent).onChildChange();
     }
     public void addOnChildChangeListener(IClassyNodeListener listener) {
         childListeners.add(listener);
@@ -47,6 +47,6 @@ public abstract class ClassyNodeComposite extends ClassyNode
     protected void onChange() {
         super.onChange();
         if(parent != null)
-            parent.onChildChange();
+            ((ClassyNodeComposite)parent).onChildChange();
     }
 }

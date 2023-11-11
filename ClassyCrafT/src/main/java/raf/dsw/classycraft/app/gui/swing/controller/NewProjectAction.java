@@ -22,17 +22,7 @@ public class NewProjectAction extends AbstractClassyAction
     public void actionPerformed(ActionEvent e) {
         var tree = MainFrame.getInstance().getClassyTree();
         var selectedTreeItem = tree.getSelectedNode();
-        var parent = selectedTreeItem.getNode();
 
-        if(!(parent instanceof ClassyNodeComposite))
-            return; // TODO: Throw exception
-
-        var node = ClassyRepository.getInstance().createNode((ClassyNodeComposite) parent);
-        try {
-            tree.addChild(selectedTreeItem, node);
-        }
-        catch (Exception ex) {
-            // TODO: Handle exception
-        }
+        ClassyRepository.getInstance().addChild(selectedTreeItem);
     }
 }
