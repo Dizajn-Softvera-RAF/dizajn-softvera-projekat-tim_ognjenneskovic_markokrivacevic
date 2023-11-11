@@ -5,10 +5,10 @@ import raf.dsw.classycraft.app.repository.composite.ClassyNode;
 import raf.dsw.classycraft.app.repository.composite.IClassyNodeListener;
 import raf.dsw.classycraft.app.repository.implementation.Package;
 
-public class ModifiedPackageListener implements IClassyNodeListener
+public class PackageModifiedListener implements IClassyNodeListener
 {
     private DiagramTabs diagramTabs;
-    public ModifiedPackageListener(DiagramTabs diagramTabs)
+    public PackageModifiedListener(DiagramTabs diagramTabs)
     {
         this.diagramTabs = diagramTabs;
     }
