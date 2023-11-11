@@ -7,13 +7,15 @@ import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
 import raf.dsw.classycraft.app.gui.swing.tree.ClassyTree;
 import raf.dsw.classycraft.app.gui.swing.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.gui.swing.tree.view.ClassyTreeView;
+import raf.dsw.classycraft.app.messageGenerator.Message;
+import raf.dsw.classycraft.app.observer.Subscriber;
 
 import javax.swing.*;
 import java.awt.*;
 
 @Getter
 @Setter
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance ;
 
@@ -81,4 +83,12 @@ public class MainFrame extends JFrame {
         return actionManager;
     }
 
+    @Override
+    public void update(Object obj) {
+        Message msg = (Message) obj;
+        String formattedMsg = String.format("[%s][%s] %s",
+                msg.getTip(),
+                msg.getVreme().toString(),msg.getPoruka());
+        JOptionPane.showMessageDialog(null, formattedMsg);
+    }
 }
