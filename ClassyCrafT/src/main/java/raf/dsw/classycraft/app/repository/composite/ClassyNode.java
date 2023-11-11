@@ -15,6 +15,7 @@ public abstract class ClassyNode
         onChange();
     }
     private final List<IClassyNodeListener> listeners;
+    @Getter
     protected ClassyNodeComposite parent;
 
     public ClassyNode(String name, ClassyNodeComposite parent)

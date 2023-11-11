@@ -1,25 +1,24 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
-import lombok.Setter;
 import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
 import raf.dsw.classycraft.app.logging.ILogger;
 import raf.dsw.classycraft.app.messageGenerator.Message;
 import raf.dsw.classycraft.app.tree.ClassyTree;
-import raf.dsw.classycraft.app.tree.controller.OpenPackageListener;
-import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
+import raf.dsw.classycraft.app.tree.controller.PackageSelectListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-@Getter
-@Setter
 public class MainFrame extends JFrame implements ILogger {
     private static MainFrame instance;
+    @Getter
     private ClassyTree classyTree;
-    public static DiagramTabs diagramTabs;
-    public static RightPanel rPanel;
-
+    @Getter
+    private DiagramTabs diagramTabs;
+    @Getter
+    private RightPanel rightPanel;
+    @Getter
     private ActionManager actionManager;
     private MainFrame(){
 
@@ -51,9 +50,9 @@ public class MainFrame extends JFrame implements ILogger {
         treePanel.add(classyTree.generateTree());
         add(treePanel, BorderLayout.WEST);
 
-        rPanel = new RightPanel(this);
+        rightPanel = new RightPanel(this);
         diagramTabs = new DiagramTabs(this);
-        classyTree.addOnSelectionListener(new OpenPackageListener(diagramTabs));
+        classyTree.addOnSelectionListener(new PackageSelectListener(diagramTabs));
     }
 
     public static MainFrame getInstance()

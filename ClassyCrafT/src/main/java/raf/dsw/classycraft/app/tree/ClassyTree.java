@@ -14,6 +14,7 @@ import raf.dsw.classycraft.app.tree.view.ClassyTreeCellRenderer;
 import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
 
 import javax.swing.*;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,5 +83,9 @@ public class ClassyTree
     public void addOnSelectionListener(IClassyNodeListener listener)
     {
         selectionListeners.add(listener);
+    }
+    public void addOnSelectionListener(TreeSelectionListener listener)
+    {
+        treeView.addTreeSelectionListener(listener);
     }
 }
