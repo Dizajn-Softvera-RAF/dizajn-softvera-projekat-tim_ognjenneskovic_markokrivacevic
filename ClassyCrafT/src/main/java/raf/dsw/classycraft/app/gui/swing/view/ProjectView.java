@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
+import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.implementation.Project;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.observer.Subscriber;
@@ -65,6 +66,9 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
         aNameLabel.setText("");
     }
 
+    /**
+     * Called when a new node is selected in the tree
+     */
     @Override
     public void valueChanged(TreeSelectionEvent e) {
         TreePath path = e.getPath();
@@ -72,15 +76,38 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
         var node = treeItemSelected.getClassyNode();
         if(node instanceof Project)
         {
-            if(selectedProject != null)
-                selectedProject.removeSubscriber(this);
-
-            var newProject = (Project) node;
-            setSelectedProject(newProject);
-
-            selectedProject = newProject;
-            selectedProject.addSubscriber(this);
+            selectNewProject((Project) node);
         }
+        else
+        {
+            var project = getParentProject(node);
+            if(project != null)
+                selectNewProject(project);
+        }
+    }
+    private void selectNewProject(Project newProject)
+    {
+        if(selectedProject != null)
+            selectedProject.removeSubscriber(this);
+
+        setSelectedProject(newProject);
+
+        selectedProject = newProject;
+        selectedProject.addSubscriber(this);
+    }
+
+    /**
+     * Finds the parent project of the selected node
+     */
+    private Project getParentProject(ClassyNode node)
+    {
+        while(node != null && !(node instanceof Project))
+            node = node.getParent();
+
+        if(node == null)
+            return null;
+        else
+            return (Project) node;
     }
 
     @Override
