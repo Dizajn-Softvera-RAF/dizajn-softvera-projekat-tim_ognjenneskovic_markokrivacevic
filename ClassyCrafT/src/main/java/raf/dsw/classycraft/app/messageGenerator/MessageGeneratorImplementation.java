@@ -15,7 +15,7 @@ public class MessageGeneratorImplementation implements Publisher
         subscribers = new ArrayList<>();
     }
     @Override
-    public void addSuscriber(Subscriber sub) {
+    public void addSubscriber(Subscriber sub) {
         subscribers.add(sub);
     }
 

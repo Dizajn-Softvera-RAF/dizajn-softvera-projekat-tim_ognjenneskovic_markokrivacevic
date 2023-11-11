@@ -19,6 +19,7 @@ public class ClassyTreeView extends JTree implements MouseListener {
         ClassyTreeCellRenderer ruTreeCellRenderer = new ClassyTreeCellRenderer();
 
         addTreeSelectionListener(new ClassyTreeSelectionListener());
+
         setCellEditor(new ClassyTreeCellEditor(this,ruTreeCellRenderer));
         setCellRenderer(ruTreeCellRenderer);
         setEditable(true);
