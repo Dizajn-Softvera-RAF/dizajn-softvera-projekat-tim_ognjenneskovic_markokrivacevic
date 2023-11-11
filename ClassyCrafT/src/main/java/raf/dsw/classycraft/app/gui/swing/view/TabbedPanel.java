@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
+import raf.dsw.classycraft.app.classyRepository.NodeEventType;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Package;
 import raf.dsw.classycraft.app.classyRepository.implementation.Project;
@@ -64,13 +66,19 @@ public class TabbedPanel extends JTabbedPane implements TreeSelectionListener, S
      */
     @Override
     public void update(Object notification) {
-        if(notification instanceof Package) {
-            var pckg = (Package) notification;
+
+        var nodeEvent = (NodeChangeEvent) notification;
+        var node = nodeEvent.getNode();
+
+        if(node instanceof Package) {
+            var pckg = (Package) node;
             openTabs(pckg);
+            if(nodeEvent.getType() == NodeEventType.NODE_REMOVED)
+                removeAll();
         }
         else
         {
-            var diagram = (Diagram) notification;
+            var diagram = (Diagram) node;
             var parentPackage = (Package) diagram.getParent();
             openTabs(parentPackage);
         }

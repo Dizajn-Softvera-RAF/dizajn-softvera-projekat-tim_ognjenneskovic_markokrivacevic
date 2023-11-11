@@ -2,6 +2,8 @@ package raf.dsw.classycraft.app.classyRepository.implementation;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
+import raf.dsw.classycraft.app.classyRepository.NodeEventType;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 
@@ -31,16 +33,19 @@ public class Package extends ClassyNodeComposite {
              Diagram diagram = (Diagram) child;
              if(!this.getChildren().contains(diagram)){
                  this.getChildren().add(diagram);
+
+                 notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_ADDED, child));
              }
          }
-         notifySubscriber(this);
     }
 
     @Override
     public void deleteChild(ClassyNode child) {
          if(child!=null && child instanceof Diagram){
              this.getChildren().remove(child);
+
+             child.notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_REMOVED, child));
+             notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_REMOVED, child));
          }
-        notifySubscriber(this);
     }
 }
