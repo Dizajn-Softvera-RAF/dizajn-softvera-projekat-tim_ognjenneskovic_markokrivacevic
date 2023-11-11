@@ -17,6 +17,7 @@ public class ProjectExplorer extends ClassyNodeComposite {
                 this.getChildren().add(project);
             }
         }
+        notifySubscriber(this);
     }
 
     @Override
@@ -24,5 +25,6 @@ public class ProjectExplorer extends ClassyNodeComposite {
         if (child != null && child instanceof Project){
             this.getChildren().remove(child);
         }
+        notifySubscriber(this);
     }
 }

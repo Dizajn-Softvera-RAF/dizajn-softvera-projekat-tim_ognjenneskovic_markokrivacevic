@@ -3,7 +3,8 @@ package raf.dsw.classycraft.app.classyRepository.composite;
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class ClassyNodeComposite extends ClassyNode{
+public abstract class ClassyNodeComposite extends ClassyNode
+{
 
     List<ClassyNode> children;
 

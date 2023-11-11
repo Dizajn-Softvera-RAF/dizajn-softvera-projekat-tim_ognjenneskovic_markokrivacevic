@@ -33,6 +33,7 @@ public class Package extends ClassyNodeComposite {
                  this.getChildren().add(diagram);
              }
          }
+         notifySubscriber(this);
     }
 
     @Override
@@ -40,5 +41,6 @@ public class Package extends ClassyNodeComposite {
          if(child!=null && child instanceof Diagram){
              this.getChildren().remove(child);
          }
+        notifySubscriber(this);
     }
 }

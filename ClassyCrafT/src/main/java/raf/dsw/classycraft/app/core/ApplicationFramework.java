@@ -5,12 +5,7 @@ import lombok.Setter;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.logger.ConsoleLogger;
 import raf.dsw.classycraft.app.logger.FileLogger;
-import raf.dsw.classycraft.app.messageGenerator.Message;
 import raf.dsw.classycraft.app.messageGenerator.MessageGeneratorImplementation;
-import raf.dsw.classycraft.app.messageGenerator.MessageType;
-import raf.dsw.classycraft.app.observer.Publisher;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,6 +15,7 @@ public class ApplicationFramework {
     protected Gui gui;
     protected ClassyRepository classyRepository;
     private MessageGeneratorImplementation messageGenerator;
+
 
     public void run(){
         this.gui.start();
@@ -37,12 +33,9 @@ public class ApplicationFramework {
           // Add loggers to msg generator
           var consoleLogger = new ConsoleLogger();
           var fileLogger = new FileLogger();
-          messageGenerator.addSuscriber(consoleLogger);
-          messageGenerator.addSuscriber(fileLogger);
-          messageGenerator.addSuscriber(MainFrame.getInstance());
-
-        LocalDateTime currentTime = LocalDateTime.now();
-        messageGenerator.notifySubscriber(new Message(MessageType.INFO,"Test 123", currentTime));
+          messageGenerator.addSubscriber(consoleLogger);
+          messageGenerator.addSubscriber(fileLogger);
+          messageGenerator.addSubscriber(MainFrame.getInstance());
     }
 
     public static ApplicationFramework getInstance(){

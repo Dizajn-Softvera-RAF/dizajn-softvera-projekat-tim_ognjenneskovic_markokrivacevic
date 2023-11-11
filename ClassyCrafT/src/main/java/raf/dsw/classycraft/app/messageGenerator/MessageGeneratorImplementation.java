@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.messageGenerator;
 import raf.dsw.classycraft.app.observer.Publisher;
 import raf.dsw.classycraft.app.observer.Subscriber;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class MessageGeneratorImplementation implements Publisher
         subscribers = new ArrayList<>();
     }
     @Override
-    public void addSuscriber(Subscriber sub) {
+    public void addSubscriber(Subscriber sub) {
         subscribers.add(sub);
     }
 
@@ -28,5 +29,10 @@ public class MessageGeneratorImplementation implements Publisher
     public void notifySubscriber(Object notification) {
         for(var sub: subscribers)
             sub.update(notification);
+    }
+    public void generateSystemMessage(SystemMessageType systemMsgType, MessageType msgType)
+    {
+        var msgStr = SystemMessageStrings.msgMap.get(systemMsgType);
+        notifySubscriber(new Message(msgType, msgStr, LocalDateTime.now()));
     }
 }

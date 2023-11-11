@@ -2,6 +2,8 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
+import raf.dsw.classycraft.app.classyRepository.implementation.Package;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
 import raf.dsw.classycraft.app.gui.swing.tree.ClassyTree;
@@ -27,6 +29,8 @@ public class MainFrame extends JFrame implements Subscriber {
     private ProjectView desktopPanel;
 
     private JPanel desktop;
+
+    private TabbedPanel tabbedPanel;
 
 
     private MainFrame(){
@@ -58,7 +62,15 @@ public class MainFrame extends JFrame implements Subscriber {
 
         desktopPanel = new ProjectView();
         desktop = new JPanel();
-        desktop.add(desktopPanel);
+        desktop.setLayout(new BorderLayout());
+        desktop.add(desktopPanel, BorderLayout.NORTH);
+
+        tabbedPanel = new TabbedPanel();
+        desktop.add(tabbedPanel, BorderLayout.CENTER);
+
+        projcetExplorer.addTreeSelectionListener(tabbedPanel);
+        projcetExplorer.addTreeSelectionListener(desktopPanel);
+
 
         JScrollPane scroll = new JScrollPane(projcetExplorer);
         scroll.setMinimumSize(new Dimension(200,150));

@@ -1,6 +1,9 @@
 package raf.dsw.classycraft.app.gui.swing.tree.controller;
 
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.messageGenerator.MessageType;
+import raf.dsw.classycraft.app.messageGenerator.SystemMessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellEditor;
@@ -43,6 +46,13 @@ public class ClassyTreeCellEditor extends DefaultTreeCellEditor implements Actio
            return;
 
        ClassyTreeItem clicked = (ClassyTreeItem) clickedOn;
-       clicked.setName(e.getActionCommand());
+
+       var newName = e.getActionCommand();
+       if(newName.equals("")) {
+           ApplicationFramework.getInstance().getMessageGenerator().
+                   generateSystemMessage(SystemMessageType.NAME_CANNOT_BE_EMPTY, MessageType.ERROR);
+       }
+       else
+           clicked.setName(newName);
     }
 }

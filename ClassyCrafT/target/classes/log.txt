@@ -1,1 +1,4 @@
-[INFO][2023-11-11T16:56:13.974338500] Test 123 
+[ERROR][2023-11-11T19:50:51.069854100] Ime ne može biti prazno 
+[ERROR][2023-11-11T19:50:58.789263300] Diagram ne može imati decu 
+[ERROR][2023-11-11T19:51:04.242144900] Ime ne može biti prazno 
+[ERROR][2023-11-11T19:51:10.486328400] Ime ne može biti prazno 
