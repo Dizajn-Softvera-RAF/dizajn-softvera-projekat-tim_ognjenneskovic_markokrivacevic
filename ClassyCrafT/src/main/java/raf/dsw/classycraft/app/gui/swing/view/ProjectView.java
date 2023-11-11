@@ -1,7 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
-import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
-import raf.dsw.classycraft.app.classyRepository.implementation.Package;
+import lombok.Getter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Project;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.observer.Subscriber;
@@ -12,19 +11,18 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProjectView extends JPanel implements TreeSelectionListener, Subscriber {
 
-    private Project project;
+    @Getter
+    private Project selectedProject;
     private PackageView packageView;
 
     private JLabel pNameLabel;
     private JLabel aNameLabel;
 
     public ProjectView(){
-        project = null;
+        selectedProject = null;
 
         this.setLayout(new BorderLayout());
 
@@ -47,12 +45,12 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
     }
 
     public void refreshProjectView(Project selectedProject){
-        this.project = selectedProject;
+        this.selectedProject = selectedProject;
     }
 
-    private void setProject(Project project){
-        pNameLabel.setText(project.getName());
-        aNameLabel.setText(project.getAuthor());
+    private void setSelectedProject(Project selectedProject){
+        pNameLabel.setText(selectedProject.getName());
+        aNameLabel.setText(selectedProject.getAuthor());
     }
 
     public void restart(){
@@ -61,7 +59,7 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
     }
 
     public void deleteView(){
-        project = null;
+        selectedProject = null;
         packageView = null;
         pNameLabel.setText("");
         aNameLabel.setText("");
@@ -74,14 +72,14 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
         var node = treeItemSelected.getClassyNode();
         if(node instanceof Project)
         {
-            if(project != null)
-                project.removeSubscriber(this);
+            if(selectedProject != null)
+                selectedProject.removeSubscriber(this);
 
             var newProject = (Project) node;
-            setProject(newProject);
+            setSelectedProject(newProject);
 
-            project = newProject;
-            project.addSubscriber(this);
+            selectedProject = newProject;
+            selectedProject.addSubscriber(this);
         }
     }
 
@@ -89,7 +87,7 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
     public void update(Object notification) {
         if(notification instanceof Project) {
             var newProject = (Project) notification;
-            setProject(newProject);
+            setSelectedProject(newProject);
         }
     }
 }
