@@ -3,10 +3,13 @@ package raf.dsw.classycraft.app.gui.swing.tree;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.factory.FactoryUtils;
 import raf.dsw.classycraft.app.gui.swing.factory.NodeFactory;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.gui.swing.tree.view.ClassyTreeView;
+import raf.dsw.classycraft.app.messageGenerator.MessageType;
+import raf.dsw.classycraft.app.messageGenerator.SystemMessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -26,8 +29,9 @@ public class ClassyTreeImplementation implements ClassyTree{
 
     @Override
     public void addChild(ClassyTreeItem parent) {
-        if (!(parent.getClassyNode() instanceof ClassyNodeComposite))
+        if (!(parent.getClassyNode() instanceof ClassyNodeComposite)){
             return;
+        }
 
         ClassyNode child = createChild(parent.getClassyNode());
         parent.add(new ClassyTreeItem(child));
@@ -38,6 +42,10 @@ public class ClassyTreeImplementation implements ClassyTree{
 
     @Override
     public void removeChild(ClassyTreeItem child) {
+        if(child.getClassyNode().getParent() == null)
+        {
+            return;
+        }
         child.removeFromParent();
         ((ClassyNodeComposite)child.getClassyNode().getParent()).deleteChild(child.getClassyNode());
         treeView.expandPath(treeView.getSelectionPath());
