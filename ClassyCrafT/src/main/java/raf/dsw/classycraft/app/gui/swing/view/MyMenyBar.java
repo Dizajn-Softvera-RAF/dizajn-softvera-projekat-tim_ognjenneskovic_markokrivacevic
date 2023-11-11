@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import com.sun.tools.javac.Main;
+import raf.dsw.classycraft.app.gui.swing.controller.ExitAction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -7,22 +9,19 @@ import java.awt.event.KeyEvent;
 
 public class MyMenyBar extends JMenuBar {
 
-    public MyMenyBar(){
+    public MyMenyBar() {
         JMenu fileMenu = new JMenu("File");
-        JMenu editMenu = new JMenu("Edit");
-
+        MainFrame.getInstance();
         fileMenu.setMnemonic(KeyEvent.VK_F);
+        fileMenu.add(MainFrame.getInstance().getActionManager().getExitAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getNewProjectAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getDeleteChildAction());
 
-        var actionManager = MainFrame.getInstance().getActionManager();
-
-        fileMenu.add(actionManager.getExitAction());
-        fileMenu.add(actionManager.getNewProjectAction());
+        JMenu source = new JMenu("Edit");
+        source.add(MainFrame.getInstance().getActionManager().getAboutUsAction());
 
         add(fileMenu);
+        add(source);
 
-        editMenu.add(actionManager.getAboutUsAction());
-
-        add(editMenu);
     }
-
 }

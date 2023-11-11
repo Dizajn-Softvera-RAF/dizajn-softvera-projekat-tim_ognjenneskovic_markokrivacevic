@@ -1,18 +1,27 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class ActionManager
-{
-    private ExitAction exitAction;
-    private NewProjectAction newProjectAction;
-    private AboutUsAction aboutUsAction;
+@Setter
+public class ActionManager {
 
-    public ActionManager()
-    {
-        exitAction = new ExitAction();
-        newProjectAction = new NewProjectAction();
-        aboutUsAction = new AboutUsAction();
+    private ExitAction exitAction;
+    private AboutUsAction aboutUsAction;
+    private NewProjectAction newProjectAction;
+    private DeleteChildAction deleteChildAction;
+
+    public ActionManager(){
+        initialiseActions();
     }
+
+    private void initialiseActions(){
+        exitAction = new ExitAction();
+        aboutUsAction = new AboutUsAction();
+        newProjectAction = new NewProjectAction();
+        deleteChildAction = new DeleteChildAction();
+    }
+
 }

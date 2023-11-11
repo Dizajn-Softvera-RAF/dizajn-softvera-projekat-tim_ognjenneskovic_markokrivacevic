@@ -1,34 +1,44 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
+import lombok.Setter;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
-import raf.dsw.classycraft.app.logging.ILogger;
-import raf.dsw.classycraft.app.messageGenerator.Message;
-import raf.dsw.classycraft.app.tree.ClassyTree;
-import raf.dsw.classycraft.app.tree.controller.PackageSelectListener;
+import raf.dsw.classycraft.app.gui.swing.tree.ClassyTree;
+import raf.dsw.classycraft.app.gui.swing.tree.ClassyTreeImplementation;
+import raf.dsw.classycraft.app.gui.swing.tree.view.ClassyTreeView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame implements ILogger {
-    private static MainFrame instance;
-    @Getter
-    private ClassyTree classyTree;
-    @Getter
-    private DiagramTabs diagramTabs;
-    @Getter
-    private RightPanel rightPanel;
-    @Getter
+@Getter
+@Setter
+public class MainFrame extends JFrame {
+
+    private static MainFrame instance ;
+
     private ActionManager actionManager;
+    private JMenuBar menu;
+    private JToolBar toolbar;
+    private ClassyTree classyTree;
+    private ClassyTreeView projcetExplorer;
+    private ProjectView desktopPanel;
+
+    private JPanel desktop;
+
+
     private MainFrame(){
 
     }
 
-    private void initialize(){
+    private void initialise(){
         actionManager = new ActionManager();
-        initializeGUI();
+        classyTree = new ClassyTreeImplementation();
+        projcetExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getProjectExplorer());
+        initialiseGui(projcetExplorer);
     }
-    private void initializeGUI(){
+
+    private void initialiseGui(ClassyTreeView projcetExplorer){
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height;
@@ -37,38 +47,38 @@ public class MainFrame extends JFrame implements ILogger {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("ClassyCrafT");
-        setLayout(new BorderLayout());
 
-        MyMenyBar menu = new MyMenyBar();
+        menu = new MyMenyBar();
         setJMenuBar(menu);
 
-        MyToolBar toolBar = new MyToolBar();
-        add(toolBar, BorderLayout.NORTH);
+        toolbar = new MyToolBar();
+        add(toolbar,BorderLayout.NORTH);
 
-        var treePanel = new JPanel();
-        classyTree = new ClassyTree();
-        treePanel.add(classyTree.generateTree());
-        add(treePanel, BorderLayout.WEST);
+        desktopPanel = new ProjectView();
+        desktop = new JPanel();
+        desktop.add(desktopPanel);
 
-        rightPanel = new RightPanel(this);
-        diagramTabs = new DiagramTabs(this);
-        classyTree.addOnSelectionListener(new PackageSelectListener(diagramTabs));
+        JScrollPane scroll = new JScrollPane(projcetExplorer);
+        scroll.setMinimumSize(new Dimension(200,150));
+
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll, desktop);
+        getContentPane().add(split, BorderLayout.CENTER);
+        split.setDividerLocation(250);
+        split.setOneTouchExpandable(true);
+
     }
 
-    public static MainFrame getInstance()
-    {
-        if(instance == null)
-        {
+
+    public static MainFrame getInstance(){
+        if(instance==null){
             instance = new MainFrame();
-            instance.initialize();
+            instance.initialise();
         }
         return instance;
     }
 
-    @Override
-    public void logMessage(Message msg) {
-        String formattedMsg = String.format("[%s][%s] %s",msgTypeStrMap.get(msg.getType()),
-                msg.getTime().toString(),msg.getMsg());
-        JOptionPane.showMessageDialog(null, formattedMsg);
+    public ActionManager getActionManager(){
+        return actionManager;
     }
+
 }

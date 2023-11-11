@@ -1,28 +1,24 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
-import com.sun.tools.javac.Main;
+import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
-import raf.dsw.classycraft.app.repository.composite.ClassyNodeComposite;
-import raf.dsw.classycraft.app.repository.ClassyRepository;
-import raf.dsw.classycraft.app.tree.ClassyTree;
-import raf.dsw.classycraft.app.repository.composite.NodeType;
-import raf.dsw.classycraft.app.repository.implementation.ProjectExplorer;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
-public class NewProjectAction extends AbstractClassyAction
-{
-    public NewProjectAction()
-    {
-        putValue(NAME, "Add new");
-        putValue(SHORT_DESCRIPTION, "Add new");
+public class NewProjectAction extends AbstractClassyAction{
+
+    public NewProjectAction(){
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N,ActionEvent.CTRL_MASK));
+        putValue(SMALL_ICON,loadIcon("/images/new.png"));
+        putValue(NAME,"New Project");
+        putValue(SHORT_DESCRIPTION,"New Project");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        var tree = MainFrame.getInstance().getClassyTree();
-        var selectedTreeItem = tree.getSelectedNode();
-
-        ClassyRepository.getInstance().addChild(selectedTreeItem);
+        ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
+        MainFrame.getInstance().getClassyTree().addChild(selected);
     }
 }
