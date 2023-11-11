@@ -17,8 +17,6 @@ public class MyMenyBar extends JMenuBar {
 
         fileMenu.add(actionManager.getExitAction());
         fileMenu.add(actionManager.getNewProjectAction());
-        fileMenu.add(actionManager.getNewPackageAction());
-        fileMenu.add(actionManager.getNewDiagramAction());
 
         add(fileMenu);
 

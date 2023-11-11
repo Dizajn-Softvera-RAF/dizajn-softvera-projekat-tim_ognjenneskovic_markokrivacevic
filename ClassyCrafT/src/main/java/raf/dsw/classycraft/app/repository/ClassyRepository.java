@@ -30,17 +30,10 @@ public class ClassyRepository
             instance = new ClassyRepository();
         return instance;
     }
-    public ClassyNode createNode(NodeType type, String name, ClassyNodeComposite parent)
+    public ClassyNode createNode(ClassyNodeComposite parent)
     {
         var tree = MainFrame.getInstance().getClassyTree();
-        var node = tree.createNode(type, name, parent);
-        nodes.add(node);
-        return node;
-    }
-    public Project createNode(NodeType type, String name, String author, String path, ClassyNodeComposite parent)
-    {
-        var tree = MainFrame.getInstance().getClassyTree();
-        var node = tree.createNode(type, name, author, path, parent);
+        var node = tree.createNode(parent);
         nodes.add(node);
         return node;
     }

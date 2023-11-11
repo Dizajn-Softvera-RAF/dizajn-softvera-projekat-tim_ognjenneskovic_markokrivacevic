@@ -14,24 +14,25 @@ public class NewProjectAction extends AbstractClassyAction
 {
     public NewProjectAction()
     {
-        putValue(NAME, "New Project");
-        putValue(SHORT_DESCRIPTION, "New Project");
+        putValue(NAME, "Add new");
+        putValue(SHORT_DESCRIPTION, "Add new");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         var tree = MainFrame.getInstance().getClassyTree();
-        if (!(tree.getSelectedNode().getNode() instanceof ProjectExplorer))
-            throw new RuntimeException("A project can only be added to a project explorer");
+        var selectedTreeItem = tree.getSelectedNode();
+        var parent = selectedTreeItem.getNode();
 
-        var node = ClassyRepository.getInstance().createNode(
-                NodeType.PROJECT, "Test Project", "Test Author", "New Path",
-                (ClassyNodeComposite) tree.getSelectedNode().getNode());
+        if(!(parent instanceof ClassyNodeComposite))
+            return; // TODO: Throw exception
+
+        var node = ClassyRepository.getInstance().createNode((ClassyNodeComposite) parent);
         try {
-            tree.addChild(tree.getSelectedNode(), node);
-        } catch (Exception ex) {
-            // TODO: Throw proper exception
-            throw new RuntimeException(ex);
+            tree.addChild(selectedTreeItem, node);
+        }
+        catch (Exception ex) {
+            // TODO: Handle exception
         }
     }
 }
