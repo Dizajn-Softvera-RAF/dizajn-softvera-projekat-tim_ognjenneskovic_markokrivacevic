@@ -2,7 +2,7 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import raf.dsw.classycraft.app.repository.ClassyRepository;
 import raf.dsw.classycraft.app.repository.composite.NodeType;
-import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
+import raf.dsw.classycraft.app.tree.ClassyTree;
 import raf.dsw.classycraft.app.repository.implementation.Project;
 import raf.dsw.classycraft.app.tree.controller.ProjectListener;
 
@@ -18,10 +18,10 @@ public class RightPanel
         projectLabel = new JLabel("Project: ");
         authorLabel = new JLabel("Author: ");
 
-        var listener = new ProjectListener(projectLabel, authorLabel);
+        var listener = new ProjectListener(this);
         ClassyRepository.getInstance().addOnChangeListener(listener, NodeType.PROJECT);
 
-        ClassyTree.getInstance().addOnSelectionListener(e-> {
+        MainFrame.getInstance().getClassyTree().addOnSelectionListener(e-> {
             if (e.getClass() == Project.class)
                 listener.onNodeChanged(e);
         });

@@ -1,6 +1,8 @@
 package raf.dsw.classycraft.app.repository.composite;
 
 
+import lombok.Getter;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,31 +11,23 @@ public abstract class ClassyNodeComposite extends ClassyNode
 {
 
     private final List<IClassyNodeListener> childListeners;
+    @Getter
+    private final List<ClassyNode> children;
     public ClassyNodeComposite(String name, ClassyNodeComposite parent)
     {
         super(name, parent);
-        this.treeNode = new DefaultMutableTreeNode(this);
         childListeners = new ArrayList<>();
+        children = new ArrayList<>();
     }
     public void addChild(ClassyNode child)
     {
-        treeNode.add(child.getTreeNode());
+        children.add(child);
         onChange();
     }
     public void removeChild(ClassyNode child)
     {
-        treeNode.remove(child.getTreeNode());
+        children.remove(child);
         onChange();
-    }
-    public List<ClassyNode> getChildren()
-    {
-        var children = new ArrayList<ClassyNode>();
-        for(int i = 0; i < treeNode.getChildCount(); i++)
-        {
-            var node = (DefaultMutableTreeNode)treeNode.getChildAt(i);
-            children.add((ClassyNode) node.getUserObject());
-        }
-        return children;
     }
     protected void onChildChange()
     {

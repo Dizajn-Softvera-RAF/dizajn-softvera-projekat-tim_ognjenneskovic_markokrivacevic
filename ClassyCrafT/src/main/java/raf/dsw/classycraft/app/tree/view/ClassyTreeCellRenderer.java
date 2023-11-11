@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.tree.view;
 
 import raf.dsw.classycraft.app.repository.composite.ClassyNode;
+import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -17,8 +18,8 @@ public class ClassyTreeCellRenderer extends DefaultTreeCellRenderer
                 hasFocus
         );
 
-        var node = (ClassyNode)((DefaultMutableTreeNode)value).getUserObject();
-        setText(node.getName());
+        var node = (ClassyTreeItem) value;
+        setText(node.getNode().getName());
         return this;
     }
 }

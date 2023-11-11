@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.tree.controller;
 
-import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
+import raf.dsw.classycraft.app.tree.ClassyTree;
 
 import javax.swing.*;
 import javax.swing.event.CellEditorListener;
@@ -13,7 +14,7 @@ public class ClassyTreeCellEditorListener implements CellEditorListener {
     }
     @Override
     public void editingStopped(ChangeEvent e) {
-        var node = ClassyTree.getInstance().getSelectedNode();
+        var node = MainFrame.getInstance().getClassyTree().getSelectedNode();
         node.setName(textField.getText());
     }
 

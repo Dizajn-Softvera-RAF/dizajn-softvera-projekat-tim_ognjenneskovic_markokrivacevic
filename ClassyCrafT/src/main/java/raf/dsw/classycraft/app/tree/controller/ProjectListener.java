@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.tree.controller;
 
+import raf.dsw.classycraft.app.gui.swing.view.RightPanel;
 import raf.dsw.classycraft.app.repository.composite.ClassyNode;
 import raf.dsw.classycraft.app.repository.composite.IClassyNodeListener;
 import raf.dsw.classycraft.app.repository.implementation.Project;
@@ -8,16 +9,15 @@ import javax.swing.*;
 
 public class ProjectListener implements IClassyNodeListener
 {
-    private JLabel projectNameLabel, projectAuthorLabel;
-    public ProjectListener(JLabel projectNameLabel, JLabel projectAuthorLabel)
+    private RightPanel rightPanel;
+    public ProjectListener(RightPanel rightPanel)
     {
-        this.projectNameLabel = projectNameLabel;
-        this.projectAuthorLabel = projectAuthorLabel;
+        this.rightPanel = rightPanel;
     }
     @Override
     public void onNodeChanged(ClassyNode node) {
         var project = (Project) node;
-        projectNameLabel.setText(project.getName());
-        projectAuthorLabel.setText(project.getAuthor());
+        rightPanel.setProjectLabel(project.getName());
+        rightPanel.setAuthorLabel(project.getAuthor());
     }
 }

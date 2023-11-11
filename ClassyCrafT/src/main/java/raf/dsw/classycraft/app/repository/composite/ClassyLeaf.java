@@ -9,7 +9,6 @@ public abstract class ClassyLeaf extends ClassyNode
     public ClassyLeaf(String name, ClassyNodeComposite parent)
     {
         super(name, parent);
-        this.treeNode = new DefaultMutableTreeNode(this);
     }
 
     @Override

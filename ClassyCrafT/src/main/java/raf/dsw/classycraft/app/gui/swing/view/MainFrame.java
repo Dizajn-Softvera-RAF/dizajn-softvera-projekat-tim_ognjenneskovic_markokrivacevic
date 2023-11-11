@@ -5,19 +5,18 @@ import lombok.Setter;
 import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
 import raf.dsw.classycraft.app.logging.ILogger;
 import raf.dsw.classycraft.app.messageGenerator.Message;
-import raf.dsw.classycraft.app.messageGenerator.MessageType;
-import raf.dsw.classycraft.app.repository.implementation.ClassyTree;
+import raf.dsw.classycraft.app.tree.ClassyTree;
 import raf.dsw.classycraft.app.tree.controller.OpenPackageListener;
+import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Timestamp;
 
 @Getter
 @Setter
 public class MainFrame extends JFrame implements ILogger {
     private static MainFrame instance;
-    public static JPanel treePanel;
+    private ClassyTree classyTree;
     public static DiagramTabs diagramTabs;
     public static RightPanel rPanel;
 
@@ -47,14 +46,14 @@ public class MainFrame extends JFrame implements ILogger {
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
 
-        treePanel = new JPanel();
+        var treePanel = new JPanel();
+        classyTree = new ClassyTree();
+        treePanel.add(classyTree.generateTree());
         add(treePanel, BorderLayout.WEST);
-        var tree = ClassyTree.getInstance();
-        tree.generateTree(treePanel);
 
         rPanel = new RightPanel(this);
         diagramTabs = new DiagramTabs(this);
-        ClassyTree.getInstance().addOnSelectionListener(new OpenPackageListener(diagramTabs));
+        classyTree.addOnSelectionListener(new OpenPackageListener(diagramTabs));
     }
 
     public static MainFrame getInstance()

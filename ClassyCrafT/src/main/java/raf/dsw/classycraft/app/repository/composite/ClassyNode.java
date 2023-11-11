@@ -14,15 +14,12 @@ public abstract class ClassyNode
         this.name = name;
         onChange();
     }
-    @Getter
-    protected DefaultMutableTreeNode treeNode;
     private final List<IClassyNodeListener> listeners;
     protected ClassyNodeComposite parent;
 
     public ClassyNode(String name, ClassyNodeComposite parent)
     {
         this.name = name;
-        this.treeNode = new DefaultMutableTreeNode(this);
         listeners = new java.util.ArrayList<>();
         this.parent = parent;
     }
