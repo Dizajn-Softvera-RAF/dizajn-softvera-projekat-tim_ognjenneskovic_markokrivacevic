@@ -1,9 +1,13 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import lombok.Getter;
+
 import javax.swing.*;
 import java.net.URL;
 
 public abstract class AbstractClassyAction extends AbstractAction {
+    @Getter
+    protected boolean isCurrentAction;
 
     public Icon loadIcon(String fileName){
 

@@ -1,6 +1,8 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
+import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
+import raf.dsw.classycraft.app.classyRepository.NodeEventType;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.implementation.Project;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
@@ -27,8 +29,8 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
 
         this.setLayout(new BorderLayout());
 
-        this.pNameLabel = new JLabel("Project");
-        this.aNameLabel = new JLabel("Author");
+        this.pNameLabel = new JLabel("No project selected");
+        this.aNameLabel = new JLabel("");
 
         add(pNameLabel);
         add(aNameLabel);
@@ -62,7 +64,7 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
     public void deleteView(){
         selectedProject = null;
         packageView = null;
-        pNameLabel.setText("");
+        pNameLabel.setText("No project selected");
         aNameLabel.setText("");
     }
 
@@ -112,9 +114,19 @@ public class ProjectView extends JPanel implements TreeSelectionListener, Subscr
 
     @Override
     public void update(Object notification) {
-        if(notification instanceof Project) {
-            var newProject = (Project) notification;
-            setSelectedProject(newProject);
+
+        var nodeEvent = (NodeChangeEvent) notification;
+
+        if(nodeEvent.getNode() instanceof Project) {
+            if(nodeEvent.getType() == NodeEventType.NODE_CHANGED)
+            {
+                var newProject = (Project) nodeEvent.getNode();
+                setSelectedProject(newProject);
+            }
+            if(nodeEvent.getType() == NodeEventType.NODE_REMOVED)
+            {
+                deleteView();
+            }
         }
     }
 }

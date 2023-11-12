@@ -11,13 +11,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class NewProjectAction extends AbstractClassyAction{
+public class NewNodeAction extends AbstractClassyAction{
 
-    public NewProjectAction(){
+    public NewNodeAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N,ActionEvent.CTRL_MASK));
         putValue(SMALL_ICON,loadIcon("/images/new.png"));
-        putValue(NAME,"New Project");
-        putValue(SHORT_DESCRIPTION,"New Project");
+        putValue(NAME,"Add New");
+        putValue(SHORT_DESCRIPTION,"Add New");
     }
 
     @Override

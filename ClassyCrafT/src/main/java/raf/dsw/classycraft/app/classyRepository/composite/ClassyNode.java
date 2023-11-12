@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.classyRepository.composite;
 
+import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
+import raf.dsw.classycraft.app.classyRepository.NodeEventType;
 import raf.dsw.classycraft.app.observer.Publisher;
 import raf.dsw.classycraft.app.observer.Subscriber;
 
@@ -26,7 +28,7 @@ public abstract class ClassyNode implements Publisher
 
     public void setName(String name) {
         this.name = name;
-        notifySubscriber(this);
+        notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_CHANGED, this));
     }
 
     public ClassyNode getParent() {

@@ -71,7 +71,6 @@ public class MainFrame extends JFrame implements Subscriber {
         projcetExplorer.addTreeSelectionListener(tabbedPanel);
         projcetExplorer.addTreeSelectionListener(desktopPanel);
 
-
         JScrollPane scroll = new JScrollPane(projcetExplorer);
         scroll.setMinimumSize(new Dimension(200,150));
 
