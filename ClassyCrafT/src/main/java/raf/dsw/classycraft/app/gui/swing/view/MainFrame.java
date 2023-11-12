@@ -30,7 +30,7 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private JPanel desktop;
 
-    private TabbedPanel tabbedPanel;
+    private PackageView tabbedPanel;
 
 
     private MainFrame(){
@@ -65,7 +65,7 @@ public class MainFrame extends JFrame implements Subscriber {
         desktop.setLayout(new BorderLayout());
         desktop.add(desktopPanel, BorderLayout.NORTH);
 
-        tabbedPanel = new TabbedPanel();
+        tabbedPanel = new PackageView();
         desktop.add(tabbedPanel, BorderLayout.CENTER);
 
         projcetExplorer.addTreeSelectionListener(tabbedPanel);

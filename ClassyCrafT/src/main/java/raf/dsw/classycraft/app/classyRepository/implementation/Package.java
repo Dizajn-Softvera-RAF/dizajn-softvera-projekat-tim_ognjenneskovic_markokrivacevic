@@ -33,7 +33,6 @@ public class Package extends ClassyNodeComposite {
              Diagram diagram = (Diagram) child;
              if(!this.getChildren().contains(diagram)){
                  this.getChildren().add(diagram);
-
                  notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_ADDED, child));
              }
          }
