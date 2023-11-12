@@ -10,10 +10,11 @@ public class ActionManager {
 
     private ExitAction exitAction;
     private AboutUsAction aboutUsAction;
-    private NewProjectAction newProjectAction;
+    private NewNodeAction newNodeAction;
     private DeleteChildAction deleteChildAction;
 
     private AuthorNameAction authorNameAction;
+    private NewPackageAction newPackageAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -21,9 +22,10 @@ public class ActionManager {
     private void initialiseActions(){
         exitAction = new ExitAction();
         aboutUsAction = new AboutUsAction();
-        newProjectAction = new NewProjectAction();
+        newNodeAction = new NewNodeAction();
         deleteChildAction = new DeleteChildAction();
         authorNameAction = new AuthorNameAction();
+        newPackageAction = new NewPackageAction();
     }
 
 }

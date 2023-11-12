@@ -13,6 +13,7 @@ import raf.dsw.classycraft.app.messageGenerator.SystemMessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class ClassyTreeImplementation implements ClassyTree{
 
@@ -24,6 +25,8 @@ public class ClassyTreeImplementation implements ClassyTree{
         ClassyTreeItem root = new ClassyTreeItem(projectExplorer);
         treeModel = new DefaultTreeModel(root);
         treeView = new ClassyTreeView(treeModel);
+        // Set root as selected node
+        treeView.setSelectionPath(new TreePath(root.getPath()));
         return treeView;
     }
 
@@ -46,10 +49,16 @@ public class ClassyTreeImplementation implements ClassyTree{
         {
             return;
         }
-        child.removeFromParent();
-        ((ClassyNodeComposite)child.getClassyNode().getParent()).deleteChild(child.getClassyNode());
-        treeView.expandPath(treeView.getSelectionPath());
+        var parent = child.getParent();
+
+        child.removeFromParent(); // Remove from treeView
+        ((ClassyNodeComposite)child.getClassyNode().getParent()).deleteChild(child.getClassyNode()); // Remove from model
+
+        // Set parent as selected node
+        treeView.setSelectionPath(new TreePath(parent));
+        treeView.expandPath(new TreePath(parent));
         SwingUtilities.updateComponentTreeUI(treeView);
+
     }
 
     @Override
