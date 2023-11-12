@@ -52,7 +52,9 @@ public abstract class ClassyNode implements Publisher
     @Override
     public void notifySubscriber(Object notification)
     {
-        for(var sub: subscribers)
+        // Iterate over a copy of subscribers list to avoid possibly modifying the list while iterating
+        var subscribersCopy = new ArrayList<>(subscribers);
+        for(var sub: subscribersCopy)
             sub.update(notification);
         if(parent != null)
             parent.notifySubscriber(notification);

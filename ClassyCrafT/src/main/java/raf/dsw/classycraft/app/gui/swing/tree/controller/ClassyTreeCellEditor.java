@@ -23,7 +23,6 @@ public class ClassyTreeCellEditor extends DefaultTreeCellEditor implements Actio
         super(arg0,arg1);
     }
 
-
     public Component getTreeCellEditorComponent(JTree arg0, Object arg1, boolean arg2, boolean arg3, boolean arg4, int arg5){
         clickedOn = arg1;
         edit = new JTextField(arg1.toString());
