@@ -1,1 +1,0 @@
-[ERROR][2023-11-12T23:06:26.571849700] Diagram ne može imati decu 

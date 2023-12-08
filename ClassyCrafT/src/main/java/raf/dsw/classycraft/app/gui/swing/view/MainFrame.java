@@ -78,7 +78,6 @@ public class MainFrame extends JFrame implements Subscriber {
         getContentPane().add(split, BorderLayout.CENTER);
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);
-
     }
 
 

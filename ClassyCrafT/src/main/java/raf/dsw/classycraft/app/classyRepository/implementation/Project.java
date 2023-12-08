@@ -26,26 +26,4 @@ public class Project extends ClassyNodeComposite {
         author = "Author";
         path = "Path";
     }
-
-    @Override
-    public void addChild(ClassyNode child) {
-        if(child instanceof Package){
-            Package aPackage = (Package) child;
-            if(!this.getChildren().contains(aPackage)){
-                this.getChildren().add(aPackage);
-
-                notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_ADDED, child));
-            }
-        }
-    }
-
-    @Override
-    public void deleteChild(ClassyNode child) {
-         if(child instanceof Package){
-             this.getChildren().remove(child);
-
-             child.notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_REMOVED, child));
-             notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_REMOVED, child));
-         }
-    }
 }

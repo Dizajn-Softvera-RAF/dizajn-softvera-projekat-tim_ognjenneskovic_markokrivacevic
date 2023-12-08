@@ -26,25 +26,4 @@ public class Package extends ClassyNodeComposite {
     public void setTemplate(boolean template) {
         this.template = template;
     }
-
-    @Override
-    public void addChild(ClassyNode child) {
-         if(child!=null && child instanceof Diagram){
-             Diagram diagram = (Diagram) child;
-             if(!this.getChildren().contains(diagram)){
-                 this.getChildren().add(diagram);
-                 notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_ADDED, child));
-             }
-         }
-    }
-
-    @Override
-    public void deleteChild(ClassyNode child) {
-         if(child!=null && child instanceof Diagram){
-             this.getChildren().remove(child);
-
-             child.notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_REMOVED, child));
-             notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_REMOVED, child));
-         }
-    }
 }

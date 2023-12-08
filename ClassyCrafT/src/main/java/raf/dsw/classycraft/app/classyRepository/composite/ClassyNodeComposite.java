@@ -1,5 +1,9 @@
 package raf.dsw.classycraft.app.classyRepository.composite;
 
+import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
+import raf.dsw.classycraft.app.classyRepository.NodeEventType;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -21,8 +25,23 @@ public abstract class ClassyNodeComposite extends ClassyNode
         this.children = children;
     }
 
-    public abstract void addChild(ClassyNode child);
+    public void addChild(ClassyNode child)
+    {
+        if(child!=null && !children.contains(child)){
+            children.add(child);
+            notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_ADDED, child));
+        }
+    }
 
-    public abstract void deleteChild(ClassyNode child);
+    public void deleteChild(ClassyNode child)
+    {
+        if(child!=null && children.contains(child))
+        {
+            children.remove(child);
+
+            child.notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_REMOVED, child));
+            notifySubscriber(new NodeChangeEvent(NodeEventType.CHILD_REMOVED, child));
+        }
+    }
 
 }

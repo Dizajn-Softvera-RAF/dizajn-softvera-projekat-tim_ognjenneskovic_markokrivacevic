@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ClassyCrafT/ClassyCrafT.iml" filepath="$PROJECT_DIR$/ClassyCrafT/ClassyCrafT.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/dizajn-softvera-projekat-tim_ognjenneskovic_markokrivacevic.iml" filepath="$PROJECT_DIR$/.idea/dizajn-softvera-projekat-tim_ognjenneskovic_markokrivacevic.iml" />
     </modules>
   </component>
