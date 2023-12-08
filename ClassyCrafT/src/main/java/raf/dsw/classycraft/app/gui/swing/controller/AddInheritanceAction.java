@@ -1,0 +1,18 @@
+package raf.dsw.classycraft.app.gui.swing.controller;
+
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
+
+import java.awt.event.ActionEvent;
+
+public class AddInheritanceAction extends AbstractClassyAction{
+    public AddInheritanceAction(){
+        // TODO: Implement this
+        putValue(NAME,"Add Inheritance");
+        putValue(SHORT_DESCRIPTION,"Add Inheritance");
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().startAddInheritanceState();
+    }
+}

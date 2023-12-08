@@ -27,5 +27,4 @@ public class ActionManager {
         authorNameAction = new AuthorNameAction();
         newPackageAction = new NewPackageAction();
     }
-
 }

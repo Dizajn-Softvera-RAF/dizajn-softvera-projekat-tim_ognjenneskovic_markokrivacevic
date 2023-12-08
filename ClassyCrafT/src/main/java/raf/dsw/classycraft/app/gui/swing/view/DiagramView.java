@@ -5,6 +5,8 @@ import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
+import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
+import raf.dsw.classycraft.app.state.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,7 @@ public class DiagramView extends JPanel
     private Diagram selectedDiagram;
     private final ArrayList<DiagramElement> elements = new ArrayList<>();
     private final ArrayList<ElementPainter> painters = new ArrayList<>();
+    private final StateManager stateManager = new StateManager();
     public DiagramView()
     {
         this.selectedDiagram = null;
@@ -37,5 +40,18 @@ public class DiagramView extends JPanel
     public void paint()
     {
         repaint();
+    }
+
+    public void startAddClassState()
+    {
+        stateManager.setAddClassState();
+    }
+    public void startAddInheritanceState()
+    {
+        stateManager.setAddInheritanceState();
+    }
+    public void startSelectState()
+    {
+        stateManager.setSelectState();
     }
 }

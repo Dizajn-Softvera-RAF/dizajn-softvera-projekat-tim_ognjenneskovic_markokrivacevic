@@ -31,6 +31,14 @@ public class PackageView extends JPanel implements TreeSelectionListener, Subscr
         tabbedPane = new JTabbedPane();
         add(tabbedPane, BorderLayout.CENTER);
     }
+    public DiagramView getSelectedDiagramView()
+    {
+        var selected = tabbedPane.getSelectedComponent();
+        if(selected instanceof DiagramView)
+            return (DiagramView) selected;
+        else
+            return null;
+    }
     public void openTabs(Package pckg)
     {
         tabbedPane.removeAll();
@@ -42,12 +50,9 @@ public class PackageView extends JPanel implements TreeSelectionListener, Subscr
             }
         }
         tabbedPane.addChangeListener(e -> {
-            var selected = tabbedPane.getSelectedComponent();
-            if(selected instanceof DiagramView)
-            {
-                var diagramView = (DiagramView) selected;
-                diagramView.paint();
-            }
+            var selected = getSelectedDiagramView();
+            if(selected != null)
+                selected.paint();
         });
         setListeners(pckg);
     }
