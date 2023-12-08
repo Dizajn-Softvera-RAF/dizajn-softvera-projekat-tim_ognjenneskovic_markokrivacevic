@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.gui.swing.factory;
 import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Package;
 import raf.dsw.classycraft.app.classyRepository.implementation.Project;
 import raf.dsw.classycraft.app.classyRepository.implementation.ProjectExplorer;
@@ -18,6 +19,8 @@ public class FactoryUtils {
     private DiagramFactory diagramFactory;
     private PackageFactory packageFactory;
 
+    private DiagramElementFactory diagramElementFactory;
+
     public FactoryUtils(){
         initialiseActions();
     }
@@ -26,6 +29,7 @@ public class FactoryUtils {
         projectFactory = new ProjectFactory();
         packageFactory = new PackageFactory();
         diagramFactory = new DiagramFactory();
+        diagramElementFactory = new DiagramElementFactory();
     }
 
     public NodeFactory getNodeFactory(ClassyNode node){
@@ -39,9 +43,10 @@ public class FactoryUtils {
             return packageFactory;
         }else if(node instanceof ProjectExplorer){
             return projectFactory;
-        }else{
+        }else if(node instanceof Diagram) {
+            return diagramElementFactory;
+        }else
             return null;
-        }
     }
 
 }

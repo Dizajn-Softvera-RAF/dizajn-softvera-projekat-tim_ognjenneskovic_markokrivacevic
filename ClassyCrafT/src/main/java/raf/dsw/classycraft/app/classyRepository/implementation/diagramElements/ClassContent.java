@@ -1,4 +1,13 @@
 package raf.dsw.classycraft.app.classyRepository.implementation.diagramElements;
 
-public abstract class ClassContent {
+import lombok.Getter;
+
+public abstract class ClassContent
+{
+    @Getter
+    protected String name;
+    public ClassContent(String name)
+    {
+        this.name = name;
+    }
 }
