@@ -49,7 +49,7 @@ public class MainFrame extends JFrame implements Subscriber {
         Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        setSize(screenWidth / 2, screenHeight / 2);
+        setSize(screenWidth *2/3, screenHeight * 2/3);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("ClassyCrafT");
@@ -74,7 +74,12 @@ public class MainFrame extends JFrame implements Subscriber {
         JScrollPane scroll = new JScrollPane(projcetExplorer);
         scroll.setMinimumSize(new Dimension(200,150));
 
-        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll, desktop);
+        var sideBar = new SideBar();
+        var rightSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, desktop, sideBar);
+        rightSplit.setDividerLocation(600);
+        rightSplit.setOneTouchExpandable(true);
+
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll, rightSplit);
         getContentPane().add(split, BorderLayout.CENTER);
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);

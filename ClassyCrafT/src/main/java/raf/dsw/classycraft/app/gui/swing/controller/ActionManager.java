@@ -15,6 +15,9 @@ public class ActionManager {
 
     private AuthorNameAction authorNameAction;
     private NewPackageAction newPackageAction;
+    private AddClassAction addClassAction;
+    private AddInheritanceAction addInheritanceAction;
+    private SelectAction selectAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -26,5 +29,9 @@ public class ActionManager {
         deleteChildAction = new DeleteChildAction();
         authorNameAction = new AuthorNameAction();
         newPackageAction = new NewPackageAction();
+
+        addClassAction = new AddClassAction();
+        addInheritanceAction = new AddInheritanceAction();
+        selectAction = new SelectAction();
     }
 }

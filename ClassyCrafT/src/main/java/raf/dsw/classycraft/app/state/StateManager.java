@@ -15,7 +15,7 @@ public class StateManager
 
     public StateManager()
     {
-        this.currentState = selectState;
+        currentState = selectState;
     }
 
     public void setAddClassState()

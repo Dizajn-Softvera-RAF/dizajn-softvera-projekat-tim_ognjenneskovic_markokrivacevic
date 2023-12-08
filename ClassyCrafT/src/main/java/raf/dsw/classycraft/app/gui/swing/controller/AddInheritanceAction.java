@@ -9,10 +9,13 @@ public class AddInheritanceAction extends AbstractClassyAction{
         // TODO: Implement this
         putValue(NAME,"Add Inheritance");
         putValue(SHORT_DESCRIPTION,"Add Inheritance");
+        putValue(SMALL_ICON,loadIcon("/images/arrow.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().startAddInheritanceState();
+        var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+        if (selectedDiagramView != null) {
+            selectedDiagramView.startAddInheritanceState();
+        }
     }
 }

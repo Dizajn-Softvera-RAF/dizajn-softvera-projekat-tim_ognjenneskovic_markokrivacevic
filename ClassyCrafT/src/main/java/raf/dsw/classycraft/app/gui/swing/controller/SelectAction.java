@@ -9,10 +9,13 @@ public class SelectAction extends AbstractClassyAction{
         // TODO: Implement this
         putValue(NAME,"Select");
         putValue(SHORT_DESCRIPTION,"Select");
+        putValue(SMALL_ICON,loadIcon("/images/select.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().startSelectState();
+        var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+        if (selectedDiagramView != null) {
+            selectedDiagramView.startSelectState();
+        }
     }
 }

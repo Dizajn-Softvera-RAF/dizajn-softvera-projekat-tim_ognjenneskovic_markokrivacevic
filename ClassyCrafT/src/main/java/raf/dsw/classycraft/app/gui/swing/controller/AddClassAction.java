@@ -9,10 +9,13 @@ public class AddClassAction extends AbstractClassyAction{
         // TODO: Implement this
         putValue(NAME,"Add Class");
         putValue(SHORT_DESCRIPTION,"Add Class");
+        putValue(SMALL_ICON,loadIcon("/images/new.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().startAddClassState();
+        var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+        if (selectedDiagramView != null) {
+            selectedDiagramView.startAddClassState();
+        }
     }
 }
