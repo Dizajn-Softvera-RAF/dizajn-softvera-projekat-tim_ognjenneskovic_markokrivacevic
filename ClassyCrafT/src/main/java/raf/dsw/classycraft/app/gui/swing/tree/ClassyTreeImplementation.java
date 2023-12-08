@@ -37,10 +37,12 @@ public class ClassyTreeImplementation implements ClassyTree{
         }
 
         ClassyNode child = createChild(parent.getClassyNode());
-        parent.add(new ClassyTreeItem(child));
-        ((ClassyNodeComposite) parent.getClassyNode()).addChild(child);
+        var node = new ClassyTreeItem(child);
+        parent.add(node);
         treeView.expandPath(treeView.getSelectionPath());
         SwingUtilities.updateComponentTreeUI(treeView);
+        treeView.setSelectionPath(new TreePath(node.getPath()));
+        ((ClassyNodeComposite) parent.getClassyNode()).addChild(child);
     }
 
     @Override

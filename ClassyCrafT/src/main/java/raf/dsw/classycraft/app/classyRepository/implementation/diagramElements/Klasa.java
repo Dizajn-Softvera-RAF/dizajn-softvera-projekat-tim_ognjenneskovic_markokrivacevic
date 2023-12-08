@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Klasa extends Interclass
 {
-    private final ArrayList<ClassContent> classContents = new ArrayList<>();
     public Klasa(String name, ClassyNode parent, Color color, int strokeWidth) {
         super(name, parent, color, strokeWidth);
     }
