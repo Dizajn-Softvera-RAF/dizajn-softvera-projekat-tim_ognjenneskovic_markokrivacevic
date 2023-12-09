@@ -1,10 +1,13 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Atribut;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Metod;
+import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.State;
 
 import java.awt.*;
@@ -22,7 +25,14 @@ public class AddClassState implements State
         newClass.addContent(new Metod("Method 1"));
         newClass.addContent(new Metod("Method 2"));
         newClass.addContent(new Metod("Method 3"));
-        diagramView.addElement(newClass, x, y);
+
+        var painter = new InterClassPainter(newClass, x, y);
+        var bb = painter.getBoundingBox();
+        if (diagramView.canAddInterClass(newClass, bb))
+        {
+            diagramView.addPainter(painter);
+            MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
+        }
     }
 
     @Override

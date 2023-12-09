@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 public abstract class ElementPainter
 {
+    @Getter
     protected DiagramElement element;
     @Getter
     protected int x;
@@ -19,5 +20,5 @@ public abstract class ElementPainter
         this.y = y;
     }
     public abstract void paint(Graphics g);
-    public abstract Rectangle getBoundingBox(Graphics g);
+    public abstract Rectangle getBoundingBox();
 }
