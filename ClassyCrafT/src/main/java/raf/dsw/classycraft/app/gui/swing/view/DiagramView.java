@@ -23,6 +23,7 @@ public class DiagramView extends JPanel
 {
     @Getter
     private final ClassyTreeItem selectedDiagram;
+    @Getter
     private final ArrayList<ElementPainter> painters = new ArrayList<>();
     @Getter
     private final StateManager stateManager = new StateManager();

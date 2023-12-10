@@ -83,7 +83,17 @@ public class AddInheritanceState implements State
     }
 
     @Override
+    public void mouseClicked(int x, int y, DiagramView diagramView) {
+
+    }
+
+    @Override
     public void mouseReleased(int x, int y, DiagramView diagramView) {
+
+    }
+
+    @Override
+    public void mouseMoved(int x, int y, DiagramView diagramView) {
 
     }
 
@@ -94,5 +104,12 @@ public class AddInheritanceState implements State
             diagramView.getTempArrowPainter().updateEndPos(x, y);
             diagramView.paint();
         }
+    }
+
+    @Override
+    public void stateExited(DiagramView diagramView) {
+        if (nodeFrom != null)
+            nodeFrom.markUnselected();
+        diagramView.setTempArrowPainter(null);
     }
 }

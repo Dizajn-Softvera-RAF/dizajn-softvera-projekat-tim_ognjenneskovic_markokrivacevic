@@ -8,10 +8,15 @@ import java.awt.*;
 public class TempRectanglePainter extends ElementPainter
 {
     int width, height;
+    public TempRectanglePainter(DiagramElement element, int x, int y, int width, int height) {
+        super(element, x, y);
+        this.width = width;
+        this.height = height;
+    }
     public TempRectanglePainter(DiagramElement element, int x, int y) {
         super(element, x, y);
-        width = 100;
-        height = 100;
+        this.width = 100;
+        this.height = 100;
     }
 
     @Override

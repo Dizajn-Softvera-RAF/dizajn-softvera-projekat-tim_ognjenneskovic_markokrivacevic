@@ -17,6 +17,11 @@ public class AddClassState implements State
 
     @Override
     public void mousePressed(int x, int y, DiagramView diagramView) {
+
+    }
+
+    @Override
+    public void mouseClicked(int x, int y, DiagramView diagramView) {
         var diagram = diagramView.getSelectedDiagram().getClassyNode();
 
         var newClass = new Klasa("NewClass", diagram, Color.BLACK, 5);
@@ -41,7 +46,7 @@ public class AddClassState implements State
     }
 
     @Override
-    public void mouseDragged(int x, int y, DiagramView diagramView) {
+    public void mouseMoved(int x, int y, DiagramView diagramView) {
         if (diagramView.getTempRectPainter() == null)
         {
             diagramView.setTempRectPainter(new TempRectanglePainter(null, x, y));
@@ -52,5 +57,15 @@ public class AddClassState implements State
         }
         diagramView.paint();
 
+    }
+
+    @Override
+    public void mouseDragged(int x, int y, DiagramView diagramView) {
+
+    }
+
+    @Override
+    public void stateExited(DiagramView diagramView) {
+        diagramView.setTempRectPainter(null);
     }
 }
