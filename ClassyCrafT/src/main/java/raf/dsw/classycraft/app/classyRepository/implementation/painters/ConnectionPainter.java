@@ -16,11 +16,14 @@ public class ConnectionPainter extends ElementPainter {
 
     @Override
     public void paint(Graphics g) {
-
+        g.setColor(element.getColor());
+        g.drawLine(x, y, endX, endY);
     }
 
     @Override
-    public Rectangle getBoundingBox(Graphics g) {
-        return null;
+    public Rectangle getBoundingBox() {
+        int width = Math.abs(endX - x);
+        int height = Math.abs(endY - y);
+        return new Rectangle(x,y,width,height);
     }
 }

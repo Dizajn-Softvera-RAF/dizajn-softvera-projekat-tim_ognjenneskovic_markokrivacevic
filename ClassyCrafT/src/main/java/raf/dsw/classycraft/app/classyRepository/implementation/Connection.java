@@ -8,9 +8,9 @@ public abstract class Connection extends DiagramElement
 {
     protected Interclass nodeFrom;
     protected Interclass nodeTo;
-    public Connection(String name, ClassyNode parent, Color color, int strokeWidth, Interclass nodeFrom, Interclass nodeTo)
+    public Connection(ClassyNode parent, Color color, int strokeWidth, Interclass nodeFrom, Interclass nodeTo)
     {
-        super(name, parent, color, strokeWidth);
+        super("Connection", parent, color, strokeWidth);
         this.nodeFrom = nodeFrom;
         this.nodeTo = nodeTo;
     }

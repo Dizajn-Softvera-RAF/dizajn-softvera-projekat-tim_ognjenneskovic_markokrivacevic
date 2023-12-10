@@ -4,6 +4,7 @@ import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -31,18 +32,26 @@ public class InterClassPainter extends ElementPainter {
     public void paint(Graphics g) {
         if (!(element instanceof Interclass))
             return;
-        g.setColor(Color.BLACK);
-
         constructBoundingBox(g, true);
     }
 
     private Rectangle constructBoundingBox(Graphics g, boolean shouldDraw)
     {
+        if(shouldDraw)
+            g.setColor(Color.BLACK); // Set color black for text
+
         var interClass = (Interclass)element;
 
         int maxRectWidth = 0;
         int totalRectHeight = 0;
-        var fontMetrics = g.getFontMetrics();
+
+        FontMetrics fontMetrics;
+        if (g != null)
+            fontMetrics = g.getFontMetrics();
+        else {
+            var diagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+            fontMetrics = diagramView.getFontMetrics(diagramView.getFont());
+        }
 
         if (shouldDraw)
             g.drawString(element.getName(), x + 10, y + NAME_SPACING);
@@ -72,12 +81,15 @@ public class InterClassPainter extends ElementPainter {
         // Draw rectangle
         int w = maxRectWidth + 20;
         int h = totalRectHeight + 20;
-        if(shouldDraw)
+        if(shouldDraw) {
+            g.setColor(element.getColor());
             g.drawRect(x, y, w, h);
+        }
         return new Rectangle(x, y, w, h);
     }
     @Override
-    public Rectangle getBoundingBox(Graphics g) {
-        return constructBoundingBox(g, false);
+    public Rectangle getBoundingBox() {
+
+        return constructBoundingBox(null, false);
     }
 }

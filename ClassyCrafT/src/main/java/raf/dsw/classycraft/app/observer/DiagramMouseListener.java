@@ -14,15 +14,23 @@ public class DiagramMouseListener extends MouseAdapter
     }
     @Override
     public void mouseClicked(MouseEvent e) {
+        diagramView.getStateManager().getCurrentState().mouseClicked(e.getX(), e.getY(), diagramView);
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
         diagramView.getStateManager().getCurrentState().mousePressed(e.getX(), e.getY(), diagramView);
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
         diagramView.getStateManager().getCurrentState().mouseReleased(e.getX(), e.getY(), diagramView);
     }
     @Override
     public void mouseMoved(MouseEvent e) {
+        diagramView.getStateManager().getCurrentState().mouseMoved(e.getX(), e.getY(), diagramView);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
         diagramView.getStateManager().getCurrentState().mouseDragged(e.getX(), e.getY(), diagramView);
     }
 }

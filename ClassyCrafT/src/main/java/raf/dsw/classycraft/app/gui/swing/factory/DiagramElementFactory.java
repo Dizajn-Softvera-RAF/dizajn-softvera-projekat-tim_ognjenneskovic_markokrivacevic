@@ -21,7 +21,7 @@ public class DiagramElementFactory extends NodeFactory
         if(currentState instanceof AddClassState)
             return new Klasa("New Class", parent, Color.BLACK, 5);
         else if(currentState instanceof AddInheritanceState) // TODO: Implement this properly
-            return new Generalizacija(null, parent, Color.BLACK, 5, null, null);
+            return new Generalizacija(parent, Color.BLACK, 5, null, null);
         else
             return null;
     }
