@@ -4,6 +4,7 @@ import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 
 public class ZoomController
 {
@@ -35,6 +36,18 @@ public class ZoomController
 
         zoomTransform.concatenate(currentTransform);
         currentTransform = zoomTransform;
+    }
+    public Point getOriginalPoint(Point p) {
+        var inverseTransform = new AffineTransform();
+        try {
+            inverseTransform = currentTransform.createInverse();
+        } catch (NoninvertibleTransformException e) {
+            return null;
+        }
+
+        var point = new Point(p.x, p.y);
+        inverseTransform.transform(point, point);
+        return point;
     }
     public void applyTransform(Graphics2D g)
     {

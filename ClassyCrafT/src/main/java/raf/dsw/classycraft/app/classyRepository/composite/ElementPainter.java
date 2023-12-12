@@ -33,4 +33,12 @@ public abstract class ElementPainter
         x = point.x;
         y = point.y;
     }
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(!(obj instanceof ElementPainter))
+            return false;
+        var other = (ElementPainter)obj;
+        return element.equals(other.element);
+    }
 }
