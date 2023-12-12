@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.classyRepository.implementation.painters;
 
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
+import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
@@ -91,5 +92,34 @@ public class InterClassPainter extends ElementPainter {
     public Rectangle getBoundingBox() {
 
         return constructBoundingBox(null, false);
+    }
+    @Override
+    public void applyTransformToPoints(AffineTransform transform)
+    {
+        super.applyTransformToPoints(transform);
+        // When moving, all the connections with this element should be moved as well
+        var diagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+        for(var painter: diagramView.getPainters())
+        {
+            if(painter instanceof ConnectionPainter)
+            {
+                var connectionPainter = (ConnectionPainter)painter;
+                var connection = (Connection)(connectionPainter.getElement());
+                var newStartPoint = new Point(connectionPainter.getX(), connectionPainter.getY());
+                var newEndPoint = new Point(connectionPainter.getEndX(), connectionPainter.getEndY());
+                if(connection.getNodeFrom() == element)
+                {
+                    // Transform only the start point
+                    transform.transform(newStartPoint, newStartPoint);
+                }
+                else if(connection.getNodeTo() == element)
+                {
+                    // Transform only the end point
+                    transform.transform(newEndPoint, newEndPoint);
+                }
+                connectionPainter.setStartPoint(newStartPoint);
+                connectionPainter.setEndPoint(newEndPoint);
+            }
+        }
     }
 }
