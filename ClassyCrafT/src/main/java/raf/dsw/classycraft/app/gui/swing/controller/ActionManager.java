@@ -20,6 +20,7 @@ public class ActionManager {
     private SelectAction selectAction;
     private ZoomInAction zoomInAction;
     private ZoomOutAction zoomOutAction;
+    private MoveAction moveAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -37,5 +38,6 @@ public class ActionManager {
         selectAction = new SelectAction();
         zoomInAction = new ZoomInAction();
         zoomOutAction = new ZoomOutAction();
+        moveAction = new MoveAction();
     }
 }

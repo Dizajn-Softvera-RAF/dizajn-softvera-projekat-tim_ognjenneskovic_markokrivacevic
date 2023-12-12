@@ -5,6 +5,7 @@ import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class TempArrowPainter extends ElementPainter
 {
@@ -35,6 +36,15 @@ public class TempArrowPainter extends ElementPainter
     {
         this.endX = x;
         this.endY = y;
+    }
+    @Override
+    public void applyTransformToPoints(AffineTransform transform)
+    {
+        super.applyTransformToPoints(transform);
+        var point = new Point(endX, endY);
+        transform.transform(point, point);
+        endX = point.x;
+        endY = point.y;
     }
 
 }

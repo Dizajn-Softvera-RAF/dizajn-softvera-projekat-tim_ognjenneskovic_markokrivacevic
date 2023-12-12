@@ -12,6 +12,7 @@ public class StateManager
     private final SelectState selectState = new SelectState();
     private final ZoomInState zoomInState = new ZoomInState();
     private final ZoomOutState zoomOutState = new ZoomOutState();
+    private final MoveState moveState = new MoveState();
     public StateManager()
     {
         currentState = selectState;
@@ -45,5 +46,10 @@ public class StateManager
     {
         currentState.stateExited(); // Duplicate code because of set...State methods :))
         currentState = zoomOutState;
+    }
+    public void setMoveState()
+    {
+        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState = moveState;
     }
 }

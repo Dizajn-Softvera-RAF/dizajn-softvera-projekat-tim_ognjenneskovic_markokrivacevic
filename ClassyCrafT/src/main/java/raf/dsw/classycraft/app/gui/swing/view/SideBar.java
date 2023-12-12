@@ -27,5 +27,7 @@ public class SideBar extends JToolBar
         });
         add(zoomButton);
 
+        add(MainFrame.getInstance().getActionManager().getMoveAction());
+
     }
 }
