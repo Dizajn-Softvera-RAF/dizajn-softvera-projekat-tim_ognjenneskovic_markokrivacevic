@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.classyRepository.implementation.painters;
 
+import lombok.Getter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class ConnectionPainter extends ElementPainter {
+    @Getter
     private int endX, endY;
     public ConnectionPainter(DiagramElement element, int startX, int startY, int endX, int endY) {
         super(element, startX, startY);
@@ -33,6 +35,16 @@ public class ConnectionPainter extends ElementPainter {
         super.applyTransformToPoints(transform);
         var point = new Point(endX, endY);
         transform.transform(point, point);
+        endX = point.x;
+        endY = point.y;
+    }
+    public void setStartPoint(Point point)
+    {
+        x = point.x;
+        y = point.y;
+    }
+    public void setEndPoint(Point point)
+    {
         endX = point.x;
         endY = point.y;
     }

@@ -106,5 +106,6 @@ public class DiagramView extends JPanel
         stateManager.setZoomInState();
     }
     public void startZoomOutState() { stateManager.setZoomOutState();}
-    public void startMoveState() { stateManager.setMoveState();}
+    public void startPanState() { stateManager.setPanState();}
+    public void startMoveState () { stateManager.setMoveState();}
 }
