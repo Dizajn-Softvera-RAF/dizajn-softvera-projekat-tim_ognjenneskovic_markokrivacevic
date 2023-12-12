@@ -14,8 +14,9 @@ import java.awt.*;
 
 public class AddInheritanceState implements State
 {
-    private Interclass nodeFrom;
-    private Interclass nodeTo;
+    private Interclass nodeFrom = null;
+    private Interclass nodeTo = null;
+    private Point startPoint = null;
 
     /**
      * Returns one of four points (top center, left center, etc.) on rectangle based on x and y coordinates
@@ -42,7 +43,7 @@ public class AddInheritanceState implements State
     @Override
     public void mousePressed(int x, int y, DiagramView diagramView) {
         // Start drawing new arrow
-        if(diagramView.getTempArrowPainter() == null)
+        if(nodeFrom == null)
         {
             var painter = diagramView.getInterclassPainterAt(x, y);
             if (painter == null) // If no node is clicked don't start drawing arrow
@@ -51,7 +52,7 @@ public class AddInheritanceState implements State
 
             nodeFrom = node;
             nodeFrom.markSelected();
-            var startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
+            startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
             diagramView.setTempArrowPainter(new TempArrowPainter(null, startPoint.x, startPoint.y));
         }
         // Finish drawing arrow
@@ -76,10 +77,15 @@ public class AddInheritanceState implements State
                     endPoint.x, endPoint.y);
             diagramView.addPainter(connectionPainter);
             MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
+
             diagramView.setTempArrowPainter(null);
             nodeFrom.markUnselected();
-            diagramView.paint();
+            nodeFrom = null;
+            nodeTo = null;
+            startPoint = null;
         }
+        // Force repaint
+        diagramView.paint();
     }
 
     @Override
@@ -94,12 +100,7 @@ public class AddInheritanceState implements State
 
     @Override
     public void mouseMoved(int x, int y, DiagramView diagramView) {
-
-    }
-
-    @Override
-    public void mouseDragged(int x, int y, DiagramView diagramView) {
-        if (diagramView.getTempArrowPainter() != null)
+        if(nodeFrom != null)
         {
             diagramView.getTempArrowPainter().updateEndPos(x, y);
             diagramView.paint();
@@ -107,9 +108,15 @@ public class AddInheritanceState implements State
     }
 
     @Override
-    public void stateExited(DiagramView diagramView) {
+    public void mouseDragged(int x, int y, DiagramView diagramView) {
+
+    }
+
+    @Override
+    public void stateExited() {
         if (nodeFrom != null)
             nodeFrom.markUnselected();
-        diagramView.setTempArrowPainter(null);
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().setTempArrowPainter(null);
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().paint();
     }
 }

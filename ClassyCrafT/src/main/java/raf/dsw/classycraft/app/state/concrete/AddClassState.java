@@ -47,16 +47,11 @@ public class AddClassState implements State
 
     @Override
     public void mouseMoved(int x, int y, DiagramView diagramView) {
-        if (diagramView.getTempRectPainter() == null)
-        {
-            diagramView.setTempRectPainter(new TempRectanglePainter(null, x, y));
-        }
-        else
-        {
-            diagramView.getTempRectPainter().setPos(x, y);
-        }
-        diagramView.paint();
 
+        // Set painter for temp rectangle
+        diagramView.setTempRectPainter(new TempRectanglePainter(null, x, y));
+        // Force repaint
+        diagramView.paint();
     }
 
     @Override
@@ -65,7 +60,8 @@ public class AddClassState implements State
     }
 
     @Override
-    public void stateExited(DiagramView diagramView) {
-        diagramView.setTempRectPainter(null);
+    public void stateExited() {
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().setTempRectPainter(null);
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().paint();
     }
 }

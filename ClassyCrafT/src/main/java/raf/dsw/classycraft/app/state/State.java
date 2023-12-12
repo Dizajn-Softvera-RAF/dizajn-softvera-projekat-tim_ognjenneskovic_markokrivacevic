@@ -9,5 +9,5 @@ public interface State
     void mouseReleased(int x, int y, DiagramView diagramView);
     void mouseMoved(int x, int y, DiagramView diagramView);
     void mouseDragged(int x, int y, DiagramView diagramView);
-    void stateExited(DiagramView diagramView);
+    void stateExited();
 }

@@ -4,6 +4,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.geometry.Utils;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.State;
 
 import java.awt.*;
@@ -51,6 +52,7 @@ public class SelectState implements State
         markSelected(diagramView, rect);
         // Update temp rect painter
         diagramView.setTempRectPainter(new TempRectanglePainter(null, topLeft.x, topLeft.y, width, height));
+        // Force repaint
         diagramView.paint();
     }
     @Override
@@ -76,11 +78,10 @@ public class SelectState implements State
     }
 
     @Override
-    public void stateExited(DiagramView diagramView) {
+    public void stateExited() {
         startPoint = null;
         endPoint = null;
-        diagramView.setTempRectPainter(null);
-        for(var painter: diagramView.getPainters())
-            painter.getElement().markUnselected();
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().setTempRectPainter(null);
+        MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView().paint();
     }
 }

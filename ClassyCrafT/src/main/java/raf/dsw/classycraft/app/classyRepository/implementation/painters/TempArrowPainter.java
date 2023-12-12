@@ -17,13 +17,12 @@ public class TempArrowPainter extends ElementPainter
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         // Draw dashed gray line
-        Graphics2D g2d = (Graphics2D) g;
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
-        g2d.setStroke(dashed);
-        g2d.setColor(Color.GRAY);
-        g2d.drawLine(x, y, endX, endY);
+        g.setStroke(dashed);
+        g.setColor(Color.GRAY);
+        g.drawLine(x, y, endX, endY);
     }
 
     @Override
