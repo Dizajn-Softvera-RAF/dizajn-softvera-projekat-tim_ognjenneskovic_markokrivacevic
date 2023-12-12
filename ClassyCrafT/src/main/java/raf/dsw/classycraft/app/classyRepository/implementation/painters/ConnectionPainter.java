@@ -5,6 +5,7 @@ import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class ConnectionPainter extends ElementPainter {
     private int endX, endY;
@@ -15,7 +16,7 @@ public class ConnectionPainter extends ElementPainter {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         g.setColor(element.getColor());
         g.drawLine(x, y, endX, endY);
     }
@@ -25,5 +26,14 @@ public class ConnectionPainter extends ElementPainter {
         int width = Math.abs(endX - x);
         int height = Math.abs(endY - y);
         return new Rectangle(x,y,width,height);
+    }
+    @Override
+    public void applyTransformToPoints(AffineTransform transform)
+    {
+        super.applyTransformToPoints(transform);
+        var point = new Point(endX, endY);
+        transform.transform(point, point);
+        endX = point.x;
+        endY = point.y;
     }
 }

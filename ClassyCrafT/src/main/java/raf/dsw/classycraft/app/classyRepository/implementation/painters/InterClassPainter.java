@@ -1,13 +1,12 @@
 package raf.dsw.classycraft.app.classyRepository.implementation.painters;
 
-import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.AffineTransform;
 
 public class InterClassPainter extends ElementPainter {
 
@@ -29,16 +28,17 @@ public class InterClassPainter extends ElementPainter {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         if (!(element instanceof Interclass))
             return;
         constructBoundingBox(g, true);
     }
 
-    private Rectangle constructBoundingBox(Graphics g, boolean shouldDraw)
+    private Rectangle constructBoundingBox(Graphics2D g, boolean shouldDraw)
     {
-        if(shouldDraw)
+        if(shouldDraw) {
             g.setColor(Color.BLACK); // Set color black for text
+        }
 
         var interClass = (Interclass)element;
 

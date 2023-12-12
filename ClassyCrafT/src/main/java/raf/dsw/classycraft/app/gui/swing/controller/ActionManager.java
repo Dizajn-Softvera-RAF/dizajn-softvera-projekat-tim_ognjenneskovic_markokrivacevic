@@ -18,6 +18,9 @@ public class ActionManager {
     private AddClassAction addClassAction;
     private AddInheritanceAction addInheritanceAction;
     private SelectAction selectAction;
+    private ZoomInAction zoomInAction;
+    private ZoomOutAction zoomOutAction;
+    private MoveAction moveAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -33,5 +36,8 @@ public class ActionManager {
         addClassAction = new AddClassAction();
         addInheritanceAction = new AddInheritanceAction();
         selectAction = new SelectAction();
+        zoomInAction = new ZoomInAction();
+        zoomOutAction = new ZoomOutAction();
+        moveAction = new MoveAction();
     }
 }

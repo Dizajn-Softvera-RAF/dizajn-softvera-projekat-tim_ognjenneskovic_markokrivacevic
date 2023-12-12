@@ -20,13 +20,12 @@ public class TempRectanglePainter extends ElementPainter
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics2D g) {
         // Draw dashed gray rectangle
-        Graphics2D g2d = (Graphics2D) g;
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
-        g2d.setStroke(dashed);
-        g2d.setColor(Color.GRAY);
-        g2d.drawRect(x, y, width, height);
+        g.setStroke(dashed);
+        g.setColor(Color.GRAY);
+        g.drawRect(x, y, width, height);
     }
 
     @Override

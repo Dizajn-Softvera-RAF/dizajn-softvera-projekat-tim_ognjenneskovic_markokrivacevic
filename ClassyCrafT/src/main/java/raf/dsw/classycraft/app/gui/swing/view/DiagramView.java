@@ -2,14 +2,10 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
-import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
-import raf.dsw.classycraft.app.classyRepository.implementation.painters.ConnectionPainter;
-import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
-import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempArrowPainter;
-import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
+import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
 import raf.dsw.classycraft.app.geometry.Utils;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.observer.DiagramMouseListener;
@@ -33,6 +29,9 @@ public class DiagramView extends JPanel
     @Getter
     @Setter
     private TempArrowPainter tempArrowPainter = null;
+
+    @Getter
+    private ZoomController zoomController;
     public DiagramView()
     {
         this.selectedDiagram = MainFrame.getInstance().getClassyTree().getSelectedNode();
@@ -40,6 +39,7 @@ public class DiagramView extends JPanel
         setBackground(Color.WHITE);
         addMouseMotionListener(new DiagramMouseListener(this));
         addMouseListener(new DiagramMouseListener(this));
+        zoomController = new ZoomController();
     }
     public void addPainter(ElementPainter painter)
     {
@@ -49,12 +49,14 @@ public class DiagramView extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        var graphics = (Graphics2D) g;
+        zoomController.applyTransform(graphics);
         for (var painter : painters)
-            painter.paint(g);
+            painter.paint(graphics);
         if (tempRectPainter != null)
-            tempRectPainter.paint(g);
+            tempRectPainter.paint(graphics);
         if (tempArrowPainter != null)
-            tempArrowPainter.paint(g);
+            tempArrowPainter.paint(graphics);
     }
     public boolean canAddInterClass(Interclass interclass, Rectangle boundingBox)
     {
@@ -99,4 +101,10 @@ public class DiagramView extends JPanel
     {
         stateManager.setSelectState();
     }
+    public void startZoomInState()
+    {
+        stateManager.setZoomInState();
+    }
+    public void startZoomOutState() { stateManager.setZoomOutState();}
+    public void startMoveState() { stateManager.setMoveState();}
 }
