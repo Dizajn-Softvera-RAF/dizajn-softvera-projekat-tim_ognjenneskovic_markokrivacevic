@@ -33,6 +33,7 @@ public class SideBar extends JToolBar
         JPopupMenu submenu = new JPopupMenu();
         submenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getZoomInAction()));
         submenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getZoomOutAction()));
+        submenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getZoomToFitAction()));
 
         zoomButton.addActionListener(e -> {
             // Show the submenu to the left of the button

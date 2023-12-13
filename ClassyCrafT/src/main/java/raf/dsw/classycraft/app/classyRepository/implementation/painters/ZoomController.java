@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.classyRepository.implementation.painters;
 
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
+import raf.dsw.classycraft.app.gui.swing.view.DiagramViewManager;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -56,5 +57,42 @@ public class ZoomController
     public void resetTransform()
     {
         currentTransform = new AffineTransform();
+    }
+    public void zoomToFit(DiagramView diagramView)
+    {
+        // Construct bounding rectangle that includes all shapes
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for(var painter: diagramView.getPainters())
+        {
+            var bb = painter.getBoundingBox();
+            if(bb.x < minX)
+                minX = bb.x;
+            if(bb.y < minY)
+                minY = bb.y;
+            if(bb.x + bb.width > maxX)
+                maxX = bb.x + bb.width;
+            if(bb.y + bb.height > maxY)
+                maxY = bb.y + bb.height;
+        }
+        // Add padding
+        var padding = 10;
+        minX -= padding;
+        minY -= padding;
+        maxX += padding;
+        maxY += padding;
+        // Find a scale factor that will either scale horizontally or vertically to fit
+        var screenWidth = diagramView.getWidth();
+        var screenHeight = diagramView.getHeight();
+        var horizontalScaleFactor = (double) screenWidth / (maxX - minX);
+        var verticalScaleFactor = (double) screenHeight / (maxY - minY);
+        var scaleFactor = Math.min(horizontalScaleFactor, verticalScaleFactor);
+        // Center the diagram (same as if there was a click in the middle of the bounding box)
+        var cx = minX + (maxX - minX) / 2;
+        var cy = minY + (maxY - minY) / 2;
+        handleClick(cx, cy, diagramView, scaleFactor);
+        diagramView.paint();
     }
 }
