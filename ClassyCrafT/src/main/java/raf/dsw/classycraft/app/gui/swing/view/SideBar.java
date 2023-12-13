@@ -17,6 +17,17 @@ public class SideBar extends JToolBar
         add(MainFrame.getInstance().getActionManager().getAddInheritanceAction());
         add(MainFrame.getInstance().getActionManager().getSelectAction());
 
+        JButton inheritanceButton = getIconButton("/images/arrow.png");
+        JPopupMenu inherMenu = new JPopupMenu();
+        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddAssociationAction()));
+        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddGeneralisationAction()));
+        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddAggregationAction()));
+        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddCompositionAction()));
+        inheritanceButton.addActionListener(e->{
+            inherMenu.show(inheritanceButton,-inherMenu.getPreferredSize().width,0);
+        });
+        add(inheritanceButton);
+
         JButton zoomButton = getIconButton("/images/zoom.png");
 
         JPopupMenu submenu = new JPopupMenu();
