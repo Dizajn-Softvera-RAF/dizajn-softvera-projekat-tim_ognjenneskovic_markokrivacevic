@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Atribut;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
@@ -22,21 +23,17 @@ public class AddClassState implements State
 
     @Override
     public void mouseClicked(int x, int y, DiagramView diagramView) {
-        var diagram = diagramView.getSelectedDiagram().getClassyNode();
+        var diagram = (Diagram) diagramView.getSelectedDiagram().getClassyNode();
 
-        var newClass = new Klasa("NewClass", diagram, Color.BLACK, 5);
-        newClass.addContent(new Atribut("Attribute 1"));
-        newClass.addContent(new Atribut("Attribute 2"));
-        newClass.addContent(new Metod("Method 1"));
-        newClass.addContent(new Metod("Method 2"));
-        newClass.addContent(new Metod("Method 3"));
-
-        var painter = new InterClassPainter(newClass, x, y);
+        var tempClass = new Klasa("NewClass", diagram, Color.BLACK, 5);
+        var painter = new InterClassPainter(tempClass, x, y);
         var bb = painter.getBoundingBox();
-        if (diagramView.canAddInterClass(newClass, bb))
+        if (diagramView.canAddInterClass(tempClass, bb))
         {
-            diagramView.addPainter(painter);
             MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
+            var newClass = (Klasa)diagram.getChildren().get(diagram.getChildren().size() - 1);
+            painter = new InterClassPainter(newClass, x, y);
+            diagramView.addPainter(painter);
         }
     }
 

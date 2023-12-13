@@ -13,5 +13,6 @@ public interface ClassyTree {
     void removeChild(ClassyTreeItem child);
 
     ClassyTreeItem getSelectedNode();
+    void repaintTree();
 
 }

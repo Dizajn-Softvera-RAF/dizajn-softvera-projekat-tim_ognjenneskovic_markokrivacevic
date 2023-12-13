@@ -56,8 +56,8 @@ public abstract class ClassyNode implements Publisher
         var subscribersCopy = new ArrayList<>(subscribers);
         for(var sub: subscribersCopy)
             sub.update(notification);
-        if(parent != null)
-            parent.notifySubscriber(notification);
+//        if(parent != null)
+//            parent.notifySubscriber(notification);
     }
 
 }

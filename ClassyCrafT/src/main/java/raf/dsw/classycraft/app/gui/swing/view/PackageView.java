@@ -49,11 +49,6 @@ public class PackageView extends JPanel implements TreeSelectionListener, Subscr
                 tabbedPane.add(diagram.getName(), new DiagramView());
             }
         }
-        tabbedPane.addChangeListener(e -> {
-            var selected = getSelectedDiagramView();
-            if(selected != null)
-                selected.paint();
-        });
         setListeners(pckg);
     }
     /**

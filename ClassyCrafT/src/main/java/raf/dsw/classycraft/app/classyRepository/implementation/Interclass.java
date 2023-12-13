@@ -24,4 +24,8 @@ public abstract class Interclass extends DiagramElement
     {
         this.content.remove(content);
     }
+    public void clearContent()
+    {
+        this.content.clear();
+    }
 }

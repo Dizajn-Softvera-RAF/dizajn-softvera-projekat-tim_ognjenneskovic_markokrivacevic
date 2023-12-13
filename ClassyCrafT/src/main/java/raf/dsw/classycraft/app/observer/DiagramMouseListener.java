@@ -43,7 +43,6 @@ public class DiagramMouseListener extends MouseAdapter
     public void mouseMoved(MouseEvent e) {
         passEventToState((x, y, diagramView) -> diagramView.getStateManager().getCurrentState().mouseMoved(x, y, diagramView), e);
     }
-
     @Override
     public void mouseDragged(MouseEvent e) {
         passEventToState((x, y, diagramView) -> diagramView.getStateManager().getCurrentState().mouseDragged(x, y, diagramView), e);
