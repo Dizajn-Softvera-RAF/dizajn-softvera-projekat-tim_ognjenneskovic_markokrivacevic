@@ -24,6 +24,7 @@ public class ActionManager {
     private SelectAction selectAction;
     private ZoomInAction zoomInAction;
     private ZoomOutAction zoomOutAction;
+    private ZoomToFitAction zoomToFitAction;
     private PanAction panAction;
     private MoveAction moveAction;
     public ActionManager(){
@@ -47,6 +48,7 @@ public class ActionManager {
         selectAction = new SelectAction();
         zoomInAction = new ZoomInAction();
         zoomOutAction = new ZoomOutAction();
+        zoomToFitAction = new ZoomToFitAction();
         panAction = new PanAction();
         moveAction = new MoveAction();
     }
