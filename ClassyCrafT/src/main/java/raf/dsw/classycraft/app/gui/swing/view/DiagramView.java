@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
 import raf.dsw.classycraft.app.geometry.Utils;
@@ -83,6 +84,14 @@ public class DiagramView extends JPanel
             }
         }
         return null;
+    }
+    public ArrayList<ElementPainter> getSelectedPainters()
+    {
+        var selectedPainters = new ArrayList<ElementPainter>();
+        for(var painter: painters)
+            if(painter.getElement().isSelected())
+                selectedPainters.add(painter);
+        return selectedPainters;
     }
     public void paint()
     {

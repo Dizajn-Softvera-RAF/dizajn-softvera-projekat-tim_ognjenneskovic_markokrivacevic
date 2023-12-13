@@ -72,4 +72,11 @@ public class ClassyTreeImplementation implements ClassyTree{
         NodeFactory nf = new FactoryUtils().getNodeFactory(parent);
         return nf.createNode((ClassyNodeComposite) parent);
     }
+    @Override
+    public void repaintTree()
+    {
+        var currentSelection = treeView.getSelectionPath();
+        treeModel.reload();
+        treeView.setSelectionPath(currentSelection);
+    }
 }
