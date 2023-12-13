@@ -41,12 +41,14 @@ public class PackageView extends JPanel implements TreeSelectionListener, Subscr
     }
     public void openTabs(Package pckg)
     {
+        var manager = DiagramViewManager.getInstance();
         tabbedPane.removeAll();
         for (var child : pckg.getChildren())
         {
             if (child instanceof Diagram) {
                 var diagram = (Diagram) child;
-                tabbedPane.add(diagram.getName(), new DiagramView());
+                var diagramView = manager.getDiagramView(diagram);
+                tabbedPane.add(diagram.getName(), diagramView);
             }
         }
         setListeners(pckg);
