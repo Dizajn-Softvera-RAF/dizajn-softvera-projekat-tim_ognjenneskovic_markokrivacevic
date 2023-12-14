@@ -17,7 +17,7 @@ public class AddDependencyAction extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState(Zavisnost.class);
+            selectedDiagramView.startAddConnectionState(Zavisnost.class);
         }
     }
 }

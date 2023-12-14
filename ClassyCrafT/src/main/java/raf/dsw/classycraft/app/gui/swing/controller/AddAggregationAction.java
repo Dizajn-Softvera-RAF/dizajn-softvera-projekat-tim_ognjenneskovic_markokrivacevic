@@ -16,7 +16,7 @@ public class AddAggregationAction extends AbstractClassyAction {
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState(Agregacija.class);
+            selectedDiagramView.startAddConnectionState(Agregacija.class);
         }
     }
 }

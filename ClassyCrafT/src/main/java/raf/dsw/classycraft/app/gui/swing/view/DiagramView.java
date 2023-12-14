@@ -100,7 +100,7 @@ public class DiagramView extends JPanel
     public <T extends Interclass> void startAddClassState(Class<T> interclassClass) {
         stateManager.setAddInterclassState(interclassClass);
     }
-    public <T extends Connection> void startAddInheritanceState(Class<T> connectionClass)
+    public <T extends Connection> void startAddConnectionState(Class<T> connectionClass)
     {
         stateManager.setAddConnectionState(connectionClass);
     }

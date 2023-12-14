@@ -17,7 +17,7 @@ public class AddGeneralisationAction extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState(Generalizacija.class);
+            selectedDiagramView.startAddConnectionState(Generalizacija.class);
         }
     }
 }
