@@ -1,21 +1,22 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
 import java.awt.event.ActionEvent;
 
-public class AddInheritanceAction extends AbstractClassyAction{
-    public AddInheritanceAction(){
+public class AddEnumAction extends AbstractClassyAction{
+    public AddEnumAction(){
         // TODO: Implement this
-        putValue(NAME,"Add Inheritance");
-        putValue(SHORT_DESCRIPTION,"Add Inheritance");
-        putValue(SMALL_ICON,loadIcon("/images/arrow.png"));
+        putValue(NAME,"Add Enum");
+        putValue(SHORT_DESCRIPTION,"Add Enum");
+        putValue(SMALL_ICON,loadIcon("/images/enum.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState();
+            selectedDiagramView.startAddClassState(Enum.class);
         }
     }
 }

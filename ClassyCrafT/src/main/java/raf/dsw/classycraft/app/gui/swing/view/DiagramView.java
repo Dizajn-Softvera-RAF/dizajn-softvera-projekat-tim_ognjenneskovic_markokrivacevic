@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
-import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
 import raf.dsw.classycraft.app.geometry.Utils;
@@ -98,13 +97,12 @@ public class DiagramView extends JPanel
         repaint();
     }
 
-    public void startAddClassState()
-    {
-        stateManager.setAddClassState();
+    public <T extends Interclass> void startAddClassState(Class<T> interclassClass) {
+        stateManager.setAddInterclassState(interclassClass);
     }
-    public void startAddInheritanceState()
+    public <T extends Connection> void startAddInheritanceState(Class<T> connectionClass)
     {
-        stateManager.setAddInheritanceState();
+        stateManager.setAddConnectionState(connectionClass);
     }
     public void startSelectState()
     {
@@ -117,4 +115,5 @@ public class DiagramView extends JPanel
     public void startZoomOutState() { stateManager.setZoomOutState();}
     public void startPanState() { stateManager.setPanState();}
     public void startMoveState () { stateManager.setMoveState();}
+
 }

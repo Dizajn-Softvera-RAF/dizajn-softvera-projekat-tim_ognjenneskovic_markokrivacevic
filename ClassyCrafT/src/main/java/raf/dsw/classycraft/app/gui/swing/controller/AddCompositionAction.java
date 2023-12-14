@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Kompozicija;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +17,7 @@ public class AddCompositionAction extends AbstractClassyAction {
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState();
+            selectedDiagramView.startAddInheritanceState(Kompozicija.class);
         }
     }
 }

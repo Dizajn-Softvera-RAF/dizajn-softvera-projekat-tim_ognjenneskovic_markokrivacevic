@@ -4,6 +4,7 @@ import lombok.Getter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
+import raf.dsw.classycraft.app.geometry.linalg.Vector;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -21,6 +22,7 @@ public class ConnectionPainter extends ElementPainter {
     public void paint(Graphics2D g) {
         g.setColor(element.getColor());
         g.drawLine(x, y, endX, endY);
+        drawArrow(g);
     }
 
     @Override
@@ -47,5 +49,9 @@ public class ConnectionPainter extends ElementPainter {
     {
         endX = point.x;
         endY = point.y;
+    }
+    private void drawArrow(Graphics2D g)
+    {
+
     }
 }

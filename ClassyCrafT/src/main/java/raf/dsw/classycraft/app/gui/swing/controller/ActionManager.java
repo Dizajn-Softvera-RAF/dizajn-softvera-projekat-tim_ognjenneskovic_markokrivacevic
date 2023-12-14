@@ -16,8 +16,7 @@ public class ActionManager {
     private AuthorNameAction authorNameAction;
     private NewPackageAction newPackageAction;
     private AddClassAction addClassAction;
-    private AddInheritanceAction addInheritanceAction;
-    private AddAssociationAction addAssociationAction;
+    private AddDependencyAction addDependencyAction;
     private AddGeneralisationAction addGeneralisationAction;
     private AddCompositionAction addCompositionAction;
     private AddAggregationAction addAggregationAction;
@@ -40,11 +39,11 @@ public class ActionManager {
         newPackageAction = new NewPackageAction();
 
         addClassAction = new AddClassAction();
-        addInheritanceAction = new AddInheritanceAction();
-        addAssociationAction = new AddAssociationAction();
+        addDependencyAction = new AddDependencyAction();
         addGeneralisationAction = new AddGeneralisationAction();
         addAggregationAction = new AddAggregationAction();
         addCompositionAction = new AddCompositionAction();
+
         selectAction = new SelectAction();
         zoomInAction = new ZoomInAction();
         zoomOutAction = new ZoomOutAction();

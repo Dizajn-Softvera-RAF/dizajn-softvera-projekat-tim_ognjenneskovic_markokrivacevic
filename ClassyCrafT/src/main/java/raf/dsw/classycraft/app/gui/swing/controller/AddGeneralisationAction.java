@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Generalizacija;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +17,7 @@ public class AddGeneralisationAction extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState();
+            selectedDiagramView.startAddInheritanceState(Generalizacija.class);
         }
     }
 }
