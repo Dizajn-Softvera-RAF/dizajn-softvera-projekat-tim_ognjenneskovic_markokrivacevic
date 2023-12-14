@@ -9,6 +9,7 @@ public class StateManager
     private State currentState;
     private final AddClassState addClassState = new AddClassState();
     private final AddInheritanceState addInheritanceState = new AddInheritanceState();
+    private final AddCompositionState addCompositionState = new AddCompositionState();
     private final SelectState selectState = new SelectState();
     private final ZoomInState zoomInState = new ZoomInState();
     private final ZoomOutState zoomOutState = new ZoomOutState();
@@ -29,6 +30,10 @@ public class StateManager
     {
         currentState.stateExited(); // Duplicate code because of set...State methods :))
         currentState = addInheritanceState;
+    }
+    public void setAddCompositionState(){
+        currentState.stateExited();
+        currentState = addCompositionState;
     }
 
     public void setSelectState()

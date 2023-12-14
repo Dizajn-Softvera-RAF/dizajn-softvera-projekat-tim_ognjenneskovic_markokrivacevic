@@ -7,6 +7,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.*;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.concrete.AddClassState;
+import raf.dsw.classycraft.app.state.concrete.AddCompositionState;
 import raf.dsw.classycraft.app.state.concrete.AddInheritanceState;
 
 import java.awt.*;
@@ -25,7 +26,9 @@ public class DiagramElementFactory extends NodeFactory
         }
         else if(currentState instanceof AddInheritanceState) // TODO: Implement this properly
             return new Generalizacija(parent, Color.BLACK, 5, null, null);
-        else
+        else if (currentState instanceof AddCompositionState) {
+            return new Kompozicija(parent,Color.BLACK,5,null,null);
+        } else
             return null;
     }
 }

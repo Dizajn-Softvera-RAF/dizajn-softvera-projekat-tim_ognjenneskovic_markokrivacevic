@@ -30,6 +30,9 @@ public class DiagramView extends JPanel
     @Getter
     @Setter
     private TempArrowPainter tempArrowPainter = null;
+    @Getter
+    @Setter
+    private CompositionPainter compositionPainter =null;
 
     @Getter
     private ZoomController zoomController;
@@ -58,6 +61,8 @@ public class DiagramView extends JPanel
             tempRectPainter.paint(graphics);
         if (tempArrowPainter != null)
             tempArrowPainter.paint(graphics);
+        if(compositionPainter != null)
+            compositionPainter.paint(graphics);
     }
     public boolean canAddInterClass(Interclass interclass, Rectangle boundingBox)
     {
@@ -101,6 +106,9 @@ public class DiagramView extends JPanel
     public void startAddClassState()
     {
         stateManager.setAddClassState();
+    }
+    public void startAddCompositionState(){
+        stateManager.setAddCompositionState();
     }
     public void startAddInheritanceState()
     {

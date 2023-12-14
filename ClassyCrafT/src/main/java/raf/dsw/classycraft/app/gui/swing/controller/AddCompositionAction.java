@@ -16,7 +16,7 @@ public class AddCompositionAction extends AbstractClassyAction {
     public void actionPerformed(ActionEvent e) {
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
-            selectedDiagramView.startAddInheritanceState();
+            selectedDiagramView.startAddCompositionState();
         }
     }
 }
