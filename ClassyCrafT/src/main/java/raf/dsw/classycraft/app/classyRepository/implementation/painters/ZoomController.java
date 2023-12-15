@@ -78,7 +78,7 @@ public class ZoomController
                 maxY = bb.y + bb.height;
         }
         // Add padding
-        var padding = 10;
+        var padding = 3;
         minX -= padding;
         minY -= padding;
         maxX += padding;
@@ -92,6 +92,8 @@ public class ZoomController
         // Center the diagram (same as if there was a click in the middle of the bounding box)
         var cx = minX + (maxX - minX) / 2;
         var cy = minY + (maxY - minY) / 2;
+        // Reset the transform and apply the new one
+        resetTransform();
         handleClick(cx, cy, diagramView, scaleFactor);
         diagramView.paint();
     }

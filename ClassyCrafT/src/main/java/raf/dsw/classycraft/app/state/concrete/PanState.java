@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.state.State;
 
@@ -38,7 +39,9 @@ public class PanState implements State
         var transform = AffineTransform.getTranslateInstance(dx, dy);
         for(var painter: diagramView.getPainters())
         {
-            painter.applyTransformToPoints(transform);
+            // Move only interclass elements, the connections will be moved automatically
+            if(painter instanceof InterClassPainter)
+                painter.applyTransformToPoints(transform);
         }
         startPoint = new Point(x, y);
         diagramView.paint();
