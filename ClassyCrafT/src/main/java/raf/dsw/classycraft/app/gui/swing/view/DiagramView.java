@@ -5,6 +5,7 @@ import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
 import raf.dsw.classycraft.app.geometry.Utils;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
@@ -14,6 +15,8 @@ import raf.dsw.classycraft.app.state.StateManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DiagramView extends JPanel
 {
@@ -84,13 +87,9 @@ public class DiagramView extends JPanel
         }
         return null;
     }
-    public ArrayList<ElementPainter> getSelectedPainters()
+    public List<ElementPainter> getSelectedPainters()
     {
-        var selectedPainters = new ArrayList<ElementPainter>();
-        for(var painter: painters)
-            if(painter.getElement().isSelected())
-                selectedPainters.add(painter);
-        return selectedPainters;
+        return painters.stream().filter(painter -> painter.getElement().isSelected()).collect(Collectors.toList());
     }
     public void paint()
     {
@@ -116,4 +115,5 @@ public class DiagramView extends JPanel
     public void startPanState() { stateManager.setPanState();}
     public void startMoveState () { stateManager.setMoveState();}
 
+    public void startDuplicateDiagramElementState() { stateManager.setDuplicateDiagramElementState(); }
 }

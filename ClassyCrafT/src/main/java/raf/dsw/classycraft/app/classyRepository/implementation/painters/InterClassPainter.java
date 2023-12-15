@@ -19,6 +19,14 @@ public class InterClassPainter extends ElementPainter {
         super(element, x, y);
     }
 
+    public InterClassPainter(ElementPainter other) {
+        super(other);
+    }
+    @Override
+    public ElementPainter copy() {
+        return new InterClassPainter(this);
+    }
+
     private String limitString(String str)
     {
         var newStr = str;

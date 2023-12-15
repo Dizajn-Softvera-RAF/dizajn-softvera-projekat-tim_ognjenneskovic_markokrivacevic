@@ -4,6 +4,8 @@ package raf.dsw.classycraft.app.gui.swing.controller;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
+
 @Getter
 @Setter
 public class ActionManager {
@@ -28,6 +30,8 @@ public class ActionManager {
     private ZoomToFitAction zoomToFitAction;
     private PanAction panAction;
     private MoveAction moveAction;
+    private RemoveDiagramElementAction removeDiagramElementAction;
+    private DuplicateDiagramElementAction duplicateDiagramElementAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -50,10 +54,16 @@ public class ActionManager {
         addCompositionAction = new AddCompositionAction();
 
         selectAction = new SelectAction();
+
         zoomInAction = new ZoomInAction();
         zoomOutAction = new ZoomOutAction();
         zoomToFitAction = new ZoomToFitAction();
+
         panAction = new PanAction();
         moveAction = new MoveAction();
+
+        removeDiagramElementAction = new RemoveDiagramElementAction();
+        duplicateDiagramElementAction = new DuplicateDiagramElementAction();
     }
+
 }

@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 
 public class AddEnumAction extends AbstractClassyAction{
     public AddEnumAction(){
-        // TODO: Implement this
         putValue(NAME,"Add Enum");
         putValue(SHORT_DESCRIPTION,"Add Enum");
         putValue(SMALL_ICON,loadIcon("/images/plus_orange.png"));

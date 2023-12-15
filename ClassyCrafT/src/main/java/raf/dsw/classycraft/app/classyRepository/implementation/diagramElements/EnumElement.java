@@ -5,4 +5,9 @@ public class EnumElement extends ClassContent {
     public EnumElement(String name) {
         super(name);
     }
+
+    @Override
+    public ClassContent copy() {
+        return new EnumElement(name);
+    }
 }

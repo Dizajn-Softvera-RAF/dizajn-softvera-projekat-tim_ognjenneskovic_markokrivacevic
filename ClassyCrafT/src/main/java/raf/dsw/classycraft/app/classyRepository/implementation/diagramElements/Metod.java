@@ -5,4 +5,9 @@ public class Metod extends ClassContent {
     public Metod(String name) {
         super(name);
     }
+
+    @Override
+    public ClassContent copy() {
+        return new Metod(name);
+    }
 }

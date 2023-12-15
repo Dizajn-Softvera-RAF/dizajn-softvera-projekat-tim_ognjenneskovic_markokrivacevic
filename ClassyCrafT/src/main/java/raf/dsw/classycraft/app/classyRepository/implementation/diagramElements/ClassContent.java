@@ -10,7 +10,7 @@ public abstract class ClassContent
     {
         this.name = name;
     }
-
+    public abstract ClassContent copy();
     @Override
     public String toString() {
         return name;

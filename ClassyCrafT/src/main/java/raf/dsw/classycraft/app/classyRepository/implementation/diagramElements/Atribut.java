@@ -5,4 +5,9 @@ public class Atribut extends ClassContent
     public Atribut(String name) {
         super(name);
     }
+
+    @Override
+    public ClassContent copy() {
+        return new Atribut(name);
+    }
 }

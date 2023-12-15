@@ -18,6 +18,14 @@ public abstract class DiagramElement extends ClassyNode
         this.defaultColor = defaultColor;
         this.strokeWidth = strokeWidth;
     }
+    public DiagramElement(DiagramElement other)
+    {
+        super(other);
+        this.currentColor = other.currentColor;
+        this.defaultColor = other.defaultColor;
+        this.strokeWidth = other.strokeWidth;
+    }
+    public abstract DiagramElement copy();
     public void markSelected()
     {
         this.currentColor = Color.YELLOW;

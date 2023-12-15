@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 public abstract class ElementPainter
 {
     @Getter
+    @Setter
     protected DiagramElement element;
     @Getter
     protected int x;
@@ -24,6 +25,14 @@ public abstract class ElementPainter
         this.y = y;
         this.affineTransform = new AffineTransform();
     }
+    public ElementPainter(ElementPainter other)
+    {
+        this.element = other.element.copy();
+        this.x = other.x;
+        this.y = other.y;
+        this.affineTransform = new AffineTransform(other.affineTransform);
+    }
+    public abstract ElementPainter copy();
     public abstract void paint(Graphics2D g);
     public abstract Rectangle getBoundingBox();
     public void applyTransformToPoints(AffineTransform transform)

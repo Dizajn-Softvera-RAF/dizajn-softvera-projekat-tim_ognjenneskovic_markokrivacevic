@@ -25,6 +25,7 @@ public class StateManager
     private final ZoomOutState zoomOutState = new ZoomOutState();
     private final PanState panState = new PanState();
     private final MoveState moveState = new MoveState();
+    private final DuplicateDiagramElementState duplicateDiagramElementState = new DuplicateDiagramElementState();
     public StateManager()
     {
         currentState = selectState;
@@ -79,5 +80,10 @@ public class StateManager
     {
         currentState.stateExited(); // Duplicate code because of set...State methods :))
         currentState = moveState;
+    }
+
+    public void setDuplicateDiagramElementState() {
+        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState = duplicateDiagramElementState;
     }
 }

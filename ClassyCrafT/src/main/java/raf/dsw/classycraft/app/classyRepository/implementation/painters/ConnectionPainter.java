@@ -23,6 +23,11 @@ public class ConnectionPainter<T extends Connection> extends ElementPainter {
     }
 
     @Override
+    public ElementPainter copy() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void paint(Graphics2D g) {
         var arrowDrawer = new ArrowDrawer(10);
         arrowDrawer.drawArrow(g, connectionClass, x, y, endX, endY, Color.BLACK);

@@ -20,6 +20,11 @@ public class TempRectanglePainter extends ElementPainter
     }
 
     @Override
+    public ElementPainter copy() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void paint(Graphics2D g) {
         // Draw dashed gray rectangle
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);

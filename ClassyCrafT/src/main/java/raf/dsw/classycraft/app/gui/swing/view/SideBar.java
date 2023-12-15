@@ -58,6 +58,9 @@ public class SideBar extends JToolBar
             popup.setVisible(true);
         });
         add(openPopupButton);
+
+        add(MainFrame.getInstance().getActionManager().getRemoveDiagramElementAction());
+        add(MainFrame.getInstance().getActionManager().getDuplicateDiagramElementAction());
     }
 
     private JButton getIconButton(String path)

@@ -21,6 +21,12 @@ public abstract class ClassyNode implements Publisher
         this.parent = parent;
         subscribers = new ArrayList<>();
     }
+    public ClassyNode(ClassyNode other)
+    {
+        this.name = other.name;
+        this.parent = other.parent;
+        subscribers = new ArrayList<>(other.subscribers);
+    }
 
     public String getName() {
         return name;

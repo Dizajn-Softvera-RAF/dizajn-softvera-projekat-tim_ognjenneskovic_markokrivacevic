@@ -4,9 +4,11 @@ import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.*;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
+import raf.dsw.classycraft.app.gui.swing.controller.DuplicateDiagramElementAction;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.concrete.AddInterclassState;
 import raf.dsw.classycraft.app.state.concrete.AddConnectionState;
+import raf.dsw.classycraft.app.state.concrete.DuplicateDiagramElementState;
 
 import java.awt.*;
 
@@ -60,6 +62,13 @@ public class DiagramElementFactory extends NodeFactory
 
             else
                 return null;
+        }
+        else if(currState instanceof DuplicateDiagramElementState)
+        {
+            var diagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
+            var selected = diagramView.getSelectedPainters();
+            var element = selected.get(0).getElement();
+            return element.copy();
         }
         else
             return null;

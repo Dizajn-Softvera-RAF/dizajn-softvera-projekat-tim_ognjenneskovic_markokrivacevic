@@ -16,6 +16,13 @@ public abstract class Interclass extends DiagramElement
         super(name, parent, color, strokeWidth);
         this.content = new ArrayList<>();
     }
+    public Interclass(Interclass other)
+    {
+        super(other);
+        this.content = new ArrayList<>();
+        for(var content: other.content)
+            this.content.add(content.copy());
+    }
     public void addContent(ClassContent content)
     {
         this.content.add(content);
