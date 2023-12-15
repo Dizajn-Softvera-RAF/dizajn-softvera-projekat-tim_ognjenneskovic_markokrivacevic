@@ -19,22 +19,25 @@ public class DiagramElementFactory extends NodeFactory
             var currentState = (AddInterclassState<?>) currState;
             if(currentState.getInterclassClass() == Klasa.class)
             {
-                var newClass = new Klasa("NewClass", parent, Color.BLACK, 5);
-                newClass.addContent(new Atribut("Attribute 1"));
-                newClass.addContent(new Metod("Method 1"));
+                var classColor = new Color(42,157,143);
+                var newClass = new Klasa("NewClass", parent, classColor, 5);
+                newClass.addContent(new Atribut("private int x"));
+                newClass.addContent(new Metod("public void method1()"));
                 return newClass;
             }
             else if(currentState.getInterclassClass() == Interfejs.class)
             {
-                var newClass = new Interfejs("NewInterface", parent, Color.BLACK, 5);
-                newClass.addContent(new Metod("Method 1"));
-                return newClass;
+                var interfaceColor = new Color(233, 196, 106);
+                var newInterface = new Interfejs("NewInterface", parent, interfaceColor, 5);
+                newInterface.addContent(new Metod("public void method1()"));
+                return newInterface;
             }
             else
             {
-                var newClass = new Enum("NewEnum", parent, Color.BLACK, 5);
-                newClass.addContent(new Atribut("Attribute 1"));
-                return newClass;
+                var enumColor = new Color(233, 111, 81);
+                var newEnum = new Enum("NewEnum", parent, enumColor, 5);
+                newEnum.addContent(new EnumElement("VALUE1"));
+                return newEnum;
             }
 
         }

@@ -9,7 +9,7 @@ public class AddInterfaceAction extends AbstractClassyAction{
     public AddInterfaceAction(){
         putValue(NAME,"Add Interface");
         putValue(SHORT_DESCRIPTION,"Add Interface");
-        putValue(SMALL_ICON,loadIcon("/images/interface.png"));
+        putValue(SMALL_ICON,loadIcon("/images/plus_yellow.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {

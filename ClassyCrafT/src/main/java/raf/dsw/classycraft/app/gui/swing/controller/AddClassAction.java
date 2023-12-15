@@ -7,10 +7,9 @@ import java.awt.event.ActionEvent;
 
 public class AddClassAction extends AbstractClassyAction{
     public AddClassAction(){
-        // TODO: Implement this
         putValue(NAME,"Add Class");
         putValue(SHORT_DESCRIPTION,"Add Class");
-        putValue(SMALL_ICON,loadIcon("/images/new.png"));
+        putValue(SMALL_ICON,loadIcon("/images/plus_green.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {

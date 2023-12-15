@@ -16,6 +16,8 @@ public class ActionManager {
     private AuthorNameAction authorNameAction;
     private NewPackageAction newPackageAction;
     private AddClassAction addClassAction;
+    private AddInterfaceAction addInterfaceAction;
+    private AddEnumAction addEnumAction;
     private AddDependencyAction addDependencyAction;
     private AddGeneralisationAction addGeneralisationAction;
     private AddCompositionAction addCompositionAction;
@@ -39,6 +41,9 @@ public class ActionManager {
         newPackageAction = new NewPackageAction();
 
         addClassAction = new AddClassAction();
+        addEnumAction = new AddEnumAction();
+        addInterfaceAction = new AddInterfaceAction();
+
         addDependencyAction = new AddDependencyAction();
         addGeneralisationAction = new AddGeneralisationAction();
         addAggregationAction = new AddAggregationAction();

@@ -10,7 +10,7 @@ public class AddEnumAction extends AbstractClassyAction{
         // TODO: Implement this
         putValue(NAME,"Add Enum");
         putValue(SHORT_DESCRIPTION,"Add Enum");
-        putValue(SMALL_ICON,loadIcon("/images/enum.png"));
+        putValue(SMALL_ICON,loadIcon("/images/plus_orange.png"));
     }
     @Override
     public void actionPerformed(ActionEvent e) {

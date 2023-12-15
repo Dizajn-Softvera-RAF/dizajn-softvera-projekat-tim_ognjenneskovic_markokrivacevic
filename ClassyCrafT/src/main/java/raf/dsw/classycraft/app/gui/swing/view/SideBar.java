@@ -11,11 +11,11 @@ public class SideBar extends JToolBar
     {
         super(VERTICAL);
         setFloatable(false);
-        JButton addInterclassButton = getIconButton("/images/new.png");
+        JButton addInterclassButton = getIconButton("/images/plus_black.png");
         JPopupMenu addMenu = new JPopupMenu();
         addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddClassAction()));
-//        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddInterfaceAction()));
-//        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddEnumAction()));
+        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddInterfaceAction()));
+        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddEnumAction()));
         addInterclassButton.addActionListener(e->{
             addMenu.show(addInterclassButton,-addMenu.getPreferredSize().width,0);
         });
