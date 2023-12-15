@@ -14,6 +14,7 @@ public class InterClassPainter extends ElementPainter {
     private final int MAX_STRING_LENGTH = 15;
     private final int NAME_SPACING = 20;
     private final int CONTENT_SPACING = 10;
+
     public InterClassPainter(DiagramElement element, int x, int y) {
         super(element, x, y);
     }
@@ -83,7 +84,7 @@ public class InterClassPainter extends ElementPainter {
         int w = maxRectWidth + 20;
         int h = totalRectHeight + 20;
         if(shouldDraw) {
-            g.setColor(element.getColor());
+            g.setColor(element.getCurrentColor());
             g.drawRect(x, y, w, h);
         }
         return new Rectangle(x, y, w, h);

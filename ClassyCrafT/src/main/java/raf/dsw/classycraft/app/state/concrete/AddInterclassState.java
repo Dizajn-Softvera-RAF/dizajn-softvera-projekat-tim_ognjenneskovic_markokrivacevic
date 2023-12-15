@@ -1,10 +1,10 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import lombok.Getter;
+import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
-import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Atribut;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
-import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Metod;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
@@ -13,9 +13,14 @@ import raf.dsw.classycraft.app.state.State;
 
 import java.awt.*;
 
-public class AddClassState implements State
+public class AddInterclassState<T extends Interclass> implements State
 {
-
+    @Getter
+    private final Class<T> interclassClass;
+    public AddInterclassState(Class<T> interclassClass)
+    {
+        this.interclassClass = interclassClass;
+    }
     @Override
     public void mousePressed(int x, int y, DiagramView diagramView) {
 
@@ -31,7 +36,7 @@ public class AddClassState implements State
         if (diagramView.canAddInterClass(tempClass, bb))
         {
             MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
-            var newClass = (Klasa)diagram.getChildren().get(diagram.getChildren().size() - 1);
+            var newClass = (DiagramElement) diagram.getChildren().get(diagram.getChildren().size() - 1);
             painter = new InterClassPainter(newClass, x, y);
             diagramView.addPainter(painter);
         }

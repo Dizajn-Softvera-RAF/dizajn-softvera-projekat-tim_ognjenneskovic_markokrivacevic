@@ -4,23 +4,28 @@ import lombok.Getter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
+import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Generalizacija;
+import raf.dsw.classycraft.app.geometry.linalg.Vector;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class ConnectionPainter extends ElementPainter {
+public class ConnectionPainter<T extends Connection> extends ElementPainter {
     @Getter
     private int endX, endY;
-    public ConnectionPainter(DiagramElement element, int startX, int startY, int endX, int endY) {
+    private final Class<T> connectionClass;
+    public ConnectionPainter(Connection element, int startX, int startY, int endX, int endY) {
         super(element, startX, startY);
         this.endX = endX;
         this.endY = endY;
+        connectionClass = (Class<T>) element.getClass();
     }
 
     @Override
     public void paint(Graphics2D g) {
-        g.setColor(element.getColor());
-        g.drawLine(x, y, endX, endY);
+        var arrowDrawer = new ArrowDrawer(10);
+        arrowDrawer.drawArrow(g, connectionClass, x, y, endX, endY, Color.BLACK);
     }
 
     @Override

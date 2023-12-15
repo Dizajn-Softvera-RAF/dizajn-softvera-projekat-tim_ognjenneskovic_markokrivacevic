@@ -3,8 +3,6 @@ package raf.dsw.classycraft.app.gui.swing.view;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class SideBar extends JToolBar
@@ -13,20 +11,27 @@ public class SideBar extends JToolBar
     {
         super(VERTICAL);
         setFloatable(false);
-        add(MainFrame.getInstance().getActionManager().getAddClassAction());
-        add(MainFrame.getInstance().getActionManager().getAddInheritanceAction());
+        JButton addInterclassButton = getIconButton("/images/plus_black.png");
+        JPopupMenu addMenu = new JPopupMenu();
+        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddClassAction()));
+        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddInterfaceAction()));
+        addMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddEnumAction()));
+        addInterclassButton.addActionListener(e->{
+            addMenu.show(addInterclassButton,-addMenu.getPreferredSize().width,0);
+        });
+        add(addInterclassButton);
         add(MainFrame.getInstance().getActionManager().getSelectAction());
 
-        JButton inheritanceButton = getIconButton("/images/arrow.png");
-        JPopupMenu inherMenu = new JPopupMenu();
-        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddAssociationAction()));
-        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddGeneralisationAction()));
-        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddAggregationAction()));
-        inherMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddCompositionAction()));
-        inheritanceButton.addActionListener(e->{
-            inherMenu.show(inheritanceButton,-inherMenu.getPreferredSize().width,0);
+        JButton addConnectionButton = getIconButton("/images/arrow.png");
+        JPopupMenu connMenu = new JPopupMenu();
+        connMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddDependencyAction()));
+        connMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddGeneralisationAction()));
+        connMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddAggregationAction()));
+        connMenu.add(new JMenuItem(MainFrame.getInstance().getActionManager().getAddCompositionAction()));
+        addConnectionButton.addActionListener(e->{
+            connMenu.show(addConnectionButton,-connMenu.getPreferredSize().width,0);
         });
-        add(inheritanceButton);
+        add(addConnectionButton);
 
         JButton zoomButton = getIconButton("/images/zoom.png");
 

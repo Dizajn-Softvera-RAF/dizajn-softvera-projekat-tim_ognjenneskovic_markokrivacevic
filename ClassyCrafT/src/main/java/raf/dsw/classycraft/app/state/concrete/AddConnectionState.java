@@ -1,22 +1,34 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import lombok.Getter;
+import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
+import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Generalizacija;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.ConnectionPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempArrowPainter;
-import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.State;
 
 import java.awt.*;
 
-public class AddInheritanceState implements State
+public class AddConnectionState<T extends Connection> implements State
 {
+    @Getter
     private Interclass nodeFrom = null;
+    @Getter
     private Interclass nodeTo = null;
     private Point startPoint = null;
+    @Getter
+    private final Class<T> connectionClass;
+    public AddConnectionState(Class<T> connectionClass)
+    {
+        this.connectionClass = connectionClass;
+    }
 
     /**
      * Returns one of four points (top center, left center, etc.) on rectangle based on x and y coordinates
@@ -48,9 +60,8 @@ public class AddInheritanceState implements State
             var painter = diagramView.getInterclassPainterAt(x, y);
             if (painter == null) // If no node is clicked don't start drawing arrow
                 return;
-            var node = (Interclass) painter.getElement();
 
-            nodeFrom = node;
+            nodeFrom = (Interclass) painter.getElement();
             nodeFrom.markSelected();
             startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
             diagramView.setTempArrowPainter(new TempArrowPainter(null, startPoint.x, startPoint.y));
@@ -67,17 +78,9 @@ public class AddInheritanceState implements State
                 return;
             nodeTo = node;
 
-            var diagram = diagramView.getSelectedDiagram().getClassyNode();
-            var newConnection = new Generalizacija(diagram, Color.BLACK, 5, nodeFrom, nodeTo);
+            makeConnection(diagramView,x,y);
 
-            var tempArrowPainter = diagramView.getTempArrowPainter();
-            var endPoint = getPointOnRect(painter.getBoundingBox(), tempArrowPainter.getEndX(), tempArrowPainter.getEndY());
-
-            var connectionPainter = new ConnectionPainter(newConnection, tempArrowPainter.getX(), tempArrowPainter.getY(),
-                    endPoint.x, endPoint.y);
-            diagramView.addPainter(connectionPainter);
-            MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
-
+            // Unset everything
             diagramView.setTempArrowPainter(null);
             nodeFrom.markUnselected();
             nodeFrom = null;
@@ -86,6 +89,24 @@ public class AddInheritanceState implements State
         }
         // Force repaint
         diagramView.paint();
+    }
+    private void makeConnection(DiagramView diagramView, int endX, int endY)
+    {
+        var diagram = (Diagram)diagramView.getSelectedDiagram().getClassyNode();
+        var endPainter = diagramView.getInterclassPainterAt(endX, endY);
+
+        var tempArrowPainter = diagramView.getTempArrowPainter();
+        var endPoint = getPointOnRect(endPainter.getBoundingBox(), tempArrowPainter.getEndX(), tempArrowPainter.getEndY());
+
+        // Make the new connection using the factory
+        MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
+        // Get the new connection
+        var newConnection = (Connection) diagram.getChildren().get(diagram.getChildren().size() - 1);
+        // Add painter for the new connection
+        var connectionPainter =  new ConnectionPainter(newConnection, tempArrowPainter.getX(), tempArrowPainter.getY(),
+                endPoint.x, endPoint.y);
+        diagramView.addPainter(connectionPainter);
+
     }
 
     @Override
