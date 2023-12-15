@@ -1,0 +1,4 @@
+[ERROR][2023-12-15T22:36:02.607741100] Diagram ne može imati decu 
+[ERROR][2023-12-15T22:36:07.567297500] Koristite alatke sa desne strane za dodavanje elemenata na dijagram 
+[ERROR][2023-12-15T22:36:15.855652400] Diagram ne može imati decu 
+[ERROR][2023-12-15T22:36:40.508833700] Koristite alatke sa desne strane za dodavanje elemenata na dijagram 

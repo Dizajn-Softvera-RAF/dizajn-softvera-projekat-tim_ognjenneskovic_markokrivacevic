@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 public class MoveAction extends AbstractClassyAction{
     public MoveAction(){
-        // TODO: Implement this
         putValue(NAME,"Move");
         putValue(SHORT_DESCRIPTION,"Move");
         putValue(SMALL_ICON,loadIcon("/images/move.png"));

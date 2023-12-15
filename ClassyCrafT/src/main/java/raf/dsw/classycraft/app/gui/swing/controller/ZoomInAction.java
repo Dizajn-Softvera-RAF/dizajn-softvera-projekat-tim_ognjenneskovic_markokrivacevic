@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 public class ZoomInAction extends AbstractClassyAction{
     public ZoomInAction(){
-        // TODO: Implement this
         putValue(NAME,"Zoom In");
         putValue(SHORT_DESCRIPTION,"Zoom In");
         putValue(SMALL_ICON,loadIcon("/images/zoom_in.png"));

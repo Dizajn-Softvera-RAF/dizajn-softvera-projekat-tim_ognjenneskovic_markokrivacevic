@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
@@ -24,11 +25,20 @@ public class DeleteChildAction extends AbstractClassyAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
+        ClassyTreeItem selected = MainFrame.getInstance().getClassyTree().getSelectedNode();
+        if(selected.getClassyNode() instanceof ProjectExplorer) {
+            ApplicationFramework.getInstance().getMessageGenerator().
+                    generateSystemMessage(SystemMessageType.NODE_CANNOT_BE_DELETED, MessageType.ERROR);
+            return;
+        }
+        if(selected.getClassyNode() instanceof DiagramElement)
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().
+                    generateSystemMessage(SystemMessageType.DELETE_CHILD_ON_DIAGRAM_ELEMENT, MessageType.ERROR);
+            return;
+        }
         MainFrame.getInstance().getClassyTree().removeChild(selected);
         MainFrame.getFrames().clone();
-        if(selected.getClassyNode() instanceof ProjectExplorer)
-            ApplicationFramework.getInstance().getMessageGenerator().
-                generateSystemMessage(SystemMessageType.NODE_CANNOT_BE_DELETED, MessageType.ERROR);
+
     }
 }

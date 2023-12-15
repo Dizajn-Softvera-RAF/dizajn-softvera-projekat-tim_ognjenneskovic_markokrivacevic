@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 public class PanAction extends AbstractClassyAction{
     public PanAction(){
-        // TODO: Implement this
         putValue(NAME,"Pan");
         putValue(SHORT_DESCRIPTION,"Pan");
         putValue(SMALL_ICON,loadIcon("/images/pan.png"));

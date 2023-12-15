@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.controller;
 
+import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
@@ -22,11 +23,19 @@ public class NewNodeAction extends AbstractClassyAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
-        MainFrame.getInstance().getClassyTree().addChild(selected);
-
-        if(selected.getClassyNode() instanceof Diagram)
+        ClassyTreeItem selected = MainFrame.getInstance().getClassyTree().getSelectedNode();
+        if(selected.getClassyNode() instanceof Diagram) {
+            ApplicationFramework.getInstance().getMessageGenerator().
+                    generateSystemMessage(SystemMessageType.CREATE_CHILD_ON_DIAGRAM, MessageType.ERROR);
+            return;
+        }
+        if(selected.getClassyNode() instanceof DiagramElement) {
             ApplicationFramework.getInstance().getMessageGenerator().
                     generateSystemMessage(SystemMessageType.NODE_CANNOT_HAVE_CHILDREN, MessageType.ERROR);
+            return;
+        }
+        MainFrame.getInstance().getClassyTree().addChild(selected);
+
+
     }
 }

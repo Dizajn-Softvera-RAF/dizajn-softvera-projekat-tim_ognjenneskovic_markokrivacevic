@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 public class ZoomOutAction extends AbstractClassyAction{
     public ZoomOutAction(){
-        // TODO: Implement this
         putValue(NAME,"Zoom Out");
         putValue(SHORT_DESCRIPTION,"Zoom Out");
         putValue(SMALL_ICON,loadIcon("/images/zoom_out.png"));
