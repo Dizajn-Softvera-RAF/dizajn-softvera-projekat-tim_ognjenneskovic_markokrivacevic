@@ -83,11 +83,11 @@ public class ArrowDrawer
         else if(connectionClass == Kompozicija.class)
         {
             // Fill black
-            g.setColor(Color.BLACK);
+            g.setColor(lineColor);
             g.fill(tx2.createTransformedShape(arrowHeadPath));
         }
         // Draw outline
-        g.setColor(Color.BLACK);
+        g.setColor(lineColor);
         g.draw(tx2.createTransformedShape(arrowHeadPath));
 
     }

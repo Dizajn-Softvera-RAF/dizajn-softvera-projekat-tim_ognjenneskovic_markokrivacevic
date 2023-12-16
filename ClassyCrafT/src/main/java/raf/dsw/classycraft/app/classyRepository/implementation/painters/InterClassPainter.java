@@ -11,7 +11,7 @@ import java.awt.geom.AffineTransform;
 
 public class InterClassPainter extends ElementPainter {
 
-    private final int MAX_STRING_LENGTH = 15;
+    private final int MAX_STRING_LENGTH = 30;
     private final int NAME_SPACING = 20;
     private final int CONTENT_SPACING = 10;
 

@@ -25,14 +25,11 @@ public class SelectState implements State
     {
         for(var painter: diagramView.getPainters())
         {
-            if (painter.getElement() instanceof Interclass)
-            {
-                var boundingBox1 = painter.getBoundingBox();
-                if (Utils.rectanglesOverlap(rect, boundingBox1))
-                    painter.getElement().markSelected();
-                else
-                    painter.getElement().markUnselected();
-            }
+            var boundingBox1 = painter.getBoundingBox();
+            if (Utils.rectanglesOverlap(rect, boundingBox1))
+                painter.getElement().markSelected();
+            else
+                painter.getElement().markUnselected();
         }
     }
     private void updateRect(DiagramView diagramView)

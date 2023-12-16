@@ -30,7 +30,7 @@ public class ConnectionPainter<T extends Connection> extends ElementPainter {
     @Override
     public void paint(Graphics2D g) {
         var arrowDrawer = new ArrowDrawer(10);
-        arrowDrawer.drawArrow(g, connectionClass, x, y, endX, endY, Color.BLACK);
+        arrowDrawer.drawArrow(g, connectionClass, x, y, endX, endY, element.getCurrentColor());
     }
 
     @Override
