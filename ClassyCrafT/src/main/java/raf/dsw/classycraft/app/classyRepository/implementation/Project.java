@@ -9,6 +9,8 @@ import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 public class Project extends ClassyNodeComposite {
 
     @Getter
+    protected String filePath;
+    @Getter
     private String author;
     @Getter
     private String path;
@@ -25,5 +27,8 @@ public class Project extends ClassyNodeComposite {
         super("Project", parent);
         author = "Author";
         path = "Path";
+    }
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

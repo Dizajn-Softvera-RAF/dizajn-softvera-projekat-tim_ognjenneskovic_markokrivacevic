@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.classyRepository.composite;
 
+import lombok.ToString;
 import raf.dsw.classycraft.app.classyRepository.NodeChangeEvent;
 import raf.dsw.classycraft.app.classyRepository.NodeEventType;
 import raf.dsw.classycraft.app.observer.Publisher;
@@ -12,7 +13,7 @@ public abstract class ClassyNode implements Publisher
 {
 
     private String name;
-    private ClassyNode parent;
+    private transient ClassyNode parent;
 
     protected List<Subscriber> subscribers;
 
