@@ -2,18 +2,23 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
+import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
 import raf.dsw.classycraft.app.geometry.Utils;
+import raf.dsw.classycraft.app.gui.swing.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.observer.DiagramMouseListener;
 import raf.dsw.classycraft.app.state.StateManager;
 
 import javax.swing.*;
+import javax.swing.tree.MutableTreeNode;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -116,4 +121,49 @@ public class DiagramView extends JPanel
     public void startMoveState () { stateManager.setMoveState();}
 
     public void startDuplicateDiagramElementState() { stateManager.setDuplicateDiagramElementState(); }
+
+    public void deletePainterForCurrent(ElementPainter painter){
+        if(painter.getElement() == null) {
+            repaint();
+            return;
+        }
+        selectedDiagram.remove((MutableTreeNode) painter.getElement());
+        painters.remove(painter);
+        ((ClassyTreeImplementation) MainFrame.getInstance().getClassyTree()).deleteInTree(painter.getElement());
+        repaint();
+    }
+
+    public void addPainterForCurrent(ElementPainter painter){
+        painters.add(painter);
+        selectedDiagram.add((MutableTreeNode) painter);
+        ((ClassyTreeImplementation) MainFrame.getInstance().getClassyTree()).addChild(selectedDiagram);
+        repaint();
+    }
+
+    public BufferedImage createImage() {
+        // Nadji validne koordinate
+        // min ti je koordinata pojma najblizeg 0,0
+        int minY = 1000;
+        int minX = 1000;
+        int maxY = 0;
+        int maxX = 0;
+//        for (ElementPainter p: this.getPainters()){
+//            DiagramElement elem = p.getElement();
+//            if (elem instanceof Interclass){
+//                System.out.println(((Interclass) elem).() + " " + ((Topic) elem).getY());
+//                if ( maxX < ((Topic) elem).getX()) maxX = (int) ((Topic) elem).getX();
+//                if ( maxY < ((Topic) elem).getY()) maxY = (int) ((Topic) elem).getY();
+//                if ( minX > ((Topic) elem).getX()) minX = (int) ((Topic) elem).getX();
+//                if ( minY > ((Topic) elem).getY()) minY = (int) ((Topic) elem).getY();
+//            }
+//        }
+        int desiredWidth = 620;
+        int desiredHeight = 360;
+
+        BufferedImage bufferedImage = new BufferedImage(desiredWidth, desiredHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = bufferedImage.createGraphics();
+        this.paint(g);
+        return bufferedImage;
+    }
+
 }

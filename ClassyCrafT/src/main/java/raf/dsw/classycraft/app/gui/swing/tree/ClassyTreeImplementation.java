@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.gui.swing.tree;
 
+import lombok.Getter;
+import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.ProjectExplorer;
@@ -8,13 +10,18 @@ import raf.dsw.classycraft.app.gui.swing.factory.FactoryUtils;
 import raf.dsw.classycraft.app.gui.swing.factory.NodeFactory;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.gui.swing.tree.view.ClassyTreeView;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.messageGenerator.MessageType;
 import raf.dsw.classycraft.app.messageGenerator.SystemMessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import java.util.Enumeration;
 
+@Getter
+@Setter
 public class ClassyTreeImplementation implements ClassyTree{
 
     private ClassyTreeView treeView;
@@ -78,5 +85,36 @@ public class ClassyTreeImplementation implements ClassyTree{
         var currentSelection = treeView.getSelectionPath();
         treeModel.reload();
         treeView.setSelectionPath(currentSelection);
+    }
+
+    public TreePath findPathToNode(ClassyTreeItem root, ClassyNode currMapNode) {
+        //pretrazivanje stabla rekurzivno
+        Enumeration<TreeNode> element = root.depthFirstEnumeration();
+        while (element.hasMoreElements()) {
+            ClassyTreeItem node = (ClassyTreeItem) element.nextElement();
+            if (node.getClassyNode().equals(currMapNode)) {
+                return new TreePath(node.getPath());
+            }
+        }
+        return null;
+    }
+    public void deleteInTree(ClassyNode child){
+        //trazimo put to trenutne mape, selektujemo trenutnu mapu -> dodajemo wrapper u tree -> trigeruje se repaint drveta
+        ClassyTree ourTree = MainFrame.getInstance().getClassyTree();
+        ClassyTreeItem root = ((ClassyTreeImplementation)ourTree).getSelectedNode();
+        TreePath pathToCurrMap = ((ClassyTreeImplementation)MainFrame.getInstance().getClassyTree()).findPathToNode(root, child);
+
+        ((ClassyTreeImplementation)ourTree).getTreeView().setSelectionPath(pathToCurrMap);
+        System.out.println("TRee " + ourTree.getSelectedNode());
+        ourTree.removeChild(ourTree.getSelectedNode());
+    }
+    public void addToTree(ClassyNode parent, ClassyNode child){
+        //trazimo put to trenutne mape, selektujemo trenutnu mapu -> dodajemo wrapper u tree -> trigeruje se repaint drveta
+        ClassyTree ourTree = MainFrame.getInstance().getClassyTree();
+        ClassyTreeItem root = ((ClassyTreeImplementation)ourTree).getSelectedNode();
+        TreePath pathToCurrMap = ((ClassyTreeImplementation)MainFrame.getInstance().getClassyTree()).findPathToNode(root, parent);
+
+        ((ClassyTreeImplementation)ourTree).getTreeView().setSelectionPath(pathToCurrMap);
+        ourTree.addChild(ourTree.getSelectedNode());
     }
 }

@@ -32,6 +32,8 @@ public class ActionManager {
     private MoveAction moveAction;
     private RemoveDiagramElementAction removeDiagramElementAction;
     private DuplicateDiagramElementAction duplicateDiagramElementAction;
+    private PictureAction pictureAction;
+    private SaveProjectAction saveProjectAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -64,6 +66,9 @@ public class ActionManager {
 
         removeDiagramElementAction = new RemoveDiagramElementAction();
         duplicateDiagramElementAction = new DuplicateDiagramElementAction();
+
+        pictureAction = new PictureAction();
+        saveProjectAction = new SaveProjectAction();
     }
 
 }
