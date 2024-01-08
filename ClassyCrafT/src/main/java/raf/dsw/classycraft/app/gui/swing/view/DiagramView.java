@@ -10,6 +10,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.*;
+import raf.dsw.classycraft.app.command.CommandManager;
 import raf.dsw.classycraft.app.geometry.Utils;
 import raf.dsw.classycraft.app.gui.swing.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
@@ -32,6 +33,8 @@ public class DiagramView extends JPanel
     private final ArrayList<ElementPainter> painters = new ArrayList<>();
     @Getter
     private final StateManager stateManager = new StateManager();
+    @Getter
+    private final CommandManager commandManager = new CommandManager();
     @Getter
     @Setter
     private TempRectanglePainter tempRectPainter = null;

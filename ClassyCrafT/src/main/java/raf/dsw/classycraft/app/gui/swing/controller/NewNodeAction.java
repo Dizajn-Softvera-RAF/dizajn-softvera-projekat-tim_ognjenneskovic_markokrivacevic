@@ -35,7 +35,5 @@ public class NewNodeAction extends AbstractClassyAction{
             return;
         }
         MainFrame.getInstance().getClassyTree().addChild(selected);
-
-
     }
 }

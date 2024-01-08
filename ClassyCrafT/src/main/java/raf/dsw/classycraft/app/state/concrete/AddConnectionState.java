@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.state.concrete;
 
+import com.sun.tools.javac.Main;
 import lombok.Getter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
@@ -11,6 +12,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.K
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.TempElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.ConnectionPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempArrowPainter;
+import raf.dsw.classycraft.app.command.NewConnectionCommand;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.State;
@@ -25,6 +27,8 @@ public class AddConnectionState<T extends Connection> implements State
     private Interclass nodeTo = null;
     @Getter
     private Point endPoint;
+    @Getter
+    private Point startPoint;
     @Getter
     private final Class<T> connectionClass;
     public AddConnectionState(Class<T> connectionClass)
@@ -42,7 +46,7 @@ public class AddConnectionState<T extends Connection> implements State
         var bottomCenter = new Point(rect.x + rect.width / 2, rect.y + rect.height);
         var rightCenter = new Point(rect.x + rect.width, rect.y + rect.height / 2);
         var points = new Point[]{topCenter, leftCenter, bottomCenter, rightCenter};
-        // Pick closest point
+        // Pick the closest point
         var closestPoint = points[0];
         var closestDistance = points[0].distance(x, y);
         for (var point : points)
@@ -65,7 +69,7 @@ public class AddConnectionState<T extends Connection> implements State
 
             nodeFrom = (Interclass) painter.getElement();
             nodeFrom.markSelected();
-            var startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
+            startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
             diagramView.setTempArrowPainter(new TempArrowPainter(new TempElement(), startPoint.x, startPoint.y));
         }
         // Finish drawing arrow
@@ -87,6 +91,7 @@ public class AddConnectionState<T extends Connection> implements State
             nodeFrom.markUnselected();
             nodeFrom = null;
             nodeTo = null;
+            startPoint = null;
         }
         // Force repaint
         diagramView.paint();
@@ -99,14 +104,9 @@ public class AddConnectionState<T extends Connection> implements State
         var tempArrowPainter = diagramView.getTempArrowPainter();
         endPoint = getPointOnRect(endPainter.getBoundingBox(), tempArrowPainter.getEndX(), tempArrowPainter.getEndY());
 
-        // Make the new connection using the factory
-        MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
-        // Get the new connection
-        var newConnection = (Connection) diagram.getChildren().get(diagram.getChildren().size() - 1);
-        // Add painter for the new connection
-        var connectionPainter =  new ConnectionPainter(newConnection, tempArrowPainter.getX(), tempArrowPainter.getY(),
-                endPoint.x, endPoint.y);
-        diagramView.addPainter(connectionPainter);
+        var cmd = new NewConnectionCommand(diagramView, connectionClass, diagram, nodeFrom, nodeTo,
+                startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        diagramView.getCommandManager().executeCommand(cmd);
 
     }
 

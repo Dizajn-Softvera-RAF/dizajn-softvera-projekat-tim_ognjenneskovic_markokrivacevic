@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class Klasa extends Interclass
 {
-    public Klasa(String name, ClassyNode parent, Color color, int strokeWidth) {
-        super(name, parent, color, strokeWidth);
+    public Klasa(String name, ClassyNode parent, Color color, int strokeWidth, int x, int y) {
+        super(name, parent, color, strokeWidth, x, y);
     }
 
     @Override

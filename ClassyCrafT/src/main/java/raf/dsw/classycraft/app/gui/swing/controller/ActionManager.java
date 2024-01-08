@@ -35,13 +35,18 @@ public class ActionManager {
     private PictureAction pictureAction;
     private SaveProjectAction saveProjectAction;
     private OpenProjectAction openProjectAction;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
     public ActionManager(){
         initialiseActions();
     }
 
     private void initialiseActions(){
         exitAction = new ExitAction();
+        undoAction = new UndoAction();
+        redoAction = new RedoAction();
         aboutUsAction = new AboutUsAction();
+
         newNodeAction = new NewNodeAction();
         deleteChildAction = new DeleteChildAction();
         authorNameAction = new AuthorNameAction();

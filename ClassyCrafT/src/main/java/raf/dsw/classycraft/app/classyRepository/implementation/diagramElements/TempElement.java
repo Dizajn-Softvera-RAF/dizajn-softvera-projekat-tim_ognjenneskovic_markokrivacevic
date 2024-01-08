@@ -8,7 +8,7 @@ import java.awt.*;
 public class TempElement extends DiagramElement
 {
     public TempElement() {
-        super("temp", null, null, 0);
+        super("temp", null, null, 0, 0, 0);
     }
 
     @Override

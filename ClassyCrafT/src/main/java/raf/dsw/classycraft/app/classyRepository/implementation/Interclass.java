@@ -12,8 +12,8 @@ public abstract class Interclass extends DiagramElement
 {
     @Getter
     private final ArrayList<ClassContent> content;
-    public Interclass(String name, ClassyNode parent, Color color, int strokeWidth) {
-        super(name, parent, color, strokeWidth);
+    public Interclass(String name, ClassyNode parent, Color color, int strokeWidth, int x, int y) {
+        super(name, parent, color, strokeWidth, x, y);
         this.content = new ArrayList<>();
     }
     public Interclass(Interclass other)

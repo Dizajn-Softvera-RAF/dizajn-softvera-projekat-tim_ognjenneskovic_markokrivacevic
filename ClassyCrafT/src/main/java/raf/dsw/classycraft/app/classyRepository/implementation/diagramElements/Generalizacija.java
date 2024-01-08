@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Generalizacija extends Connection {
     public Generalizacija(ClassyNode parent, Color color, int strokeWidth,
-                          Interclass nodeFrom, Interclass nodeTo, int endX, int endY) {
-        super(parent, color, strokeWidth, nodeFrom, nodeTo, endX, endY);
+                          Interclass nodeFrom, Interclass nodeTo, int x, int y, int endX, int endY) {
+        super(parent, color, strokeWidth, nodeFrom, nodeTo, x, y, endX, endY);
     }
 
     @Override
