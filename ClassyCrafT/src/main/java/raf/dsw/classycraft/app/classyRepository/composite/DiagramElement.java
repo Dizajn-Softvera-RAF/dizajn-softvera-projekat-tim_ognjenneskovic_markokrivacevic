@@ -18,11 +18,13 @@ public abstract class DiagramElement extends ClassyNode
     protected int strokeWidth;
     @Getter
     protected boolean selected = false;
-    public DiagramElement(String name, ClassyNode parent, Color defaultColor, int strokeWidth) {
+    public DiagramElement(String name, ClassyNode parent, Color defaultColor, int strokeWidth, int x, int y) {
         super(name, parent);
         this.currentColor = defaultColor;
         this.defaultColor = defaultColor;
         this.strokeWidth = strokeWidth;
+        this.x = x;
+        this.y = y;
     }
     public DiagramElement(DiagramElement other)
     {

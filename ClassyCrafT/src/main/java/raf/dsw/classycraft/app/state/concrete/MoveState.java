@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.state.concrete;
 
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
+import raf.dsw.classycraft.app.command.MoveCommand;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.state.State;
 
@@ -63,19 +64,17 @@ public class MoveState implements State
             diagramView.paint();
             return;
         }
-        else if(selectedPainters.contains(clickedPainter))
-        {
-            for(var painter: selectedPainters)
-                painter.applyTransformToPoints(transform);
-        }
-        else
+        else if(!selectedPainters.contains(clickedPainter))
         {
             deselectAll(diagramView);
             clickedPainter.getElement().markSelected();
-            clickedPainter.applyTransformToPoints(transform);
+            selectedPainters.add(clickedPainter);
         }
+        var cmdManager = diagramView.getCommandManager();
+        var moveCommand = new MoveCommand(selectedPainters, transform);
+        cmdManager.executeCommand(moveCommand);
+
         startPoint = new Point(x, y);
-        diagramView.paint();
     }
 
     @Override

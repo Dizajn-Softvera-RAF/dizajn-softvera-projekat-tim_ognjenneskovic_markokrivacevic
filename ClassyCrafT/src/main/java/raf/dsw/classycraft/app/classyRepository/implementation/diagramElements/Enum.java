@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class Enum extends Interclass
 {
-    public Enum(String name, ClassyNode parent, Color color, int strokeWidth) {
-        super(name, parent, color, strokeWidth);
+    public Enum(String name, ClassyNode parent, Color color, int strokeWidth, int x, int y) {
+        super(name, parent, color, strokeWidth, x, y);
     }
 
     @Override

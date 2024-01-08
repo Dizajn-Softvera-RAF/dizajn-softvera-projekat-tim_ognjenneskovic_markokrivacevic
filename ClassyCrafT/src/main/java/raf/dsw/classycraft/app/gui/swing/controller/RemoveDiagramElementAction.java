@@ -4,6 +4,8 @@ import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
+import raf.dsw.classycraft.app.command.DeleteCommand;
+import raf.dsw.classycraft.app.gui.swing.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 
@@ -22,26 +24,10 @@ public class RemoveDiagramElementAction extends AbstractClassyAction{
         var selectedDiagramView = MainFrame.getInstance().getTabbedPanel().getSelectedDiagramView();
         if (selectedDiagramView != null) {
             var selected = selectedDiagramView.getSelectedPainters();
-            // Remove selected elements
-            for(var painter: selected)
-            {
-                // Remove element from diagram
-                selectedDiagramView.getPainters().remove(painter);
-                // Remove element from tree
-                var treeNode = selectedDiagramView.getSelectedDiagram();
-                // Find element in children of current diagram
-                for(var child: Collections.list(treeNode.children()))
-                {
-                    var diagramElement = (ClassyTreeItem)child;
-                    if (diagramElement.getClassyNode() == painter.getElement()) {
-                        MainFrame.getInstance().getClassyTree().removeChild(diagramElement);
-                        break;
-                    }
-                }
-
+            if (selected != null) {
+                var deleteCommand = new DeleteCommand(selectedDiagramView, selected);
+                selectedDiagramView.getCommandManager().executeCommand(deleteCommand);
             }
-            // Repaint
-            selectedDiagramView.repaint();
         }
     }
 }

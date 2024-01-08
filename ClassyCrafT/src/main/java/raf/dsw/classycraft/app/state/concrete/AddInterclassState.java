@@ -8,6 +8,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.K
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.TempElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
+import raf.dsw.classycraft.app.command.NewInterclassCommand;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.State;
@@ -18,6 +19,10 @@ public class AddInterclassState<T extends Interclass> implements State
 {
     @Getter
     private final Class<T> interclassClass;
+    @Getter
+    private int x;
+    @Getter
+    private int y;
     public AddInterclassState(Class<T> interclassClass)
     {
         this.interclassClass = interclassClass;
@@ -31,15 +36,15 @@ public class AddInterclassState<T extends Interclass> implements State
     public void mouseClicked(int x, int y, DiagramView diagramView) {
         var diagram = (Diagram) diagramView.getSelectedDiagram().getClassyNode();
 
-        var tempClass = new Klasa("NewClass", diagram, Color.BLACK, 5);
+        var tempClass = new Klasa("NewClass", diagram, Color.BLACK, 5, x, y);
         var painter = new InterClassPainter(tempClass, x, y);
         var bb = painter.getBoundingBox();
         if (diagramView.canAddInterClass(tempClass, bb))
         {
-            MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());
-            var newClass = (DiagramElement) diagram.getChildren().get(diagram.getChildren().size() - 1);
-            painter = new InterClassPainter(newClass, x, y);
-            diagramView.addPainter(painter);
+            this.x = x;
+            this.y = y;
+            var newInterclassCommand = new NewInterclassCommand<>(diagramView, interclassClass, diagram, x, y);
+            diagramView.getCommandManager().executeCommand(newInterclassCommand);
         }
     }
 

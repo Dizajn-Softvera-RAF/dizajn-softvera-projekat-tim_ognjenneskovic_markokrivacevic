@@ -33,26 +33,17 @@ public class ProjectSerializer implements JsonDeserializer<ClassyNode>, JsonSeri
         if(nodeClass == Klasa.class)
         {
             var color = new Color(42,157,143);
-            var newClass = new Klasa(name, parent, color, strokeWidth);
-            newClass.setX(x);
-            newClass.setY(y);
-            parsedClass =  newClass;
+            parsedClass = new Klasa(name, parent, color, strokeWidth, x, y);
         }
         else if(nodeClass == Interfejs.class)
         {
             var color = new Color(233, 196, 106);
-            var newInterface = new Interfejs(name, parent, color, strokeWidth);
-            newInterface.setX(x);
-            newInterface.setY(y);
-            parsedClass = newInterface;
+            parsedClass = new Interfejs(name, parent, color, strokeWidth, x, y);
         }
         else if(nodeClass == Enum.class)
         {
             var color = new Color(233, 111, 81);
-            var newEnum = new Enum(name, parent, color, strokeWidth);
-            newEnum.setX(x);
-            newEnum.setY(y);
-            parsedClass = newEnum;
+            parsedClass = new Enum(name, parent, color, strokeWidth, x, y);
         }
         if(parsedClass != null)
         {
@@ -82,25 +73,21 @@ public class ProjectSerializer implements JsonDeserializer<ClassyNode>, JsonSeri
         var nodeTo = (Interclass) nodeIdMap.get(nodeToId);
         int endX = jsonObject.get("endX").getAsInt();
         int endY = jsonObject.get("endY").getAsInt();
-        Connection connection = null;
-        if (nodeClass == Agregacija.class) {
-            connection =  new Agregacija (parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
-
-        } else if (nodeClass == Kompozicija.class) {
-            connection = new Kompozicija (parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
-
-        } else if (nodeClass == Generalizacija.class) {
-            connection =  new Generalizacija (parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
-
-        } else if (nodeClass == Zavisnost.class) {
-            connection = new Zavisnost (parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
-        }
         int startX = jsonObject.get("x").getAsInt();
         int startY = jsonObject.get("y").getAsInt();
-        if(connection != null)
-        {
-            connection.setX(startX);
-            connection.setY(startY);
+
+        Connection connection = null;
+        if (nodeClass == Agregacija.class) {
+            connection =  new Agregacija(parent, Color.BLACK, 5, nodeFrom, nodeTo, startX, startY, endX,endY);
+
+        } else if (nodeClass == Kompozicija.class) {
+            connection = new Kompozicija (parent, Color.BLACK, 5, nodeFrom, nodeTo, startX, startY, endX,endY);
+
+        } else if (nodeClass == Generalizacija.class) {
+            connection =  new Generalizacija (parent, Color.BLACK, 5, nodeFrom, nodeTo, startX, startY, endX,endY);
+
+        } else if (nodeClass == Zavisnost.class) {
+            connection = new Zavisnost (parent, Color.BLACK, 5, nodeFrom, nodeTo, startX, startY, endX,endY);
         }
         return connection;
     }

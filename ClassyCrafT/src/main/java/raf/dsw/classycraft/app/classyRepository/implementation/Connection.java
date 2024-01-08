@@ -17,9 +17,9 @@ public abstract class Connection extends DiagramElement
     @Getter @Setter
     private int endX, endY;
     public Connection(ClassyNode parent, Color color, int strokeWidth,
-                      Interclass nodeFrom, Interclass nodeTo, int endX, int endY)
+                      Interclass nodeFrom, Interclass nodeTo, int x, int y, int endX, int endY)
     {
-        super("Connection", parent, color, strokeWidth);
+        super("Connection", parent, color, strokeWidth, x, y);
         this.nodeFrom = nodeFrom;
         this.nodeTo = nodeTo;
         this.endX = endX;

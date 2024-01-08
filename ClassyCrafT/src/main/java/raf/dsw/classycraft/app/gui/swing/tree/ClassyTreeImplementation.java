@@ -36,20 +36,6 @@ public class ClassyTreeImplementation implements ClassyTree{
     public ClassyTreeItem getRoot(){
         return (ClassyTreeItem) treeModel.getRoot();
     }
-
-    private ClassyTreeItem findNodeDFS(ClassyNode node, ClassyTreeItem root){
-        if(root.getClassyNode().equals(node)){
-            return root;
-        }
-        for(int i = 0; i < root.getChildCount(); i++){
-            var child = (ClassyTreeItem) root.getChildAt(i);
-            var found = findNodeDFS(node, child);
-            if(found != null){
-                return found;
-            }
-        }
-        return null;
-    }
     public ClassyTreeItem findNode(ClassyNode node){
         Enumeration<TreeNode> element = getRoot().depthFirstEnumeration();
         while (element.hasMoreElements()) {
