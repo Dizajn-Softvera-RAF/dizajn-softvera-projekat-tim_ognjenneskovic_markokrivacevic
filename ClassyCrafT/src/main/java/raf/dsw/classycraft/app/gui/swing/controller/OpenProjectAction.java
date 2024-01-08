@@ -17,6 +17,8 @@ public class OpenProjectAction extends AbstractClassyAction{
     public OpenProjectAction(){
         putValue(NAME, "Open Project");
         putValue(SHORT_DESCRIPTION, "Open project");
+        putValue(SMALL_ICON,loadIcon("/images/openn.png"));
+
     }
 
     @Override

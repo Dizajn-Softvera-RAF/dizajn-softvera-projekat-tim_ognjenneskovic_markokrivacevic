@@ -14,6 +14,7 @@ public class SaveProjectAction extends AbstractClassyAction{
     public SaveProjectAction(){
         putValue(NAME, "Save Project");
         putValue(SHORT_DESCRIPTION, "Save project");
+        putValue(SMALL_ICON,loadIcon("/images/saveproject.png"));
     }
 
     @Override
