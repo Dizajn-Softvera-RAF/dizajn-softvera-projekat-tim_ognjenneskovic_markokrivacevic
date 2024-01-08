@@ -12,35 +12,34 @@ public abstract class ElementPainter
     @Setter
     protected DiagramElement element;
     @Getter
-    protected int x;
-    @Getter
-    protected int y;
-    @Getter
     @Setter
     protected AffineTransform affineTransform;
+    public int getX() { return element.x; }
+    public int getY() { return element.y; }
+    protected void setX(int x) { element.x = x; }
+    protected void setY(int y) { element.y = y; }
     public ElementPainter(DiagramElement element, int x, int y)
     {
         this.element = element;
-        this.x = x;
-        this.y = y;
+        element.x = x;
+        element.y = y;
         this.affineTransform = new AffineTransform();
     }
     public ElementPainter(ElementPainter other)
     {
         this.element = other.element.copy();
-        this.x = other.x;
-        this.y = other.y;
         this.affineTransform = new AffineTransform(other.affineTransform);
     }
+
     public abstract ElementPainter copy();
     public abstract void paint(Graphics2D g);
     public abstract Rectangle getBoundingBox();
     public void applyTransformToPoints(AffineTransform transform)
     {
-        var point = new Point(x, y);
+        var point = new Point(element.x, element.y);
         transform.transform(point, point);
-        x = point.x;
-        y = point.y;
+        element.x = point.x;
+        element.y = point.y;
     }
     @Override
     public boolean equals(Object obj)

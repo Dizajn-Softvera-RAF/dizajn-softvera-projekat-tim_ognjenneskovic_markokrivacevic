@@ -8,6 +8,7 @@ import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Generalizacija;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.TempElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.ConnectionPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempArrowPainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
@@ -22,7 +23,8 @@ public class AddConnectionState<T extends Connection> implements State
     private Interclass nodeFrom = null;
     @Getter
     private Interclass nodeTo = null;
-    private Point startPoint = null;
+    @Getter
+    private Point endPoint;
     @Getter
     private final Class<T> connectionClass;
     public AddConnectionState(Class<T> connectionClass)
@@ -63,8 +65,8 @@ public class AddConnectionState<T extends Connection> implements State
 
             nodeFrom = (Interclass) painter.getElement();
             nodeFrom.markSelected();
-            startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
-            diagramView.setTempArrowPainter(new TempArrowPainter(null, startPoint.x, startPoint.y));
+            var startPoint = getPointOnRect(painter.getBoundingBox(), x, y);
+            diagramView.setTempArrowPainter(new TempArrowPainter(new TempElement(), startPoint.x, startPoint.y));
         }
         // Finish drawing arrow
         else
@@ -85,7 +87,6 @@ public class AddConnectionState<T extends Connection> implements State
             nodeFrom.markUnselected();
             nodeFrom = null;
             nodeTo = null;
-            startPoint = null;
         }
         // Force repaint
         diagramView.paint();
@@ -96,7 +97,7 @@ public class AddConnectionState<T extends Connection> implements State
         var endPainter = diagramView.getInterclassPainterAt(endX, endY);
 
         var tempArrowPainter = diagramView.getTempArrowPainter();
-        var endPoint = getPointOnRect(endPainter.getBoundingBox(), tempArrowPainter.getEndX(), tempArrowPainter.getEndY());
+        endPoint = getPointOnRect(endPainter.getBoundingBox(), tempArrowPainter.getEndX(), tempArrowPainter.getEndY());
 
         // Make the new connection using the factory
         MainFrame.getInstance().getClassyTree().addChild(diagramView.getSelectedDiagram());

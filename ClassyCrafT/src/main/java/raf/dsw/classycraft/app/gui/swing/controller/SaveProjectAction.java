@@ -22,8 +22,7 @@ public class SaveProjectAction extends AbstractClassyAction{
         Project project =(Project) MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode();
         if(project==null)
             return;
-        File projectFile = null;
-        project.setParent(null);
+        File projectFile;
         if (project.getFilePath()==null || project.getFilePath().trim().equals("")){
             if(jFileChooser.showSaveDialog(MainFrame.getInstance())==JFileChooser.APPROVE_OPTION){
                projectFile = jFileChooser.getSelectedFile();

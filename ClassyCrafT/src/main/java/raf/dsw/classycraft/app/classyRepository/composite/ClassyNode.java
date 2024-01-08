@@ -11,10 +11,8 @@ import java.util.List;
 
 public abstract class ClassyNode implements Publisher
 {
-
     private String name;
     private transient ClassyNode parent;
-
     protected List<Subscriber> subscribers;
 
     public ClassyNode(String name,ClassyNode parent){

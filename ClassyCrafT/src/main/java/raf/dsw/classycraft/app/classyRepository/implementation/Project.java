@@ -12,23 +12,23 @@ public class Project extends ClassyNodeComposite {
     protected String filePath;
     @Getter
     private String author;
-    @Getter
-    private String path;
 
     public void setAuthor(String author) {
         this.author = author;
         notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_CHANGED, this));
     }
-    public void setPath(String path) {
-        this.path = path;
+    public void setFilePath(String path) {
+        this.filePath = path;
         notifySubscriber(new NodeChangeEvent(NodeEventType.NODE_CHANGED, this));
     }
     public Project(String name, ClassyNode parent) {
         super("Project", parent);
         author = "Author";
-        path = "Path";
+        filePath = null;
     }
-    public void setFilePath(String filePath) {
+    public Project(String name, ClassyNode parent, String author, String filePath) {
+        super(name, parent);
+        this.author = author;
         this.filePath = filePath;
     }
 }

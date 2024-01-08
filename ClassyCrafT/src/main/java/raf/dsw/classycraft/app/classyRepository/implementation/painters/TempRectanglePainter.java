@@ -30,17 +30,11 @@ public class TempRectanglePainter extends ElementPainter
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
         g.setStroke(dashed);
         g.setColor(Color.GRAY);
-        g.drawRect(x, y, width, height);
+        g.drawRect(getX(), getY(), width, height);
     }
 
     @Override
     public Rectangle getBoundingBox() {
-        return new Rectangle(x,y,width,height);
-    }
-
-    public void setPos(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
+        return new Rectangle(getX(),getY(),width,height);
     }
 }

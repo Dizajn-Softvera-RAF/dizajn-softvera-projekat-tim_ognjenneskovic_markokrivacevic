@@ -25,7 +25,7 @@ public class DiagramViewManager
             return diagramViewMap.get(diagram);
         else
         {
-            var diagramView = new DiagramView();
+            var diagramView = new DiagramView(diagram);
             diagramViewMap.put(diagram, diagramView);
             return diagramView;
         }

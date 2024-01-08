@@ -12,14 +12,24 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class ConnectionPainter<T extends Connection> extends ElementPainter {
-    @Getter
-    private int endX, endY;
     private final Class<T> connectionClass;
+    private final Connection connection;
     public ConnectionPainter(Connection element, int startX, int startY, int endX, int endY) {
         super(element, startX, startY);
-        this.endX = endX;
-        this.endY = endY;
+        this.connection = element;
         connectionClass = (Class<T>) element.getClass();
+    }
+    public int getEndX() {
+        return connection.getEndX();
+    }
+    public int getEndY() {
+        return connection.getEndY();
+    }
+    private void setEndX(int endX) {
+        connection.setEndX(endX);
+    }
+    private void setEndY(int endY) {
+        connection.setEndY(endY);
     }
 
     @Override
@@ -30,32 +40,32 @@ public class ConnectionPainter<T extends Connection> extends ElementPainter {
     @Override
     public void paint(Graphics2D g) {
         var arrowDrawer = new ArrowDrawer(10);
-        arrowDrawer.drawArrow(g, connectionClass, x, y, endX, endY, element.getCurrentColor());
+        arrowDrawer.drawArrow(g, connectionClass, getX(), getY(), getEndX(), getEndY(), element.getCurrentColor());
     }
 
     @Override
     public Rectangle getBoundingBox() {
-        int width = Math.abs(endX - x);
-        int height = Math.abs(endY - y);
-        return new Rectangle(x,y,width,height);
+        int width = Math.abs(getEndX() - getX());
+        int height = Math.abs(getEndY() - getY());
+        return new Rectangle(getX(),getY(),width,height);
     }
     @Override
     public void applyTransformToPoints(AffineTransform transform)
     {
         super.applyTransformToPoints(transform);
-        var point = new Point(endX, endY);
+        var point = new Point(getEndX(), getEndY());
         transform.transform(point, point);
-        endX = point.x;
-        endY = point.y;
+        setEndX(point.x);
+        setEndY(point.y);
     }
     public void setStartPoint(Point point)
     {
-        x = point.x;
-        y = point.y;
+        setX(point.x);
+        setY(point.y);
     }
     public void setEndPoint(Point point)
     {
-        endX = point.x;
-        endY = point.y;
+        setEndX(point.x);
+        setEndY(point.y);
     }
 }

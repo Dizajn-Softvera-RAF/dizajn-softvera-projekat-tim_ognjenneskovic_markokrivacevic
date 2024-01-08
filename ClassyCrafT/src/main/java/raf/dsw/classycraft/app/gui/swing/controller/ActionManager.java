@@ -34,6 +34,7 @@ public class ActionManager {
     private DuplicateDiagramElementAction duplicateDiagramElementAction;
     private PictureAction pictureAction;
     private SaveProjectAction saveProjectAction;
+    private OpenProjectAction openProjectAction;
     public ActionManager(){
         initialiseActions();
     }
@@ -69,6 +70,7 @@ public class ActionManager {
 
         pictureAction = new PictureAction();
         saveProjectAction = new SaveProjectAction();
+        openProjectAction = new OpenProjectAction();
     }
 
 }
