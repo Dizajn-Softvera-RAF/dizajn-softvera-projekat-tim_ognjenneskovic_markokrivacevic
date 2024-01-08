@@ -1,14 +1,20 @@
 package raf.dsw.classycraft.app.classyRepository.composite;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.*;
 
 public abstract class DiagramElement extends ClassyNode
 {
+    @Getter @Setter
+    int x;
+    @Getter @Setter
+    int y;
     @Getter
     protected Color currentColor;
     private Color defaultColor;
+    @Getter
     protected int strokeWidth;
     @Getter
     protected boolean selected = false;

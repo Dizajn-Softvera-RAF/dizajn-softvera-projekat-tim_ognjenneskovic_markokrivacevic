@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.composite.ElementPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.Connection;
@@ -40,14 +41,31 @@ public class DiagramView extends JPanel
 
     @Getter
     private ZoomController zoomController;
-    public DiagramView()
+    public DiagramView(Diagram diagram)
     {
-        this.selectedDiagram = MainFrame.getInstance().getClassyTree().getSelectedNode();
+        this.selectedDiagram = ((ClassyTreeImplementation)MainFrame.getInstance().getClassyTree()).findNode(diagram);
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         addMouseMotionListener(new DiagramMouseListener(this));
         addMouseListener(new DiagramMouseListener(this));
         zoomController = new ZoomController();
+        var diagramElements = ((ClassyNodeComposite)selectedDiagram.getClassyNode()).getChildren();
+        for(var child: diagramElements)
+        {
+            if(child instanceof Interclass)
+            {
+                var interclass = (Interclass) child;
+                var interclassPainter = new InterClassPainter(interclass, interclass.getX(), interclass.getY());
+                painters.add(interclassPainter);
+            }
+            else if(child instanceof Connection)
+            {
+                var connection = (Connection) child;
+                var connectionPainter = new ConnectionPainter(connection, connection.getX(), connection.getY(),
+                        connection.getEndX(), connection.getEndY());
+                painters.add(connectionPainter);
+            }
+        }
     }
     public void addPainter(ElementPainter painter)
     {

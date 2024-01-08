@@ -8,8 +8,9 @@ import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import java.awt.*;
 
 public class Zavisnost extends Connection {
-    public Zavisnost(ClassyNode parent, Color color, int strokeWidth, Interclass nodeFrom, Interclass nodeTo) {
-        super(parent, color, strokeWidth, nodeFrom, nodeTo);
+    public Zavisnost(ClassyNode parent, Color color, int strokeWidth,
+                     Interclass nodeFrom, Interclass nodeTo, int endX, int endY) {
+        super(parent, color, strokeWidth, nodeFrom, nodeTo, endX, endY);
     }
     @Override
     public DiagramElement copy() {

@@ -33,7 +33,7 @@ public class StateManager
 
     public <T extends Interclass> void setAddInterclassState(Class<T> interclassClass)
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         if (interclassClass == Klasa.class)
             currentState = addClassState;
          else if (interclassClass == Interfejs.class)
@@ -43,7 +43,7 @@ public class StateManager
     }
     public <T extends Connection> void setAddConnectionState(Class<T> connectionClass)
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         if (connectionClass == Generalizacija.class)
             currentState = addGeneralizationState;
          else if (connectionClass == Kompozicija.class)
@@ -56,34 +56,34 @@ public class StateManager
 
     public void setSelectState()
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = selectState;
     }
 
     public void setZoomInState()
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = zoomInState;
     }
 
     public void setZoomOutState()
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = zoomOutState;
     }
     public void setPanState()
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = panState;
     }
     public void setMoveState()
     {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = moveState;
     }
 
     public void setDuplicateDiagramElementState() {
-        currentState.stateExited(); // Duplicate code because of set...State methods :))
+        currentState.stateExited(); 
         currentState = duplicateDiagramElementState;
     }
 }

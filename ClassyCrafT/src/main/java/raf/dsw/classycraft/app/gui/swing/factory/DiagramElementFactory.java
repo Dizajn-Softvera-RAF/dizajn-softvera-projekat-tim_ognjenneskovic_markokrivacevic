@@ -4,7 +4,6 @@ import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.*;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Enum;
-import raf.dsw.classycraft.app.gui.swing.controller.DuplicateDiagramElementAction;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.state.concrete.AddInterclassState;
 import raf.dsw.classycraft.app.state.concrete.AddConnectionState;
@@ -48,17 +47,19 @@ public class DiagramElementFactory extends NodeFactory
             var currentState = (AddConnectionState<?>) currState;
             var nodeFrom = currentState.getNodeFrom();
             var nodeTo = currentState.getNodeTo();
+            int endX = currentState.getEndPoint().x;
+            int endY = currentState.getEndPoint().y;
             if(currentState.getConnectionClass() == Generalizacija.class)
-                return new Generalizacija(parent, Color.BLACK, 5, nodeFrom, nodeTo);
+                return new Generalizacija(parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
 
             else if(currentState.getConnectionClass() == Agregacija.class)
-                return new Agregacija(parent, Color.BLACK, 5, nodeFrom, nodeTo);
+                return new Agregacija(parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
 
             else if(currentState.getConnectionClass() == Kompozicija.class)
-                return new Kompozicija(parent, Color.BLACK, 5, nodeFrom, nodeTo);
+                return new Kompozicija(parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
 
             else if(currentState.getConnectionClass() == Zavisnost.class)
-                return new Zavisnost(parent, Color.BLACK, 5, nodeFrom, nodeTo);
+                return new Zavisnost(parent, Color.BLACK, 5, nodeFrom, nodeTo,endX,endY);
 
             else
                 return null;

@@ -2,8 +2,6 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
-import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
-import raf.dsw.classycraft.app.classyRepository.implementation.Package;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.controller.ActionManager;
 import raf.dsw.classycraft.app.gui.swing.tree.ClassyTree;
@@ -25,7 +23,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private JMenuBar menu;
     private JToolBar toolbar;
     private ClassyTree classyTree;
-    private ClassyTreeView projcetExplorer;
+    private ClassyTreeView projectExplorer;
     private ProjectView desktopPanel;
 
     private JPanel desktop;
@@ -40,8 +38,8 @@ public class MainFrame extends JFrame implements Subscriber {
     private void initialise(){
         actionManager = new ActionManager();
         classyTree = new ClassyTreeImplementation();
-        projcetExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getProjectExplorer());
-        initialiseGui(projcetExplorer);
+        projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getProjectExplorer());
+        initialiseGui(projectExplorer);
     }
 
     private void initialiseGui(ClassyTreeView projcetExplorer){

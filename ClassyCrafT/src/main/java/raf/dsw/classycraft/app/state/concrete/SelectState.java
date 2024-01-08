@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.state.concrete;
 
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.TempElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.geometry.Utils;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
@@ -48,7 +49,7 @@ public class SelectState implements State
         // Update which elements are selected
         markSelected(diagramView, rect);
         // Update temp rect painter
-        diagramView.setTempRectPainter(new TempRectanglePainter(null, topLeft.x, topLeft.y, width, height));
+        diagramView.setTempRectPainter(new TempRectanglePainter(new TempElement(), topLeft.x, topLeft.y, width, height));
         // Force repaint
         diagramView.paint();
     }

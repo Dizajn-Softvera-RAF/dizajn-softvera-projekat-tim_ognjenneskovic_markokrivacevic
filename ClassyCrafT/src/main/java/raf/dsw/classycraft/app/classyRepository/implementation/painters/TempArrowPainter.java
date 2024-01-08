@@ -28,13 +28,13 @@ public class TempArrowPainter extends ElementPainter
         Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
         g.setStroke(dashed);
         g.setColor(Color.GRAY);
-        g.drawLine(x, y, endX, endY);
+        g.drawLine(getX(), getY(), endX, endY);
     }
 
     @Override
     public Rectangle getBoundingBox() {
 
-        return new Rectangle(x,y,Math.abs(endX - x),Math.abs(endY - y));
+        return new Rectangle(getX(),getY(),Math.abs(endX - getX()),Math.abs(endY - getY()));
     }
 
     public void updateEndPos(int x, int y)

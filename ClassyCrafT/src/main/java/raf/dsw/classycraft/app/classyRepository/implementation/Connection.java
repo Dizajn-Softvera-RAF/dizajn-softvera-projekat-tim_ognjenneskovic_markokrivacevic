@@ -14,10 +14,15 @@ public abstract class Connection extends DiagramElement
     @Getter
     @Setter
     protected Interclass nodeTo;
-    public Connection(ClassyNode parent, Color color, int strokeWidth, Interclass nodeFrom, Interclass nodeTo)
+    @Getter @Setter
+    private int endX, endY;
+    public Connection(ClassyNode parent, Color color, int strokeWidth,
+                      Interclass nodeFrom, Interclass nodeTo, int endX, int endY)
     {
         super("Connection", parent, color, strokeWidth);
         this.nodeFrom = nodeFrom;
         this.nodeTo = nodeTo;
+        this.endX = endX;
+        this.endY = endY;
     }
 }

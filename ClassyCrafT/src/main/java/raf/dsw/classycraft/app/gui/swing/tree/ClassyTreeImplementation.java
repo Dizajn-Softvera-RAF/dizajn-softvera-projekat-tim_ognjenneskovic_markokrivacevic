@@ -5,14 +5,11 @@ import lombok.Setter;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNode;
 import raf.dsw.classycraft.app.classyRepository.composite.ClassyNodeComposite;
 import raf.dsw.classycraft.app.classyRepository.implementation.ProjectExplorer;
-import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.factory.FactoryUtils;
 import raf.dsw.classycraft.app.gui.swing.factory.NodeFactory;
 import raf.dsw.classycraft.app.gui.swing.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.gui.swing.tree.view.ClassyTreeView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
-import raf.dsw.classycraft.app.messageGenerator.MessageType;
-import raf.dsw.classycraft.app.messageGenerator.SystemMessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -35,6 +32,33 @@ public class ClassyTreeImplementation implements ClassyTree{
         // Set root as selected node
         treeView.setSelectionPath(new TreePath(root.getPath()));
         return treeView;
+    }
+    public ClassyTreeItem getRoot(){
+        return (ClassyTreeItem) treeModel.getRoot();
+    }
+
+    private ClassyTreeItem findNodeDFS(ClassyNode node, ClassyTreeItem root){
+        if(root.getClassyNode().equals(node)){
+            return root;
+        }
+        for(int i = 0; i < root.getChildCount(); i++){
+            var child = (ClassyTreeItem) root.getChildAt(i);
+            var found = findNodeDFS(node, child);
+            if(found != null){
+                return found;
+            }
+        }
+        return null;
+    }
+    public ClassyTreeItem findNode(ClassyNode node){
+        Enumeration<TreeNode> element = getRoot().depthFirstEnumeration();
+        while (element.hasMoreElements()) {
+            ClassyTreeItem currNode = (ClassyTreeItem) element.nextElement();
+            if (currNode.getClassyNode().equals(node)) {
+                return currNode;
+            }
+        }
+        return null;
     }
 
     @Override

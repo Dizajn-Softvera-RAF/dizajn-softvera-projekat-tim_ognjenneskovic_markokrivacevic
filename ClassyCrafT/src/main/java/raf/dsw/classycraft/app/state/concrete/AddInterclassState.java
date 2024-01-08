@@ -5,6 +5,7 @@ import raf.dsw.classycraft.app.classyRepository.composite.DiagramElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.Diagram;
 import raf.dsw.classycraft.app.classyRepository.implementation.Interclass;
 import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.Klasa;
+import raf.dsw.classycraft.app.classyRepository.implementation.diagramElements.TempElement;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.InterClassPainter;
 import raf.dsw.classycraft.app.classyRepository.implementation.painters.TempRectanglePainter;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
@@ -49,9 +50,8 @@ public class AddInterclassState<T extends Interclass> implements State
 
     @Override
     public void mouseMoved(int x, int y, DiagramView diagramView) {
-
         // Set painter for temp rectangle
-        diagramView.setTempRectPainter(new TempRectanglePainter(null, x, y));
+        diagramView.setTempRectPainter(new TempRectanglePainter(new TempElement(), x, y));
         // Force repaint
         diagramView.paint();
     }

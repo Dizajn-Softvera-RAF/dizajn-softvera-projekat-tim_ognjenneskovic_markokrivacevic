@@ -64,7 +64,7 @@ public class InterClassPainter extends ElementPainter {
         }
 
         if (shouldDraw)
-            g.drawString(element.getName(), x + 10, y + NAME_SPACING);
+            g.drawString(element.getName(), getX() + 10, getY() + NAME_SPACING);
 
         var nameBounds = fontMetrics.getStringBounds(element.getName(), g);
         maxRectWidth = Math.max(maxRectWidth, (int)nameBounds.getWidth());
@@ -82,7 +82,7 @@ public class InterClassPainter extends ElementPainter {
             int h = (int)bounds.getHeight();
 
             if (shouldDraw)
-                g.drawString(name, x + 10, y + totalRectHeight);
+                g.drawString(name, getX() + 10, getY() + totalRectHeight);
 
             maxRectWidth = Math.max(maxRectWidth, w);
             totalRectHeight += h;
@@ -93,9 +93,9 @@ public class InterClassPainter extends ElementPainter {
         int h = totalRectHeight + 20;
         if(shouldDraw) {
             g.setColor(element.getCurrentColor());
-            g.drawRect(x, y, w, h);
+            g.drawRect(getX(), getY(), w, h);
         }
-        return new Rectangle(x, y, w, h);
+        return new Rectangle(getX(), getY(), w, h);
     }
     @Override
     public Rectangle getBoundingBox() {
